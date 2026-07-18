@@ -20,3 +20,6 @@ experiments/*.json
 
 # uv
 .python-version
+
+# Claude Code (personal, machine-specific)
+.claude/

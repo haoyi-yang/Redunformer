@@ -76,3 +76,76 @@ def print_summary(cfg, ppl, lm_eval_results=None):
             acc = metrics.get("acc_norm,none", metrics.get("acc,none", "N/A"))
             print(f"  {task}: {acc}")
     print("=" * 50)
+
+
+def build_measurement_config(args):
+    """Merge JSON config with CLI overrides for the block-influence measurement script."""
+    cfg = {}
+    if args.config:
+        cfg = load_json_config(args.config)
+
+    return {
+        "model_name":  args.model_name or cfg.get("model_name", "gpt2"),
+        "dataset":     "wikitext-2-raw-v1",
+        "max_length":  args.max_length  or cfg.get("max_length", 1024),
+        "stride":      args.stride      or cfg.get("stride", 512),
+        "seed":        args.seed if args.seed is not None else cfg.get("seed", 42),
+        "device":      args.device      or cfg.get("device"),
+        "dtype":       args.dtype       or cfg.get("dtype", "float32"),
+        "max_windows": args.max_windows,
+        "output_dir":  args.output_dir,
+        "figures_dir": args.figures_dir,
+    }
+
+
+def build_measurement_result_dict(cfg, stats, similarity_matrix, device, command: str):
+    """Build a structured results dict for a Block Influence measurement run."""
+    return {
+        "timestamp":  datetime.now(timezone.utc).isoformat(),
+        "model_name": cfg["model_name"],
+        "dataset":    cfg["dataset"],
+        "metric":     "block_influence",
+        "max_length": cfg["max_length"],
+        "stride":     cfg["stride"],
+        "seed":       cfg["seed"],
+        "device":     str(device),
+        "dtype":      cfg["dtype"],
+        "command":    command,
+        "system": {
+            "platform": platform.platform(),
+            "python":   platform.python_version(),
+            "torch":    torch.__version__,
+        },
+        "n_layers":       stats.n_layers,
+        "n_windows":      stats.n_windows,
+        "n_tokens":       stats.n_tokens,
+        "bi_scores":      [round(x, 6) for x in stats.bi_scores.tolist()],
+        "relative_residual_norms": [round(x, 6) for x in stats.relative_residual_norms.tolist()],
+        "cosine_similarity_matrix": [[round(x, 6) for x in row] for row in similarity_matrix.tolist()],
+    }
+
+
+def save_measurement_results(results: dict, output_dir: str, model_name: str):
+    """Save measurement results as a timestamped JSON file."""
+    out = Path(output_dir)
+    out.mkdir(parents=True, exist_ok=True)
+    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    path = out / f"measurement_{model_name}_{ts}.json"
+    with open(path, "w") as f:
+        json.dump(results, f, indent=2)
+    print(f"\n  Results saved to {path}")
+    return path
+
+
+def print_measurement_summary(cfg, stats):
+    """Print a final summary block for a measurement run."""
+    bi = stats.bi_scores
+    most_redundant = int(bi.argmin())
+    least_redundant = int(bi.argmax())
+    print("\n" + "=" * 50)
+    print(f"  Model:             {cfg['model_name']}")
+    print(f"  Layers:            {stats.n_layers}")
+    print(f"  Windows / tokens:  {stats.n_windows} / {stats.n_tokens}")
+    print(f"  Most redundant:    block {most_redundant}  (BI={bi[most_redundant]:.4f})")
+    print(f"  Least redundant:   block {least_redundant}  (BI={bi[least_redundant]:.4f})")
+    print("=" * 50)
