@@ -145,7 +145,7 @@ run_measurement.py
   ├─ utils.save_measurement_results()      → experiments/measurement_gpt2_<timestamp>.json
   ├─ utils.print_measurement_summary()     → most/least redundant block to stdout
   └─ plotting.plot_bi_bar / plot_similarity_heatmap / plot_residual_norms
-       → reports/group1/figures/{bi_bar,cosine_heatmap,residual_norms}.png
+       → reports/group9/figures/{bi_bar,cosine_heatmap,residual_norms}.png
 ```
 
 ### `src/redundancy/metrics/block_influence.py`
@@ -207,7 +207,7 @@ measurement config (`configs/measurement.json`) sets `"dtype": "float32"` to avo
 | `seed` | `42` | Random seed |
 
 `--max-windows N` subsamples the calibration set for a fast smoke test; the committed
-`experiments/measurement_*.json` and `reports/group1/figures/*.png` were produced with the
+`experiments/measurement_*.json` and `reports/group9/figures/*.png` were produced with the
 full (non-subsampled) WikiText-2 test-split calibration set.
 
 ### Scope (Weeks 5-8 vs. later weeks)

@@ -34,7 +34,7 @@ def parse_args():
     p.add_argument("--dtype", type=str, default=None, choices=list(DTYPES))
     p.add_argument("--max-windows", type=int, default=None, help="Subsample calibration windows (for quick smoke tests).")
     p.add_argument("--output-dir", type=str, default="experiments")
-    p.add_argument("--figures-dir", type=str, default="reports/group1/figures")
+    p.add_argument("--figures-dir", type=str, default="reports/group9/figures")
     return p.parse_args()
 
 

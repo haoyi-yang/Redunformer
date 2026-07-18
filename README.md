@@ -1,7 +1,7 @@
 # Redunformer
 
 **Project Seminar: Redundancy in Large Language Models — SS 2026**
-**Group 1: Block / Layer-level Redundancy**
+**Group 9: Block / Layer-level Redundancy**
 
 ## Setup
 
@@ -39,7 +39,7 @@ uv run python scripts/run_measurement.py --config configs/measurement.json --max
 ```
 
 Results are saved as JSON in `experiments/`; figures are saved (and committed) to
-`reports/group1/figures/`: `bi_bar.png`, `cosine_heatmap.png`, `residual_norms.png`.
+`reports/group9/figures/`: `bi_bar.png`, `cosine_heatmap.png`, `residual_norms.png`.
 
 ## Structure
 
@@ -48,7 +48,7 @@ Results are saved as JSON in `experiments/`; figures are saved (and committed) t
 │   ├── baseline.json            # Default baseline-evaluation config
 │   └── measurement.json         # Default Block Influence measurement config
 ├── experiments/                  # Result JSONs
-├── reports/group1/figures/       # Committed measurement plots
+├── reports/group9/figures/       # Committed measurement plots
 ├── scripts/
 │   ├── run_baseline.py          # Weeks 1-2 baseline entry point
 │   └── run_measurement.py       # Weeks 5-8 Block Influence measurement entry point

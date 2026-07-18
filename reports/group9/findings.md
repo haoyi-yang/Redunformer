@@ -1,6 +1,6 @@
 # Weeks 5–8 Findings: Block Influence Measurement (GPT-2 small × WikiText-2)
 
-Group 1 — Block / Layer-level Redundancy. Measurement and visualization only (no pruning yet;
+Group 9 — Block / Layer-level Redundancy. Measurement and visualization only (no pruning yet;
 that is Weeks 9–10). Figures live in `figures/`; regenerate with
 `uv run python scripts/run_measurement.py --config configs/measurement.json`.
 
