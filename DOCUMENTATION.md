@@ -124,3 +124,99 @@ When `--skip-lm-eval` is not set, `lm_eval` contains per-task metrics (e.g. `acc
 
 ## Docker build command
 docker build --network host -t gpt-container:gpt .
+
+---
+
+## Block Influence Measurement (Weeks 5-8)
+
+Measures block/layer-level redundancy in GPT-2, per the group proposal's Section 6
+("Measurement plan"), reusing `models.load_model`, `data.load_wikitext`, and
+`data.prepare_encodings` from the baseline pipeline.
+
+```
+run_measurement.py
+  │
+  ├─ utils.build_measurement_config()      → merge JSON config + CLI args
+  ├─ models.load_model()                   → GPT-2 on best device, float32 by default
+  ├─ data.load_wikitext() / prepare_encodings()  → WikiText-2 sliding-window calibration set
+  ├─ metrics.collect_layer_stats()         → BI scores, relative residual updates, per-layer mean vectors
+  ├─ metrics.compute_cosine_similarity_matrix()  → (L+1)x(L+1) centered layer-pair similarity
+  ├─ utils.build_measurement_result_dict() → structured results dict
+  ├─ utils.save_measurement_results()      → experiments/measurement_gpt2_<timestamp>.json
+  ├─ utils.print_measurement_summary()     → most/least redundant block to stdout
+  └─ plotting.plot_bi_bar / plot_similarity_heatmap / plot_residual_norms
+       → reports/group1/figures/{bi_bar,cosine_heatmap,residual_norms}.png
+```
+
+### `src/redundancy/metrics/block_influence.py`
+
+| Function | Signature | Description |
+|----------|-----------|-------------|
+| `collect_layer_stats` | `(model, input_windows, device, max_windows) → LayerStats` | Single forward pass per calibration window with `output_hidden_states=True`. Accumulates running per-layer sums (never stores the full hidden-state stack). Keeps **two separate accumulators**: summed per-token input/output cosines for BI, and running per-layer mean vectors for the similarity matrix. |
+| `compute_cosine_similarity_matrix` | `(layer_means, center=True) → np.ndarray` | `(L+1)x(L+1)` cosine similarity between per-layer representations from `LayerStats.layer_means`. Centers the layer means by default (see note below). Reveals similarity structure beyond adjacent layers. |
+
+**Block Influence formula:** `BI_i = 1 - mean_t cos_sim(X_i,t, X_{i+1,t})`, where `X_i,t` is the
+hidden state of token `t` entering block `i`. The cosine is computed **per token, then averaged**
+— *not* as the cosine of token-averaged vectors, since `cos(mean a, mean b) ≠ mean cos(a, b)`.
+GPT-2's forward pass already returns each block's input/output as consecutive entries of
+`hidden_states` when `output_hidden_states=True`, so no custom hooks are required. Low BI means
+the block's output is nearly identical to its input, i.e. the block is redundant.
+
+**Relative residual update (cross-check):** reported as `mean_t (‖X_{i+1,t} - X_i,t‖ / ‖X_i,t‖)`,
+*not* the raw update norm. The residual-stream magnitude grows with depth regardless of
+redundancy, so the raw norm isn't comparable block-to-block; normalizing by the input magnitude
+makes it a fair "how much did this block change things, in proportion to the signal" measure.
+
+**Heatmap centering / saturation artifact:** the GPT-2 residual stream shares a large common
+direction (plus known outlier dimensions), so a *raw* cosine between layer means saturates near
+1.0 almost everywhere and washes out — an artifact, not evidence that all layers are redundant.
+`compute_cosine_similarity_matrix` therefore centers the layer means (subtracts their across-layer
+mean) before taking the cosine, a cheap stand-in for linear CKA (which centers for the same
+reason). CKA proper remains the documented follow-up.
+
+**Why float32 for measurement?** `load_model` defaults to float16 on GPU/MPS for speed, but the
+proposal flags float16 as a source of numerical noise for similarity-based measurement. The
+measurement config (`configs/measurement.json`) sets `"dtype": "float32"` to avoid this.
+
+### `src/redundancy/plotting.py`
+
+| Function | Description |
+|----------|-------------|
+| `plot_bi_bar` | Per-layer BI bar chart. |
+| `plot_similarity_heatmap` | Reused for the cosine similarity heatmap (and any future CKA heatmap). |
+| `plot_residual_norms` | Per-layer relative residual-update bar chart, the cross-check metric. |
+
+### `src/utils/__init__.py` additions
+
+| Function | Description |
+|----------|-------------|
+| `build_measurement_config` | Merges `configs/measurement.json` with CLI overrides (model name, max length, stride, dtype, seed, device, max-windows). |
+| `build_measurement_result_dict` | Structured results dict: model, dataset, metric name, seed, device, dtype, full reproduction command, BI scores, relative residual updates, similarity matrix. |
+| `save_measurement_results` | Writes to `experiments/measurement_<model>_<timestamp>.json`. |
+| `print_measurement_summary` | Prints the most- and least-redundant block indices. |
+
+### Configuration (`configs/measurement.json`)
+
+| Key | Default | Description |
+|-----|---------|-------------|
+| `model_name` | `"gpt2"` | HuggingFace model identifier |
+| `dataset` | `"wikitext-2-raw-v1"` | WikiText-2 raw subset |
+| `max_length` | `1024` | Context window size (tokens) |
+| `stride` | `1024` | Sliding-window step. Set equal to `max_length` (non-overlapping) for measurement so no token is counted twice in the BI average — unlike the baseline perplexity run, which overlaps windows (stride 512) for context. |
+| `dtype` | `"float32"` | Forward-pass precision (float32 to avoid float16 noise in similarity scores) |
+| `seed` | `42` | Random seed |
+
+`--max-windows N` subsamples the calibration set for a fast smoke test; the committed
+`experiments/measurement_*.json` and `reports/group1/figures/*.png` were produced with the
+full (non-subsampled) WikiText-2 test-split calibration set.
+
+### Scope (Weeks 5-8 vs. later weeks)
+
+This pass covers measurement and visualization only, per the shared timeline. Explicitly
+deferred:
+- **GPT-2 medium / model-size comparison** — Weeks 11-12 ("Model" dimension).
+- **Attention/FFN sub-layer decomposition via hooks** — optional stretch noted as a limitation
+  in the proposal; block-level hidden states cannot separate attention from FFN without it.
+- **Linear CKA heatmap** — the proposal mentions "CKA / cosine heatmap"; cosine alone satisfies
+  the Weeks 5-8 bar, CKA is a documented follow-on.
+- **Pruning / block removal** — Weeks 9-10.

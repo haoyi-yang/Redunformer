@@ -1,0 +1,8 @@
+{
+  "model_name": "gpt2",
+  "dataset": "wikitext-2-raw-v1",
+  "max_length": 1024,
+  "stride": 1024,
+  "dtype": "float32",
+  "seed": 42
+}
