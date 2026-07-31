@@ -1,0 +1,14 @@
+{
+    "model": "Qwen/Qwen3-4B",
+    "method": "unstructured_sparsegpt",
+    "repair": "sparsegpt",
+    "comparison": "row",
+    "prune_ratio": 0.3,
+    "tile_size": 1,
+    "achieved_sparsity": 0.29687500715599774,
+    "total_weights": 3633315840,
+    "total_pruned": 1078640666,
+    "tag": "unstructured_unstructured_sparsegpt_repair-sparsegpt_p30_T1_ppl",
+    "eval_frac": 1.0,
+    "perplexity": 13.729668617248535
+}

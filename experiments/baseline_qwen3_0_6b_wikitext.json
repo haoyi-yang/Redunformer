@@ -1,0 +1,6 @@
+{
+    "model": "Qwen/Qwen3-0.6B",
+    "dataset": "wikitext",
+    "subset": "wikitext-2-raw-v1",
+    "perplexity": 20.04446792602539
+}

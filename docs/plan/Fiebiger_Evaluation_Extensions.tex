@@ -1,0 +1,239 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+\title{Evaluation and Comparison Extensions to the Tile-Level Pruning Strategy}
+\author{Sebastian Fiebiger}
+\date{July 16, 2026}
+
+\begin{document}
+
+% ---------------- Title page ----------------
+\begin{titlepage}
+\centering
+\vspace*{4cm}
+{\Huge\bfseries Evaluation and Comparison Extensions\\[0.3em]
+to the Tile-Level Pruning Strategy\par}
+\vspace{1.1cm}
+{\large Controls, Sparsity Sweeps, and Additional Evaluation Metrics for\\
+Tile-Level Redundancy Detection in Large Language Models\par}
+\vspace{2.2cm}
+{\large\bfseries Sebastian Fiebiger\par}
+\vspace{0.3cm}
+{\normalsize Technical University of Darmstadt\par}
+\vfill
+{\normalsize July 16, 2026\par}
+\end{titlepage}
+
+% ---------------- Abstract + Contents ----------------
+\begin{abstract}
+This note records the extensions introduced after a review of the tile-level pruning strategy for
+Wanda and SparseGPT. The staged pruning strategy is adopted without modification; the extensions
+described here strengthen the experimental design that surrounds it rather than changing the pruning
+procedures themselves. Four additions are proposed: (i)~random and magnitude tile pruning as explicit
+controls; (ii)~repetition of random pruning across multiple seeds to quantify variance; (iii)~treatment
+of tile sparsity as a primary experimental axis through a perplexity-versus-sparsity sweep; and
+(iv)~evaluation metrics beyond perplexity, namely the output-distribution divergence between the dense
+and pruned models and downstream task accuracy. For each addition the motivation, the method, and its
+relationship to the adopted plan are stated, followed by a consolidated execution schedule with runtime
+estimates. All experiments target Qwen3-4B with $32\times32$ tiles on the representative layers
+$0, 9, 18, 27$ and $35$, consistent with the adopted strategy.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+% ---------------- Sections ----------------
+\section{Introduction and Scope}
+
+The tile-level redundancy project studies which tiles of a transformer's weight matrices can be removed
+while preserving model behaviour. A staged pruning strategy based on Wanda and SparseGPT defines how
+tiles are selected and at what scope: a single matrix, a complete layer, a cluster of layers, and finally
+the complete model.
+
+This document does not alter that strategy. Its purpose is to record the design extensions added after
+review so that the resulting measurements are interpretable, statistically meaningful, and not dependent
+on a single evaluation metric. The extensions fall into two groups: additional pruning methods that serve
+as controls (Sections~\ref{sec:controls} and~\ref{sec:seeds}), and additional ways of measuring the
+quality of a pruned model (Sections~\ref{sec:sparsity} and~\ref{sec:eval}). Section~\ref{sec:distinction}
+first clarifies a distinction that motivates the rest.
+
+\section{Pruning Metrics versus Evaluation Metrics}
+\label{sec:distinction}
+
+Two different quantities are both loosely called ``metrics'', and separating them is essential to the
+design that follows.
+
+\begin{itemize}
+  \item A \textbf{pruning metric} decides \emph{which} tiles to remove. Random selection, weight
+  magnitude, Wanda, and SparseGPT reconstruction error are pruning metrics.
+  \item An \textbf{evaluation metric} decides \emph{whether} the resulting pruned model is still good.
+  Perplexity, output-distribution divergence, and downstream task accuracy are evaluation metrics.
+\end{itemize}
+
+In particular, SparseGPT is a \emph{pruning} metric, not an evaluation metric: its reconstruction error
+is a local, per-layer signal used while pruning, and it does not by itself indicate whether the complete
+model still performs its tasks. The extensions in Sections~\ref{sec:sparsity} and~\ref{sec:eval}
+therefore concern evaluation metrics, which were previously limited to perplexity.
+
+\section{Extension 1: Baseline Pruning Methods as Controls}
+\label{sec:controls}
+
+Two reference methods are added alongside the data-aware methods: \textbf{random} tile pruning and
+\textbf{magnitude} tile pruning.
+
+\paragraph{Rationale.} The result of a data-aware method is only interpretable relative to a control. A
+statement such as ``Wanda removes 20\% of tiles with a small perplexity increase'' has no meaning without
+a floor (random selection) and a naive reference (weight magnitude). These two controls reinstate the
+four-method comparison already recommended in the earlier metric report.
+
+\paragraph{Requirement.} The controls must be evaluated at identical settings --- model, tile size,
+sparsity, and evaluation data --- as the data-aware methods. They are therefore run within the same sweeps
+rather than deferred to a separate later phase, because a control produced at mismatched settings is not
+a valid comparison.
+
+\section{Extension 2: Multiple Seeds and Variance}
+\label{sec:seeds}
+
+Random tile pruning is repeated across \textbf{five seeds}, and its results are reported as a mean together
+with a range.
+
+\paragraph{Rationale.} A conclusion such as ``layer 18 is robust'', drawn from a single run at a single
+sparsity, may reflect noise rather than a real property of the model. Reporting the spread of the random
+control makes the robust-versus-sensitive comparison honest and quantifies how large a perplexity
+difference must be before it is meaningful.
+
+The remaining methods --- magnitude, Wanda, and both SparseGPT variants --- are deterministic: repeated
+runs reproduce their results exactly, which was confirmed empirically (bit-identical perplexity across
+independent runs). A single run therefore suffices for each of them, and only random pruning requires
+multiple seeds.
+
+\section{Extension 3: Sparsity as a Primary Axis}
+\label{sec:sparsity}
+
+Rather than fixing a single sparsity, model quality is measured as a function of sparsity, at two
+resolutions chosen according to what each stage requires. The screening and clustering stages, which locate
+redundancy across many layer--matrix combinations, use a coarse grid
+\[
+  \{\,10,\ 20,\ 40\,\}\,\%,
+\]
+sufficient to reveal whether each combination degrades gradually or collapses sharply, and whether the
+robust-versus-sensitive ranking is stable as pruning becomes more aggressive. The final whole-model
+comparison, which requires a smooth curve, uses a fine grid
+\[
+  \{\,5,\ 10,\ 20,\ 30,\ 40,\ 50,\ 60,\ 70\,\}\,\%,
+\]
+and the resulting perplexity-versus-sparsity curve is treated as a primary result of the study.
+
+\paragraph{Rationale.} Redundancy is sparsity-dependent: a matrix that appears robust at 20\% may collapse
+at 40\%. A redundancy map built at a single sparsity can therefore mislabel a region, which is why even the
+screening stages span several sparsities rather than one. A coarse grid is adequate there because the
+purpose is to rank many combinations, not to draw a precise curve for each; the fine grid is reserved for
+the whole-model curve, where the location of the collapse and the separation between methods must be
+resolved exactly. Pruning methods are nearly indistinguishable at low sparsity and separate only as sparsity
+increases, so the region where a data-aware method continues to hold while the random control has already
+collapsed is the most informative part of the curve, and capping the sweep prematurely would hide exactly
+where a method proves its value.
+
+The whole-model sweep is extended until all methods, including the strongest, have clearly degraded. Because
+perplexity grows by orders of magnitude near collapse, the perplexity axis is plotted on a logarithmic scale.
+
+\section{Extension 4: Additional Evaluation Metrics}
+\label{sec:eval}
+
+Perplexity is retained as the primary language-modelling metric but is complemented by two further
+measurements, so that no conclusion rests on a single number.
+
+\subsection{Output-distribution divergence}
+
+For the same inputs, the divergence between the dense and pruned models' output distributions is recorded.
+The Kullback--Leibler divergence of the output distributions is
+\[
+  D_{\mathrm{KL}}\!\left(P_{\mathrm{dense}} \,\big\|\, P_{\mathrm{pruned}}\right)
+  = \sum_{i} P_{\mathrm{dense}}(i)\,\log\frac{P_{\mathrm{dense}}(i)}{P_{\mathrm{pruned}}(i)} .
+\]
+This is reported together with the top-1 agreement rate (the fraction of positions at which both models
+predict the same next token) and the cosine similarity of the hidden states,
+\[
+  \cos\!\left(h_{\mathrm{dense}}, h_{\mathrm{pruned}}\right)
+  = \frac{\langle h_{\mathrm{dense}},\, h_{\mathrm{pruned}}\rangle}
+         {\lVert h_{\mathrm{dense}}\rVert \, \lVert h_{\mathrm{pruned}}\rVert} .
+\]
+These quantities are inexpensive and highly sensitive, and are therefore used at the screening stage, where
+they measure behavioural drift token by token.
+
+\subsection{Downstream task accuracy}
+
+For the final whole-model variants, accuracy on HellaSwag, PIQA and ARC-Easy is measured with the
+lm-evaluation-harness, which is already configured and baselined for the dense model. This tests whether
+the pruned model retains actual task ability.
+
+\paragraph{Rationale.} A model may preserve a reasonable perplexity while quietly degrading on downstream
+tasks. Evaluating along three complementary axes --- language-modelling loss, behavioural fidelity, and
+task accuracy --- prevents the study's conclusions from resting on a single, potentially misleading
+measurement.
+
+\section{Consolidated Execution Plan}
+
+The extensions are folded into the adopted execution order without changing its stages. Each stage
+additionally runs the control methods and, where relevant, the sparsity grid. The estimated schedule on a
+single RTX~4080~Super is summarised below.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{@{}llccc@{}}
+\toprule
+Stage & Scope & Methods & Sparsity & Est.\ time \\
+\midrule
+0\ \ Dense baseline    & full model                  & dense reference & ---          & done \\
+1\ \ Per-matrix screen & 5 layers $\times$ 7 matrices & all + controls  & $10/20/40\%$ & $\sim$6\,h \\
+2\ \ Whole-layer       & 5 layers                    & all + controls  & $10/20/40\%$ & $\sim$2\,h \\
+3\ \ Cluster analysis  & robust / sensitive clusters & key methods     & $10/20/40\%$ & $\sim$4\,h \\
+4\ \ Sparsity sweep    & whole model                 & all + controls  & 8-point grid & $\sim$4\,h \\
+5\ \ Final + downstream& whole model                 & best methods    & matched      & $\sim$3\,h \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The total is approximately nineteen hours of GPU time, well within the available budget. A fixed perplexity
+subset is used during the screening stages, where measurements serve only to rank layer--matrix
+combinations; full evaluation is reserved for the final and headline results, following the cost-control
+guidance of the adopted strategy.
+
+\section{Relationship to the Adopted Strategy}
+
+The backbone is unchanged: the model (Qwen3-4B), the tile size ($32\times32$), the representative layers
+($0, 9, 18, 27, 35$), the dense-model discipline of restoring the original weights between independent
+experiments, the Wanda and SparseGPT strategy ladders, and the combined variant that selects tiles with
+Wanda and reconstructs the survivors with SparseGPT.
+
+Of the extensions, the controls of Sections~\ref{sec:controls} and~\ref{sec:seeds} reinstate elements
+already present in the earlier metric report. The additional evaluation metrics of Section~\ref{sec:eval}
+and the expanded sparsity treatment of Section~\ref{sec:sparsity} extend the strategy document, which named
+perplexity as the initial evaluation metric and scoped sparsity sweeps narrowly. None of the extensions
+contradicts the adopted strategy; each strengthens the evidence it produces.
+
+\section{Conclusion}
+
+These extensions convert a single-metric, single-sparsity procedure into a controlled, multi-sparsity,
+multi-metric comparison. The pruning strategy is preserved in full. The additions ensure that its results
+can be interpreted against controls, carry a sense of variance, are characterised across the full sparsity
+range, and are corroborated by more than one measure of model quality.
+
+\begin{thebibliography}{9}
+\bibitem{wanda} M.~Sun, Z.~Liu, A.~Bair, and J.~Z.~Kolter, ``A simple and effective pruning approach for
+large language models,'' in \emph{The Twelfth International Conference on Learning Representations}, 2024.
+\bibitem{sparsegpt} E.~Frantar and D.~Alistarh, ``SparseGPT: Massive language models can be accurately
+pruned in one-shot,'' in \emph{Proceedings of the 40th International Conference on Machine Learning},
+PMLR, vol.~202, 2023, pp.~10323--10337.
+\end{thebibliography}
+
+\end{document}

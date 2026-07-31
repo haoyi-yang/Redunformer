@@ -45,9 +45,19 @@ Thumbs.db
 *.swo
 
 # Project specific ignores
+# Run logs: large, noisy, and fully reproducible from the saved JSON results.
+*.log
+
 # Ignore output files but keep the directories
 !experiments/.gitkeep
 models/*
 !models/.gitkeep
 datasets/*
 !datasets/.gitkeep
+
+# run logs and local artifacts (do not commit)
+*.log
+
+# personal draft docs (do not commit)
+Fiebiger_Evaluation_Extensions.pdf
+Fiebiger_Evaluation_Extensions.tex

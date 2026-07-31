@@ -1,0 +1,59 @@
+{
+    "model": "Qwen/Qwen3-4B",
+    "dataset": "wikitext",
+    "subset": "wikitext-2-raw-v1",
+    "calib_samples": 64,
+    "calib_seqlen": 512,
+    "eval_frac": 1.0,
+    "policy_info": null,
+    "method": "sparsegpt_recon",
+    "seed": null,
+    "tile_size": 64,
+    "prune_ratio": 0.9,
+    "policy": "uniform",
+    "scope": "whole_model",
+    "num_layers": 8,
+    "total_tiles": 197120,
+    "total_pruned": 177408,
+    "achieved_sparsity": 0.9,
+    "perplexity": 1890.007080078125,
+    "divergence": {
+        "kl_dense_pruned": 6.074525833129883,
+        "top1_agreement": 0.142578125,
+        "hidden_cosine": 0.48546046018600464
+    },
+    "per_layer": [
+        {
+            "layer": 0,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 4,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 9,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 13,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 18,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 22,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 27,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 31,
+            "num_pruned": 22176
+        }
+    ]
+}

@@ -1,0 +1,6 @@
+{
+    "model": "Qwen/Qwen3-4B",
+    "dataset": "Salesforce/wikitext",
+    "subset": "wikitext-2-raw-v1",
+    "perplexity": 13.218074798583984
+}

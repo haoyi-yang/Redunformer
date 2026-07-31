@@ -1,0 +1,123 @@
+{
+    "model": "Qwen/Qwen3-4B",
+    "dataset": "wikitext",
+    "subset": "wikitext-2-raw-v1",
+    "calib_samples": 64,
+    "calib_seqlen": 512,
+    "eval_frac": 1.0,
+    "policy_info": null,
+    "method": "sparsegpt_recon",
+    "seed": null,
+    "tile_size": 64,
+    "prune_ratio": 0.3,
+    "policy": "uniform",
+    "scope": "whole_model",
+    "num_layers": 24,
+    "total_tiles": 591360,
+    "total_pruned": 177408,
+    "achieved_sparsity": 0.3,
+    "perplexity": 24.16737937927246,
+    "divergence": {
+        "kl_dense_pruned": 0.9822404980659485,
+        "top1_agreement": 0.62109375,
+        "hidden_cosine": 0.8692100048065186
+    },
+    "per_layer": [
+        {
+            "layer": 0,
+            "num_pruned": 7392
+        },
+        {
+            "layer": 1,
+            "num_pruned": 7392
+        },
+        {
+            "layer": 3,
+            "num_pruned": 7392
+        },
+        {
+            "layer": 4,
+            "num_pruned": 7392
+        },
+        {
+            "layer": 5,
+            "num_pruned": 7392
+        },
+        {
+            "layer": 7,
+            "num_pruned": 7392
+        },
+        {
+            "layer": 8,
+            "num_pruned": 7392
+        },
+        {
+            "layer": 9,
+            "num_pruned": 7392
+        },
+        {
+            "layer": 11,
+            "num_pruned": 7392
+        },
+        {
+            "layer": 12,
+            "num_pruned": 7392
+        },
+        {
+            "layer": 13,
+            "num_pruned": 7392
+        },
+        {
+            "layer": 15,
+            "num_pruned": 7392
+        },
+        {
+            "layer": 16,
+            "num_pruned": 7392
+        },
+        {
+            "layer": 18,
+            "num_pruned": 7392
+        },
+        {
+            "layer": 19,
+            "num_pruned": 7392
+        },
+        {
+            "layer": 20,
+            "num_pruned": 7392
+        },
+        {
+            "layer": 22,
+            "num_pruned": 7392
+        },
+        {
+            "layer": 23,
+            "num_pruned": 7392
+        },
+        {
+            "layer": 24,
+            "num_pruned": 7392
+        },
+        {
+            "layer": 26,
+            "num_pruned": 7392
+        },
+        {
+            "layer": 27,
+            "num_pruned": 7392
+        },
+        {
+            "layer": 28,
+            "num_pruned": 7392
+        },
+        {
+            "layer": 30,
+            "num_pruned": 7392
+        },
+        {
+            "layer": 31,
+            "num_pruned": 7392
+        }
+    ]
+}

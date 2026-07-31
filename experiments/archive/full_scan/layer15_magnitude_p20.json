@@ -1,0 +1,96 @@
+{
+    "model": "Qwen/Qwen3-0.6B",
+    "dataset": "wikitext",
+    "subset": "wikitext-2-raw-v1",
+    "layer": 15,
+    "method": "magnitude",
+    "seed": null,
+    "tile_size": 64,
+    "prune_ratio": 0.2,
+    "results": [
+        {
+            "target_matrix": "model.layers.15.mlp.gate_proj.weight",
+            "tile_size": 64,
+            "prune_ratio": 0.2,
+            "num_tiles": 768,
+            "num_pruned": 153,
+            "method": "magnitude",
+            "seed": null,
+            "perplexity": 20.664566040039062,
+            "layer": 15,
+            "matrix": "gate_proj"
+        },
+        {
+            "target_matrix": "model.layers.15.mlp.up_proj.weight",
+            "tile_size": 64,
+            "prune_ratio": 0.2,
+            "num_tiles": 768,
+            "num_pruned": 153,
+            "method": "magnitude",
+            "seed": null,
+            "perplexity": 20.881685256958008,
+            "layer": 15,
+            "matrix": "up_proj"
+        },
+        {
+            "target_matrix": "model.layers.15.mlp.down_proj.weight",
+            "tile_size": 64,
+            "prune_ratio": 0.2,
+            "num_tiles": 768,
+            "num_pruned": 153,
+            "method": "magnitude",
+            "seed": null,
+            "perplexity": 20.71123695373535,
+            "layer": 15,
+            "matrix": "down_proj"
+        },
+        {
+            "target_matrix": "model.layers.15.self_attn.q_proj.weight",
+            "tile_size": 64,
+            "prune_ratio": 0.2,
+            "num_tiles": 512,
+            "num_pruned": 102,
+            "method": "magnitude",
+            "seed": null,
+            "perplexity": 20.551687240600586,
+            "layer": 15,
+            "matrix": "q_proj"
+        },
+        {
+            "target_matrix": "model.layers.15.self_attn.k_proj.weight",
+            "tile_size": 64,
+            "prune_ratio": 0.2,
+            "num_tiles": 256,
+            "num_pruned": 51,
+            "method": "magnitude",
+            "seed": null,
+            "perplexity": 20.197275161743164,
+            "layer": 15,
+            "matrix": "k_proj"
+        },
+        {
+            "target_matrix": "model.layers.15.self_attn.v_proj.weight",
+            "tile_size": 64,
+            "prune_ratio": 0.2,
+            "num_tiles": 256,
+            "num_pruned": 51,
+            "method": "magnitude",
+            "seed": null,
+            "perplexity": 20.165437698364258,
+            "layer": 15,
+            "matrix": "v_proj"
+        },
+        {
+            "target_matrix": "model.layers.15.self_attn.o_proj.weight",
+            "tile_size": 64,
+            "prune_ratio": 0.2,
+            "num_tiles": 512,
+            "num_pruned": 102,
+            "method": "magnitude",
+            "seed": null,
+            "perplexity": 20.01080894470215,
+            "layer": 15,
+            "matrix": "o_proj"
+        }
+    ]
+}

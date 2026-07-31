@@ -1,0 +1,718 @@
+{
+  "per_map": {
+    "wanda": {
+      "0.02": [
+        {
+          "T": 1,
+          "clean_fraction": 0.020000077001681354,
+          "harvestable": 0.020000077001681354,
+          "harvest_efficiency": 1.0,
+          "obs_pure": 14129616.0,
+          "n_tiles": 706478080.0,
+          "binom_null_mean": 14129616.0,
+          "z_binom": 0.0
+        },
+        {
+          "T": 2,
+          "clean_fraction": 0.00017883074305716606,
+          "harvestable": 0.00017883074305716606,
+          "harvest_efficiency": 0.00894150272732111,
+          "obs_pure": 31585.0,
+          "n_tiles": 176619520.0,
+          "binom_null_mean": 28.25955841339441,
+          "z_binom": 5936.213152650871,
+          "z_shuffle": 6083.530809676254,
+          "shuffle_null_mean": 27.875000000000007,
+          "shuffle_fano": 0.9616730805191854,
+          "z_within_col": -0.2842877729340756,
+          "within_col_null_mean": 31588.350000000002
+        },
+        {
+          "T": 4,
+          "clean_fraction": 2.2647553339517624e-08,
+          "harvestable": 2.2647553339517624e-08,
+          "harvest_efficiency": 1.0615999755407367e-06,
+          "obs_pure": 1.0,
+          "n_tiles": 44154880.0,
+          "binom_null_mean": 2.271712397673569e-17,
+          "z_binom": 209808619.36218798,
+          "z_shuffle": Infinity,
+          "shuffle_null_mean": 0.0,
+          "shuffle_fano": 0.0,
+          "z_within_col": 0.8187552203212656,
+          "within_col_null_mean": 0.45
+        },
+        {
+          "T": 8,
+          "clean_fraction": 0.0,
+          "harvestable": 0.0,
+          "harvest_efficiency": 0.0,
+          "obs_pure": 0.0,
+          "n_tiles": 11038720.0,
+          "binom_null_mean": 2.1180026228594727e-84,
+          "z_binom": -1.4553359140966298e-42,
+          "z_shuffle": 0.0,
+          "shuffle_null_mean": 0.0,
+          "shuffle_fano": 0.0,
+          "z_within_col": 0.0,
+          "within_col_null_mean": 0.0
+        },
+        {
+          "T": 16,
+          "clean_fraction": 0.0,
+          "harvestable": 0.0,
+          "harvest_efficiency": 0.0,
+          "obs_pure": 0.0,
+          "n_tiles": 2759680.0,
+          "binom_null_mean": 0.0,
+          "z_binom": 0.0,
+          "z_shuffle": 0.0,
+          "shuffle_null_mean": 0.0,
+          "shuffle_fano": 0.0,
+          "z_within_col": 0.0,
+          "within_col_null_mean": 0.0
+        },
+        {
+          "T": 32,
+          "clean_fraction": 0.0,
+          "harvestable": 0.0,
+          "harvest_efficiency": 0.0,
+          "obs_pure": 0.0,
+          "n_tiles": 689920.0,
+          "binom_null_mean": 0.0,
+          "z_binom": 0.0,
+          "z_shuffle": 0.0,
+          "shuffle_null_mean": 0.0,
+          "shuffle_fano": 0.0,
+          "z_within_col": 0.0,
+          "within_col_null_mean": 0.0
+        }
+      ],
+      "0.05": [
+        {
+          "T": 1,
+          "clean_fraction": 0.05000005378793918,
+          "harvestable": 0.05000005378793918,
+          "harvest_efficiency": 1.0,
+          "obs_pure": 35323942.0,
+          "n_tiles": 706478080.0,
+          "binom_null_mean": 35323942.0,
+          "z_binom": 0.0
+        },
+        {
+          "T": 2,
+          "clean_fraction": 0.00020296171114042209,
+          "harvestable": 0.00020296171114042209,
+          "harvest_efficiency": 0.004059229856056269,
+          "obs_pure": 35847.0,
+          "n_tiles": 176619520.0,
+          "binom_null_mean": 1103.8767500131946,
+          "z_binom": 1045.7067732086753,
+          "z_shuffle": 1082.419494721763,
+          "shuffle_null_mean": 1108.0999999999997,
+          "shuffle_fano": 0.940066901691613,
+          "z_within_col": 7.305231429338406,
+          "within_col_null_mean": 35465.775
+        },
+        {
+          "T": 4,
+          "clean_fraction": 2.717706400742115e-07,
+          "harvestable": 2.717706400742115e-07,
+          "harvest_efficiency": 5.095694019653865e-06,
+          "obs_pure": 12.0,
+          "n_tiles": 44154880.0,
+          "binom_null_mean": 2.054970550963943e-11,
+          "z_binom": 2647149.3514926443,
+          "z_shuffle": Infinity,
+          "shuffle_null_mean": 0.0,
+          "shuffle_fano": 0.0,
+          "z_within_col": 0.5007953507627434,
+          "within_col_null_mean": 10.4
+        },
+        {
+          "T": 8,
+          "clean_fraction": 0.0,
+          "harvestable": 0.0,
+          "harvest_efficiency": 0.0,
+          "obs_pure": 0.0,
+          "n_tiles": 11038720.0,
+          "binom_null_mean": 2.122212394468275e-61,
+          "z_binom": -4.6067476536796265e-31,
+          "z_shuffle": 0.0,
+          "shuffle_null_mean": 0.0,
+          "shuffle_fano": 0.0,
+          "z_within_col": 0.0,
+          "within_col_null_mean": 0.0
+        },
+        {
+          "T": 16,
+          "clean_fraction": 0.0,
+          "harvestable": 0.0,
+          "harvest_efficiency": 0.0,
+          "obs_pure": 0.0,
+          "n_tiles": 2759680.0,
+          "binom_null_mean": 6.885752414451965e-261,
+          "z_binom": -8.298043392542585e-131,
+          "z_shuffle": 0.0,
+          "shuffle_null_mean": 0.0,
+          "shuffle_fano": 0.0,
+          "z_within_col": 0.0,
+          "within_col_null_mean": 0.0
+        },
+        {
+          "T": 32,
+          "clean_fraction": 0.0,
+          "harvestable": 0.0,
+          "harvest_efficiency": 0.0,
+          "obs_pure": 0.0,
+          "n_tiles": 689920.0,
+          "binom_null_mean": 0.0,
+          "z_binom": 0.0,
+          "z_shuffle": 0.0,
+          "shuffle_null_mean": 0.0,
+          "shuffle_fano": 0.0,
+          "z_within_col": 0.0,
+          "within_col_null_mean": 0.0
+        }
+      ],
+      "0.1": [
+        {
+          "T": 1,
+          "clean_fraction": 0.10000010191399003,
+          "harvestable": 0.10000010191399003,
+          "harvest_efficiency": 1.0,
+          "obs_pure": 70647880.0,
+          "n_tiles": 706478080.0,
+          "binom_null_mean": 70647880.0,
+          "z_binom": 0.0
+        },
+        {
+          "T": 2,
+          "clean_fraction": 0.0004227618781887755,
+          "harvestable": 0.0004227618781887755,
+          "harvest_efficiency": 0.004227614473357163,
+          "obs_pure": 74668.0,
+          "n_tiles": 176619520.0,
+          "binom_null_mean": 17662.024000238296,
+          "z_binom": 428.9650073621709,
+          "z_shuffle": 428.26607875343217,
+          "shuffle_null_mean": 17709.650000000005,
+          "shuffle_fano": 0.9895561820309311,
+          "z_within_col": 26.141941675677366,
+          "within_col_null_mean": 70240.34999999999
+        },
+        {
+          "T": 4,
+          "clean_fraction": 6.160134508348794e-06,
+          "harvestable": 6.160134508348794e-06,
+          "harvest_efficiency": 5.821830747079742e-05,
+          "obs_pure": 272.0,
+          "n_tiles": 44154880.0,
+          "binom_null_mean": 6.402554801489353e-07,
+          "z_binom": 339932.1575957584,
+          "z_shuffle": Infinity,
+          "shuffle_null_mean": 0.0,
+          "shuffle_fano": 0.0,
+          "z_within_col": 0.2466859593622971,
+          "within_col_null_mean": 268.725
+        },
+        {
+          "T": 8,
+          "clean_fraction": 0.0,
+          "harvestable": 0.0,
+          "harvest_efficiency": 0.0,
+          "obs_pure": 0.0,
+          "n_tiles": 11038720.0,
+          "binom_null_mean": 4.448739661258624e-44,
+          "z_binom": -2.109203560887053e-22,
+          "z_shuffle": 0.0,
+          "shuffle_null_mean": 0.0,
+          "shuffle_fano": 0.0,
+          "z_within_col": -0.3779644730092272,
+          "within_col_null_mean": 0.125
+        },
+        {
+          "T": 16,
+          "clean_fraction": 0.0,
+          "harvestable": 0.0,
+          "harvest_efficiency": 0.0,
+          "obs_pure": 0.0,
+          "n_tiles": 2759680.0,
+          "binom_null_mean": 6.188789073226641e-192,
+          "z_binom": -2.4877276927402326e-96,
+          "z_shuffle": 0.0,
+          "shuffle_null_mean": 0.0,
+          "shuffle_fano": 0.0,
+          "z_within_col": 0.0,
+          "within_col_null_mean": 0.0
+        },
+        {
+          "T": 32,
+          "clean_fraction": 0.0,
+          "harvestable": 0.0,
+          "harvest_efficiency": 0.0,
+          "obs_pure": 0.0,
+          "n_tiles": 689920.0,
+          "binom_null_mean": 0.0,
+          "z_binom": 0.0,
+          "z_shuffle": 0.0,
+          "shuffle_null_mean": 0.0,
+          "shuffle_fano": 0.0,
+          "z_within_col": 0.0,
+          "within_col_null_mean": 0.0
+        }
+      ]
+    },
+    "magnitude": {
+      "0.02": [
+        {
+          "T": 1,
+          "clean_fraction": 0.020069133638229795,
+          "harvestable": 0.020069133638229795,
+          "harvest_efficiency": 1.0,
+          "obs_pure": 14178403.0,
+          "n_tiles": 706478080.0,
+          "binom_null_mean": 14178403.0,
+          "z_binom": 0.0
+        },
+        {
+          "T": 2,
+          "clean_fraction": 2.4346119839981447e-07,
+          "harvestable": 2.4346119839981447e-07,
+          "harvest_efficiency": 1.2131126474540186e-05,
+          "obs_pure": 43.0,
+          "n_tiles": 176619520.0,
+          "binom_null_mean": 28.652703163686777,
+          "z_binom": 2.6803241449545694,
+          "z_shuffle": 3.1558220144175713,
+          "shuffle_null_mean": 27.174999999999997,
+          "shuffle_fano": 0.9513371717959644,
+          "z_within_col": 0.35392492341189963,
+          "within_col_null_mean": 40.8
+        },
+        {
+          "T": 4,
+          "clean_fraction": 0.0,
+          "harvestable": 0.0,
+          "harvest_efficiency": 0.0,
+          "obs_pure": 0.0,
+          "n_tiles": 44154880.0,
+          "binom_null_mean": 2.3932921483899313e-17,
+          "z_binom": -4.892128522831276e-09,
+          "z_shuffle": 0.0,
+          "shuffle_null_mean": 0.0,
+          "shuffle_fano": 0.0,
+          "z_within_col": 0.0,
+          "within_col_null_mean": 0.0
+        },
+        {
+          "T": 8,
+          "clean_fraction": 0.0,
+          "harvestable": 0.0,
+          "harvest_efficiency": 0.0,
+          "obs_pure": 0.0,
+          "n_tiles": 11038720.0,
+          "binom_null_mean": 2.6060708175734505e-84,
+          "z_binom": -1.614332932691844e-42,
+          "z_shuffle": 0.0,
+          "shuffle_null_mean": 0.0,
+          "shuffle_fano": 0.0,
+          "z_within_col": 0.0,
+          "within_col_null_mean": 0.0
+        },
+        {
+          "T": 16,
+          "clean_fraction": 0.0,
+          "harvestable": 0.0,
+          "harvest_efficiency": 0.0,
+          "obs_pure": 0.0,
+          "n_tiles": 2759680.0,
+          "binom_null_mean": 0.0,
+          "z_binom": 0.0,
+          "z_shuffle": 0.0,
+          "shuffle_null_mean": 0.0,
+          "shuffle_fano": 0.0,
+          "z_within_col": 0.0,
+          "within_col_null_mean": 0.0
+        },
+        {
+          "T": 32,
+          "clean_fraction": 0.0,
+          "harvestable": 0.0,
+          "harvest_efficiency": 0.0,
+          "obs_pure": 0.0,
+          "n_tiles": 689920.0,
+          "binom_null_mean": 0.0,
+          "z_binom": 0.0,
+          "z_shuffle": 0.0,
+          "shuffle_null_mean": 0.0,
+          "shuffle_fano": 0.0,
+          "z_within_col": 0.0,
+          "within_col_null_mean": 0.0
+        }
+      ],
+      "0.05": [
+        {
+          "T": 1,
+          "clean_fraction": 0.05014426066835648,
+          "harvestable": 0.05014426066835648,
+          "harvest_efficiency": 1.0,
+          "obs_pure": 35425821.0,
+          "n_tiles": 706478080.0,
+          "binom_null_mean": 35425821.0,
+          "z_binom": 0.0
+        },
+        {
+          "T": 2,
+          "clean_fraction": 1.1397381218112244e-05,
+          "harvestable": 1.1397381218112244e-05,
+          "harvest_efficiency": 0.00022729183891038123,
+          "obs_pure": 2013.0,
+          "n_tiles": 176619520.0,
+          "binom_null_mean": 1116.6836770547777,
+          "z_binom": 26.822397509831788,
+          "z_shuffle": 26.292586332448675,
+          "shuffle_null_mean": 1117.425,
+          "shuffle_fano": 1.0123127772526597,
+          "z_within_col": 12.503028953276571,
+          "within_col_null_mean": 1538.5500000000002
+        },
+        {
+          "T": 4,
+          "clean_fraction": 0.0,
+          "harvestable": 0.0,
+          "harvest_efficiency": 0.0,
+          "obs_pure": 0.0,
+          "n_tiles": 44154880.0,
+          "binom_null_mean": 2.1459462300623277e-11,
+          "z_binom": -4.632435892769945e-06,
+          "z_shuffle": 0.0,
+          "shuffle_null_mean": 0.0,
+          "shuffle_fano": 0.0,
+          "z_within_col": 0.0,
+          "within_col_null_mean": 0.0
+        },
+        {
+          "T": 8,
+          "clean_fraction": 0.0,
+          "harvestable": 0.0,
+          "harvest_efficiency": 0.0,
+          "obs_pure": 0.0,
+          "n_tiles": 11038720.0,
+          "binom_null_mean": 2.5160009437309427e-61,
+          "z_binom": -5.015975422319115e-31,
+          "z_shuffle": 0.0,
+          "shuffle_null_mean": 0.0,
+          "shuffle_fano": 0.0,
+          "z_within_col": 0.0,
+          "within_col_null_mean": 0.0
+        },
+        {
+          "T": 16,
+          "clean_fraction": 0.0,
+          "harvestable": 0.0,
+          "harvest_efficiency": 0.0,
+          "obs_pure": 0.0,
+          "n_tiles": 2759680.0,
+          "binom_null_mean": 1.4208873223278889e-260,
+          "z_binom": -1.1920097828155139e-130,
+          "z_shuffle": 0.0,
+          "shuffle_null_mean": 0.0,
+          "shuffle_fano": 0.0,
+          "z_within_col": 0.0,
+          "within_col_null_mean": 0.0
+        },
+        {
+          "T": 32,
+          "clean_fraction": 0.0,
+          "harvestable": 0.0,
+          "harvest_efficiency": 0.0,
+          "obs_pure": 0.0,
+          "n_tiles": 689920.0,
+          "binom_null_mean": 0.0,
+          "z_binom": 0.0,
+          "z_shuffle": 0.0,
+          "shuffle_null_mean": 0.0,
+          "shuffle_fano": 0.0,
+          "z_within_col": 0.0,
+          "within_col_null_mean": 0.0
+        }
+      ],
+      "0.1": [
+        {
+          "T": 1,
+          "clean_fraction": 0.10022256033761161,
+          "harvestable": 0.10022256033761161,
+          "harvest_efficiency": 1.0,
+          "obs_pure": 70805042.0,
+          "n_tiles": 706478080.0,
+          "binom_null_mean": 70805042.0,
+          "z_binom": 0.0
+        },
+        {
+          "T": 2,
+          "clean_fraction": 0.00015677202610447588,
+          "harvestable": 0.00015677202610447588,
+          "harvest_efficiency": 0.0015642388856996936,
+          "obs_pure": 27689.0,
+          "n_tiles": 176619520.0,
+          "binom_null_mean": 17819.996468837166,
+          "z_binom": 73.93352425960315,
+          "z_shuffle": 74.97260954490997,
+          "shuffle_null_mean": 17820.925,
+          "shuffle_fano": 0.9536837084593869,
+          "z_within_col": 32.374398746371924,
+          "within_col_null_mean": 22874.549999999996
+        },
+        {
+          "T": 4,
+          "clean_fraction": 9.05902133580705e-08,
+          "harvestable": 9.05902133580705e-08,
+          "harvest_efficiency": 8.473972799846655e-07,
+          "obs_pure": 4.0,
+          "n_tiles": 44154880.0,
+          "binom_null_mean": 6.619864710907774e-07,
+          "z_binom": 4916.2658829336115,
+          "z_shuffle": Infinity,
+          "shuffle_null_mean": 0.0,
+          "shuffle_fano": 0.0,
+          "z_within_col": 6.378039613625576,
+          "within_col_null_mean": 0.3500000000000001
+        },
+        {
+          "T": 8,
+          "clean_fraction": 0.0,
+          "harvestable": 0.0,
+          "harvest_efficiency": 0.0,
+          "obs_pure": 0.0,
+          "n_tiles": 11038720.0,
+          "binom_null_mean": 5.075417067145782e-44,
+          "z_binom": -2.252868630689722e-22,
+          "z_shuffle": 0.0,
+          "shuffle_null_mean": 0.0,
+          "shuffle_fano": 0.0,
+          "z_within_col": 0.0,
+          "within_col_null_mean": 0.0
+        },
+        {
+          "T": 16,
+          "clean_fraction": 0.0,
+          "harvestable": 0.0,
+          "harvest_efficiency": 0.0,
+          "obs_pure": 0.0,
+          "n_tiles": 2759680.0,
+          "binom_null_mean": 1.1046628473528641e-191,
+          "z_binom": -3.3236468635414085e-96,
+          "z_shuffle": 0.0,
+          "shuffle_null_mean": 0.0,
+          "shuffle_fano": 0.0,
+          "z_within_col": 0.0,
+          "within_col_null_mean": 0.0
+        },
+        {
+          "T": 32,
+          "clean_fraction": 0.0,
+          "harvestable": 0.0,
+          "harvest_efficiency": 0.0,
+          "obs_pure": 0.0,
+          "n_tiles": 689920.0,
+          "binom_null_mean": 0.0,
+          "z_binom": 0.0,
+          "z_shuffle": 0.0,
+          "shuffle_null_mean": 0.0,
+          "shuffle_fano": 0.0,
+          "z_within_col": 0.0,
+          "within_col_null_mean": 0.0
+        }
+      ]
+    }
+  },
+  "by_type": {},
+  "anisotropy": {
+    "magnitude": {
+      "gate_proj": {
+        "xi_row": 0.6384596214321216,
+        "xi_col": 0.6400785180215663,
+        "A": 1.002535628777609
+      },
+      "up_proj": {
+        "xi_row": 0.6351127625719925,
+        "xi_col": 0.6410894297570693,
+        "A": 1.0094104032185929
+      },
+      "down_proj": {
+        "xi_row": 0.645249973843044,
+        "xi_col": 0.6394816260658123,
+        "A": 0.9910602897929992
+      },
+      "q_proj": {
+        "xi_row": 0.6662749701986759,
+        "xi_col": 0.6443982354170661,
+        "A": 0.9671656061534378
+      },
+      "k_proj": {
+        "xi_row": 0.6682732728331696,
+        "xi_col": 0.6463442152006518,
+        "A": 0.9671854935338821
+      },
+      "v_proj": {
+        "xi_row": 0.6790455644385691,
+        "xi_col": 0.6619551137777997,
+        "A": 0.9748316584986463
+      },
+      "o_proj": {
+        "xi_row": 0.6512307178399456,
+        "xi_col": 0.6826275428342342,
+        "A": 1.0482115234036076
+      }
+    },
+    "wanda": {
+      "gate_proj": {
+        "xi_row": 9.703087142695615,
+        "xi_col": 0.6828233221302209,
+        "A": 0.07037176025407989
+      },
+      "up_proj": {
+        "xi_row": 0.6420451585993953,
+        "xi_col": 0.6595264215143093,
+        "A": 1.0272274662938803
+      },
+      "down_proj": {
+        "xi_row": 0.6502757046768913,
+        "xi_col": 0.6499186349527858,
+        "A": 0.9994508948719175
+      },
+      "q_proj": {
+        "xi_row": 0.7030431068801899,
+        "xi_col": 0.7953992799845626,
+        "A": 1.1313663020098592
+      },
+      "k_proj": {
+        "xi_row": 0.71329082485897,
+        "xi_col": 0.8103711777731952,
+        "A": 1.1361020631849845
+      },
+      "v_proj": {
+        "xi_row": 0.728116527185228,
+        "xi_col": 0.7230915269618288,
+        "A": 0.9930986318318786
+      },
+      "o_proj": {
+        "xi_row": 0.6638760669026341,
+        "xi_col": 0.7924464174994098,
+        "A": 1.1936661931444987
+      }
+    }
+  },
+  "anisotropy_map_weighted": {
+    "wanda": {
+      "xi_row": 2.8926093533482744,
+      "xi_col": 0.6963998725024784,
+      "A": 0.24075144184138672
+    },
+    "magnitude": {
+      "xi_row": 0.6453546490642657,
+      "xi_col": 0.6457811271040494,
+      "A": 1.000660842903049
+    }
+  },
+  "S_by_map": {
+    "wanda": {
+      "S": 2,
+      "peak_z": 7.305231429338406,
+      "peak_z_T": 2,
+      "clustered": true
+    },
+    "magnitude": {
+      "S": 2,
+      "peak_z": 12.503028953276571,
+      "peak_z_T": 2,
+      "clustered": true
+    }
+  },
+  "verdict": {
+    "verdict": "CLUSTERED",
+    "S": 2,
+    "primary_map": "wanda",
+    "primary_q": 0.05,
+    "wanda_obs_agree": true,
+    "columnar_only": false,
+    "anisotropy_A": 0.24075144184138672,
+    "z_threshold": 4.0
+  },
+  "sweep_priority": {
+    "order": [
+      1,
+      4,
+      16,
+      8
+    ],
+    "predicted_gain_over_T32": {
+      "1": 0.05000005378793918,
+      "4": 2.717706400742115e-07,
+      "16": 0.0,
+      "8": 0.0
+    },
+    "harvestable_by_T": {
+      "1": 0.05000005378793918,
+      "2": 0.00020296171114042209,
+      "4": 2.717706400742115e-07,
+      "8": 0.0,
+      "16": 0.0,
+      "32": 0.0
+    },
+    "run_T2": true
+  },
+  "config": {
+    "model": "Qwen/Qwen3-4B",
+    "layers": [
+      0,
+      6,
+      12,
+      18,
+      24,
+      30,
+      35
+    ],
+    "matrices": [
+      "gate_proj",
+      "up_proj",
+      "down_proj",
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj"
+    ],
+    "tiles": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32
+    ],
+    "q": [
+      0.02,
+      0.05,
+      0.1
+    ],
+    "scope": "per_matrix",
+    "maps": [
+      "wanda",
+      "magnitude"
+    ],
+    "null": [
+      "shuffle",
+      "within_col"
+    ],
+    "nperm": 40,
+    "purity": 0.9,
+    "damp": 0.01,
+    "calib_samples": 128,
+    "calib_seqlen": 512,
+    "calib_seed": 0,
+    "primary_map": "wanda",
+    "primary_q": 0.05,
+    "z_threshold": 4.0
+  }
+}

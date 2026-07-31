@@ -1,0 +1,192 @@
+{
+    "model": "Qwen/Qwen3-4B",
+    "dataset": "wikitext",
+    "subset": "wikitext-2-raw-v1",
+    "calib_samples": 64,
+    "calib_seqlen": 512,
+    "eval_frac": 1.0,
+    "policy_info": {
+        "target": 0.2,
+        "achieved": 0.20004439663577386,
+        "scale": 0.1400947570800781,
+        "per_class": {
+            "sensitive": {
+                "ratio": 0.04202842712402343,
+                "matrices": 12,
+                "tiles": 291840
+            },
+            "moderate": {
+                "ratio": 0.1400947570800781,
+                "matrices": 35,
+                "tiles": 385280
+            },
+            "robust": {
+                "ratio": 0.22415161132812497,
+                "matrices": 205,
+                "tiles": 2871040
+            }
+        }
+    },
+    "method": "wanda",
+    "seed": null,
+    "tile_size": 32,
+    "prune_ratio": 0.2,
+    "policy": "sensitivity",
+    "scope": "whole_model",
+    "num_layers": 36,
+    "total_tiles": 3548160,
+    "total_pruned": 709672,
+    "achieved_sparsity": 0.20001127344877345,
+    "perplexity": 144.63124084472656,
+    "divergence": {
+        "kl_dense_pruned": 3.749309539794922,
+        "top1_agreement": 0.2890625,
+        "hidden_cosine": 0.6448395252227783
+    },
+    "per_layer": [
+        {
+            "layer": 0,
+            "num_pruned": 22089
+        },
+        {
+            "layer": 1,
+            "num_pruned": 22089
+        },
+        {
+            "layer": 2,
+            "num_pruned": 22089
+        },
+        {
+            "layer": 3,
+            "num_pruned": 22089
+        },
+        {
+            "layer": 4,
+            "num_pruned": 22089
+        },
+        {
+            "layer": 5,
+            "num_pruned": 19830
+        },
+        {
+            "layer": 6,
+            "num_pruned": 19830
+        },
+        {
+            "layer": 7,
+            "num_pruned": 19830
+        },
+        {
+            "layer": 8,
+            "num_pruned": 19830
+        },
+        {
+            "layer": 9,
+            "num_pruned": 19830
+        },
+        {
+            "layer": 10,
+            "num_pruned": 19830
+        },
+        {
+            "layer": 11,
+            "num_pruned": 19830
+        },
+        {
+            "layer": 12,
+            "num_pruned": 19830
+        },
+        {
+            "layer": 13,
+            "num_pruned": 19830
+        },
+        {
+            "layer": 14,
+            "num_pruned": 21228
+        },
+        {
+            "layer": 15,
+            "num_pruned": 21228
+        },
+        {
+            "layer": 16,
+            "num_pruned": 21228
+        },
+        {
+            "layer": 17,
+            "num_pruned": 21228
+        },
+        {
+            "layer": 18,
+            "num_pruned": 21228
+        },
+        {
+            "layer": 19,
+            "num_pruned": 21228
+        },
+        {
+            "layer": 20,
+            "num_pruned": 21228
+        },
+        {
+            "layer": 21,
+            "num_pruned": 21228
+        },
+        {
+            "layer": 22,
+            "num_pruned": 21228
+        },
+        {
+            "layer": 23,
+            "num_pruned": 22089
+        },
+        {
+            "layer": 24,
+            "num_pruned": 22089
+        },
+        {
+            "layer": 25,
+            "num_pruned": 22089
+        },
+        {
+            "layer": 26,
+            "num_pruned": 22089
+        },
+        {
+            "layer": 27,
+            "num_pruned": 22089
+        },
+        {
+            "layer": 28,
+            "num_pruned": 22089
+        },
+        {
+            "layer": 29,
+            "num_pruned": 22089
+        },
+        {
+            "layer": 30,
+            "num_pruned": 22089
+        },
+        {
+            "layer": 31,
+            "num_pruned": 22089
+        },
+        {
+            "layer": 32,
+            "num_pruned": 7726
+        },
+        {
+            "layer": 33,
+            "num_pruned": 7726
+        },
+        {
+            "layer": 34,
+            "num_pruned": 7726
+        },
+        {
+            "layer": 35,
+            "num_pruned": 7726
+        }
+    ]
+}

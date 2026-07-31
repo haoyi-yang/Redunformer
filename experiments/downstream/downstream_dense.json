@@ -1,0 +1,40 @@
+{
+    "tag": "dense",
+    "model": "Qwen/Qwen3-4B",
+    "dense": true,
+    "method": null,
+    "prune_ratio": null,
+    "policy": null,
+    "tile_size": 32,
+    "limit": null,
+    "pruned": null,
+    "results": {
+        "hellaswag": {
+            "name": "hellaswag",
+            "alias": "hellaswag",
+            "sample_len": 10042,
+            "acc,none": 0.5218084047002589,
+            "acc_stderr,none": 0.0049850328068024455,
+            "acc_norm,none": 0.6836287592113125,
+            "acc_norm_stderr,none": 0.004641092001425319
+        },
+        "piqa": {
+            "name": "piqa",
+            "alias": "piqa",
+            "sample_len": 1838,
+            "acc,none": 0.750272034820457,
+            "acc_stderr,none": 0.010099232969867497,
+            "acc_norm,none": 0.749183895538629,
+            "acc_norm_stderr,none": 0.010113869547069044
+        },
+        "arc_easy": {
+            "name": "arc_easy",
+            "alias": "arc_easy",
+            "sample_len": 2376,
+            "acc,none": 0.8051346801346801,
+            "acc_stderr,none": 0.008127738779969236,
+            "acc_norm,none": 0.7828282828282829,
+            "acc_norm_stderr,none": 0.008460637338999107
+        }
+    }
+}

@@ -1,0 +1,60 @@
+{
+    "model": "Qwen/Qwen3-4B",
+    "dataset": "wikitext",
+    "subset": "wikitext-2-raw-v1",
+    "scope": "layer_budget_matched",
+    "strategy": "rathore_W3",
+    "layer": 35,
+    "method": "wanda_layer_budget",
+    "mode": "mean",
+    "tile_size": 32,
+    "prune_ratio": 0.4,
+    "calib_samples": 128,
+    "calib_seqlen": 512,
+    "eval_frac": 0.2,
+    "perplexity": 17.671489715576172,
+    "allocation": {
+        "mode": "mean",
+        "budget_ratio": 0.4,
+        "layer_total_tiles": 98560,
+        "layer_pruned_tiles": 39424,
+        "achieved_ratio": 0.4,
+        "per_matrix": {
+            "gate_proj": {
+                "tiles": 24320,
+                "pruned": 8247,
+                "ratio": 0.33910361842105263
+            },
+            "up_proj": {
+                "tiles": 24320,
+                "pruned": 5046,
+                "ratio": 0.20748355263157894
+            },
+            "down_proj": {
+                "tiles": 24320,
+                "pruned": 13744,
+                "ratio": 0.5651315789473684
+            },
+            "q_proj": {
+                "tiles": 10240,
+                "pruned": 4640,
+                "ratio": 0.453125
+            },
+            "k_proj": {
+                "tiles": 2560,
+                "pruned": 1643,
+                "ratio": 0.641796875
+            },
+            "v_proj": {
+                "tiles": 2560,
+                "pruned": 962,
+                "ratio": 0.37578125
+            },
+            "o_proj": {
+                "tiles": 10240,
+                "pruned": 5142,
+                "ratio": 0.5021484375
+            }
+        }
+    }
+}

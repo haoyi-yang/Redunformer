@@ -1,0 +1,45 @@
+{
+    "tag": "sparsegpt_recon_p5_uniform",
+    "model": "Qwen/Qwen3-4B",
+    "dense": false,
+    "method": "sparsegpt_recon",
+    "prune_ratio": 0.05,
+    "policy": "uniform",
+    "tile_size": 32,
+    "limit": null,
+    "pruned": {
+        "total_tiles": 3548160,
+        "total_pruned": 177408,
+        "achieved_sparsity": 0.05,
+        "policy_info": null
+    },
+    "results": {
+        "hellaswag": {
+            "name": "hellaswag",
+            "alias": "hellaswag",
+            "sample_len": 10042,
+            "acc,none": 0.4843656642103167,
+            "acc_stderr,none": 0.004987341485856666,
+            "acc_norm,none": 0.6412069308902609,
+            "acc_norm_stderr,none": 0.004786660691181894
+        },
+        "piqa": {
+            "name": "piqa",
+            "alias": "piqa",
+            "sample_len": 1838,
+            "acc,none": 0.7187159956474428,
+            "acc_stderr,none": 0.010490509832327423,
+            "acc_norm,none": 0.7241566920565833,
+            "acc_norm_stderr,none": 0.010427805502729115
+        },
+        "arc_easy": {
+            "name": "arc_easy",
+            "alias": "arc_easy",
+            "sample_len": 2376,
+            "acc,none": 0.7575757575757576,
+            "acc_stderr,none": 0.008793651516485073,
+            "acc_norm,none": 0.7293771043771043,
+            "acc_norm_stderr,none": 0.009116466166403827
+        }
+    }
+}

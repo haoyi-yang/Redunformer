@@ -1,6 +1,0 @@
-{
-    "model": "gpt2",
-    "dataset": "Salesforce/wikitext",
-    "subset": "wikitext-2-raw-v1",
-    "perplexity": 24.376121520996094
-}

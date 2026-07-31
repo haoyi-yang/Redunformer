@@ -12,7 +12,7 @@ from redundancy.eval import evaluate_perplexity
 
 def main():
     parser = argparse.ArgumentParser(description="Run baseline evaluation for an LLM.")
-    parser.add_argument("--model", type=str, default="Qwen/Qwen3-0.6B", help="Hugging Face model name")
+    parser.add_argument("--model", type=str, default="Qwen/Qwen3-4B", help="Hugging Face model name")
     parser.add_argument("--dataset", type=str, default="wikitext", help="Dataset name")
     parser.add_argument("--subset", type=str, default="wikitext-2-raw-v1", help="Dataset subset")
     parser.add_argument("--output", type=str, default="experiments/baseline_results.json", help="Output file path")

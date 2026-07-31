@@ -1,0 +1,155 @@
+{
+    "model": "Qwen/Qwen3-4B",
+    "dataset": "wikitext",
+    "subset": "wikitext-2-raw-v1",
+    "calib_samples": 128,
+    "calib_seqlen": 512,
+    "eval_frac": 0.2,
+    "policy_info": null,
+    "method": "sparsegpt_recon",
+    "seed": null,
+    "tile_size": 32,
+    "prune_ratio": 0.225,
+    "policy": "uniform",
+    "scope": "whole_model",
+    "num_layers": 32,
+    "total_tiles": 3153920,
+    "total_pruned": 709632,
+    "achieved_sparsity": 0.225,
+    "perplexity": 21.652040481567383,
+    "divergence": {
+        "kl_dense_pruned": 0.9853140115737915,
+        "top1_agreement": 0.62890625,
+        "hidden_cosine": 0.8804248571395874
+    },
+    "per_layer": [
+        {
+            "layer": 0,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 1,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 2,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 3,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 4,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 5,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 6,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 7,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 8,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 9,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 10,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 11,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 12,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 13,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 14,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 15,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 16,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 17,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 18,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 19,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 20,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 21,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 22,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 23,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 24,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 25,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 26,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 27,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 28,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 29,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 30,
+            "num_pruned": 22176
+        },
+        {
+            "layer": 31,
+            "num_pruned": 22176
+        }
+    ]
+}
