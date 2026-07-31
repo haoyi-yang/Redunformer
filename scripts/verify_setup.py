@@ -45,6 +45,15 @@ def main() -> int:
 
     configs = check_configs()
     print(f"  ok  configs ({', '.join(configs)})")
+
+    sys.path.insert(0, str(ROOT / "src"))
+    from redundancy.pruning import sparsegpt as sparsegpt_mod
+
+    assert hasattr(sparsegpt_mod, "SparseGPT")
+    assert hasattr(sparsegpt_mod, "sparsegpt_prune_model")
+    assert sparsegpt_mod.ALGORITHM_NAME == "sparsegpt"
+    print("  ok  sparsegpt pruning module")
+
     print("Verification passed. No models were downloaded.")
     return 0
 

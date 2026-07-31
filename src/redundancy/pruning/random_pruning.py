@@ -2,6 +2,21 @@ from __future__ import annotations
 
 import torch
 
+ALGORITHM_NAME = "random_pruning"
+
+PARAMETERS = {
+    "sparsity": {
+        "type": float,
+        "prompt": "Sparsity (0-1)",
+        "default": 0.2,
+    },
+    "seed": {
+        "type": int,
+        "prompt": "Random seed",
+        "default": 42,
+    },
+}
+
 
 def count_parameters(model) -> int:
     return sum(p.numel() for p in model.parameters())
@@ -57,3 +72,8 @@ def prune_model(model, sparsity: float, seed: int = 42):
         sparsity=sparsity,
         seed=seed,
     )
+
+
+def prune(model, **kwargs):
+    random_prune_model(model=model, **kwargs)
+    return model

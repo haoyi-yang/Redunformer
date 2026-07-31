@@ -67,11 +67,13 @@ On mlsp:
 make CONTAINER=podman pipeline
 ```
 
-### During execution the user is prompted to select:
+**Interactive** (`make pipeline`): prompts for model, algorithm, and parameters.
 
-model (GPT-2, Qwen3-1.7B, Qwen3-4B, ...)
-pruning algorithm
-algorithm-specific parameters
+**Non-interactive** — pass Make variables, no questions:
+
+```bash
+make pipeline ALGORITHM=sparsegpt MODEL=gpt2 SPARSITY=0.5 NSAMPLES=32 SEQLEN=512 SKIP_EVAL=1
+```
 
 The resulting model is stored under:
 
@@ -128,6 +130,19 @@ Implement the required interface.
 
 The pruning pipeline automatically discovers available algorithms and presents them in the selection menu. 
 No modifications to run_pruning_pipeline.py are required.
+
+### SparseGPT (weight-level, one-shot)
+
+Implements [SparseGPT](https://arxiv.org/abs/2301.00774): layer-wise OBS reconstruction with adaptive mask selection. Supports unstructured sparsity and N:M patterns (e.g. 2:4).
+
+Use via the main pipeline (preferred):
+
+```bash
+make pipeline ALGORITHM=sparsegpt MODEL=gpt2 SPARSITY=0.5 NSAMPLES=32 SEQLEN=512 SKIP_EVAL=1
+make pipeline ALGORITHM=sparsegpt MODEL=Qwen/Qwen3-1.7B SPARSITY=0.5
+```
+
+Optional direct script: `scripts/run_sparsegpt.py`. Module: `src/redundancy/pruning/sparsegpt.py`.
 
 ### 5. Run without Make
 
