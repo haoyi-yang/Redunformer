@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-07-31T12:28:55.486236+00:00",
+  "model_name": "gpt2",
+  "dataset": "wikitext-2-raw-v1",
+  "max_length": 1024,
+  "stride": 512,
+  "seed": 42,
+  "device": "cuda",
+  "system": {
+    "platform": "Windows-10-10.0.19044-SP0",
+    "python": "3.14.3",
+    "torch": "2.13.0+cu132"
+  },
+  "perplexity": 124.5585,
+  "lm_eval": {
+    "hellaswag": {
+      "name": "hellaswag",
+      "alias": "hellaswag",
+      "sample_len": 10042,
+      "acc,none": 0.2891854212308305,
+      "acc_stderr,none": 0.004524575892953094,
+      "acc_norm,none": 0.31139215295757816,
+      "acc_norm_stderr,none": 0.004621163476949437
+    }
+  }
+}

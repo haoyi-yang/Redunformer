@@ -54,7 +54,14 @@ def main():
 
     lm_eval_summary = None
     if not cfg["skip_lm_eval"]:
-        lm_results = run_lm_eval("gpt2", cfg["lm_eval_tasks"], device=str(device), batch_size=cfg["batch_size"])
+        lm_results = run_lm_eval(
+            cfg["model_name"],
+            cfg["lm_eval_tasks"],
+            device=str(device),
+            batch_size=cfg["batch_size"],
+            model=model,
+            tokenizer=tokenizer,
+        )
         lm_eval_summary = {
             task: {k: v for k, v in res.items() if isinstance(v, (int, float, str, bool))}
             for task, res in lm_results.get("results", {}).items()
