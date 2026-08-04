@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import subprocess
+import sys
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -19,6 +20,8 @@ def build_model_args(cfg: dict[str, Any]) -> str:
 def build_eval_command(cfg: dict[str, Any], *, limit: float | None = None) -> list[str]:
     effective_limit = limit if limit is not None else cfg.get("limit")
     cmd = [
+        sys.executable,
+        "-m",
         "lm_eval",
         "--model",
         cfg.get("model", "hf"),

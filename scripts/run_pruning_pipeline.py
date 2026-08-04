@@ -191,7 +191,7 @@ def run_pipeline(args: argparse.Namespace) -> None:
             f"Non-interactive: model={model_id}, algorithm={algorithm}, params={params}"
         )
 
-    needs_tokenizer = algorithm == "sparsegpt"
+    needs_tokenizer = algorithm in {"sparsegpt", "wanda"}
 
     print("\nLoading model...\n")
     model, tokenizer = load_model_and_tokenizer(
@@ -245,7 +245,7 @@ def run_pipeline(args: argparse.Namespace) -> None:
 
     print("\nStarting evaluation...\n")
     subprocess.run(
-        ["python", "scripts/run_baseline.py", "--config", config_path],
+        [sys.executable, "scripts/run_baseline.py", "--config", config_path],
         check=True,
     )
     print("\nPipeline finished.")
