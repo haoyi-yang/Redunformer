@@ -49,6 +49,8 @@ make CONTAINER=podman qwen
 
 ### 4. Run pruning pipeline (GPU)
 
+Dependencies live in the **container image** (`make build` → `uv sync` in Dockerfile). Do not install packages on the host; `make pipeline` runs inside that image.
+
 The pruning pipeline provides an interactive workflow for:
 
 1. Downloading a model from Hugging Face
@@ -58,12 +60,14 @@ The pruning pipeline provides an interactive workflow for:
 5. Saving evaluation results
 
 ```bash
+make build          # required once (or after dependency / Dockerfile changes)
 make pipeline
 ```
 
 On mlsp:
 
 ```bash
+make CONTAINER=podman build
 make CONTAINER=podman pipeline
 ```
 

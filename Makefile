@@ -45,8 +45,9 @@ help:
 	@echo "  make verify"
 	@echo "  make smoke LIMIT=0.05"
 	@echo "  make CONTAINER=podman qwen"
-	@echo "  make pipeline"
+	@echo "  make build && make pipeline"
 	@echo "  make pipeline ALGORITHM=sparsegpt MODEL=gpt2 SPARSITY=0.5 NSAMPLES=32 SEQLEN=512 SKIP_EVAL=1"
+	@echo "  make CONTAINER=podman build && make CONTAINER=podman pipeline"
 
 build:
 	$(CONTAINER) build -t $(IMAGE) .
@@ -82,32 +83,23 @@ PIPELINE_CLI += --skip-eval
 endif
 endif
 
+# Mount only src/scripts so host checkout does not shadow /app/.venv from the image.
+PIPELINE_MOUNTS := \
+	-v $(PROJECT_DIR)/src:/app/src \
+	-v $(PROJECT_DIR)/scripts:/app/scripts
+
 pipeline:
 ifeq ($(strip $(ALGORITHM)),)
-	podman run -it --rm \
-		--security-opt=label=disable \
-		--device /dev/nvidia0 \
-		--device /dev/nvidiactl \
-		--device /dev/nvidia-uvm \
-		--device /dev/nvidia-uvm-tools \
-		-v /usr/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:ro \
-		-v $(PWD):/app \
-		localhost/redunformer \
+	$(CONTAINER) run -it $(RUN_FLAGS) $(PIPELINE_MOUNTS) $(IMAGE) \
 		python scripts/run_pruning_pipeline.py
 else
-	$(CONTAINER) run $(RUN_FLAGS) \
-		-v $(PROJECT_DIR)/src:/app/src \
-		-v $(PROJECT_DIR)/scripts:/app/scripts \
-		$(IMAGE) \
+	$(CONTAINER) run $(RUN_FLAGS) $(PIPELINE_MOUNTS) $(IMAGE) \
 		python scripts/run_pruning_pipeline.py $(PIPELINE_CLI)
 endif
 
 # Optional thin wrapper around scripts/run_sparsegpt.py (kept; prefer make pipeline).
 sparsegpt:
-	$(CONTAINER) run $(RUN_FLAGS) \
-		-v $(PROJECT_DIR)/src:/app/src \
-		-v $(PROJECT_DIR)/scripts:/app/scripts \
-		$(IMAGE) \
+	$(CONTAINER) run $(RUN_FLAGS) $(PIPELINE_MOUNTS) $(IMAGE) \
 		python scripts/run_sparsegpt.py \
 			--model $(MODEL) \
 			--sparsity $(SPARSITY) \
