@@ -14,6 +14,22 @@ PARAMETERS = {
 }
 
 
+def _magnitude_threshold(abs_weights: torch.Tensor, pruning_ratio: float) -> torch.Tensor:
+    """k-th smallest absolute weight (pruning_ratio quantile).
+
+    Avoids torch.quantile, which errors on large tensors
+    (``quantile() input tensor is too large``).
+    """
+    flat = abs_weights.reshape(-1)
+    n = flat.numel()
+    if n == 0 or pruning_ratio <= 0:
+        return flat.new_tensor(0.0)
+    if pruning_ratio >= 1:
+        return flat.max()
+    k = max(1, min(n, int(n * pruning_ratio)))
+    return torch.kthvalue(flat, k).values
+
+
 def apply_magnitude_pruning(model: nn.Module, pruning_ratio: float) -> None:
     model.eval()
 
@@ -24,8 +40,8 @@ def apply_magnitude_pruning(model: nn.Module, pruning_ratio: float) -> None:
                     weights = module.weight.data
 
                     abs_weights = torch.abs(weights)
-                    threshold = torch.quantile(abs_weights, pruning_ratio)
-                    mask = (abs_weights >= threshold).float()
+                    threshold = _magnitude_threshold(abs_weights, pruning_ratio)
+                    mask = (abs_weights >= threshold).to(dtype=weights.dtype)
 
                     module.weight.data.mul_(mask)
 
