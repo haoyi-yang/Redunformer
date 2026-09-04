@@ -26,6 +26,13 @@ DATASET ?= wikitext2
 SEED ?= 42
 PRUNEN ?= 0
 PRUNEM ?= 0
+BASE ?= wanda
+CYCLES ?= 50
+EPSILON ?= 0.1
+VAR_POWER ?= 1.0
+SAME_SIGN ?= 0
+SKIP_LAYER ?= none
+DENSE ?=
 SKIP_EVAL ?= 0
 
 .PHONY: help build verify smoke smoke-fast qwen-small qwen shell pipeline sparsegpt
@@ -47,6 +54,8 @@ help:
 	@echo "  make CONTAINER=podman qwen"
 	@echo "  make build && make pipeline"
 	@echo "  make pipeline ALGORITHM=sparsegpt MODEL=gpt2 SPARSITY=0.5 NSAMPLES=32 SEQLEN=512 SKIP_EVAL=1"
+	@echo "  make pipeline ALGORITHM=dsnot MODEL=gpt2 SPARSITY=0.5 NSAMPLES=32 SEQLEN=512 BASE=wanda SKIP_EVAL=1"
+	@echo "  make pipeline ALGORITHM=dsnot MODEL=experiments/pruned/gpt2-wanda50 DENSE=gpt2 SKIP_EVAL=1"
 	@echo "  make CONTAINER=podman build && make CONTAINER=podman pipeline"
 
 build:
@@ -78,6 +87,12 @@ PIPELINE_CLI += --sparsity $(SPARSITY) --nsamples $(NSAMPLES) --seqlen $(SEQLEN)
 PIPELINE_CLI += --blocksize $(BLOCKSIZE) --percdamp $(PERCDAMP)
 PIPELINE_CLI += --dataset $(DATASET) --seed $(SEED)
 PIPELINE_CLI += --prunen $(PRUNEN) --prunem $(PRUNEM)
+PIPELINE_CLI += --base $(BASE) --cycles $(CYCLES) --epsilon $(EPSILON)
+PIPELINE_CLI += --var_power $(VAR_POWER) --same_sign $(SAME_SIGN)
+PIPELINE_CLI += --skip_layer $(SKIP_LAYER)
+ifneq ($(strip $(DENSE)),)
+PIPELINE_CLI += --dense $(DENSE)
+endif
 ifeq ($(SKIP_EVAL),1)
 PIPELINE_CLI += --skip-eval
 endif

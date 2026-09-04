@@ -135,6 +135,32 @@ Implement the required interface.
 The pruning pipeline automatically discovers available algorithms and presents them in the selection menu. 
 No modifications to run_pruning_pipeline.py are required.
 
+### DSnoT (weight-level, training-free fine-tuning)
+
+DSnoT does **not** replace Wanda/SparseGPT. It takes an already-sparse model and swaps a few zeros/non-zeros so layer outputs match the dense model better (no backprop). Paper: [arXiv:2310.08915](https://arxiv.org/abs/2310.08915).
+
+**Preferred:** prune once, save, then refine that checkpoint.
+
+```bash
+# 1) prune + save (skip eval if you only need the weights)
+make pipeline ALGORITHM=wanda MODEL=gpt2 SPARSITY=0.5 NSAMPLES=32 SEQLEN=512 SKIP_EVAL=1
+# writes experiments/pruned/gpt2-wanda50
+
+# 2) DSnoT on those weights (loads the sparse folder; dense original only to restore grown values)
+make pipeline ALGORITHM=dsnot MODEL=experiments/pruned/gpt2-wanda50 DENSE=gpt2 SKIP_EVAL=1
+# writes experiments/pruned/gpt2-wanda50-dsnot
+```
+
+`MODEL=experiments/pruned/...` is enough to skip re-pruning; `DENSE` is inferred from the folder name when possible (`gpt2`, `Qwen/Qwen3-1.7B`, `Qwen/Qwen3-4B`).
+
+One-shot from a dense HF model (Wanda then DSnoT in one run) is still available:
+
+```bash
+make pipeline ALGORITHM=dsnot MODEL=gpt2 SPARSITY=0.5 BASE=wanda SKIP_EVAL=1
+```
+
+Module: `src/redundancy/pruning/dsnot.py`. Extra knobs: `DENSE`, `BASE`, `CYCLES`, `EPSILON`, `VAR_POWER`, `SAME_SIGN`, `SKIP_LAYER`.
+
 ### SparseGPT (weight-level, one-shot)
 
 Implements [SparseGPT](https://arxiv.org/abs/2301.00774): layer-wise OBS reconstruction with adaptive mask selection. Supports unstructured sparsity and N:M patterns (e.g. 2:4).

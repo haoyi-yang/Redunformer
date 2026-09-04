@@ -64,15 +64,52 @@ def resolve_model(model_arg: str) -> tuple[str, str]:
     return model_arg, short
 
 
+def list_pruned_checkpoints() -> list[Path]:
+    root = Path("experiments/pruned")
+    if not root.is_dir():
+        return []
+    return sorted(
+        p
+        for p in root.iterdir()
+        if p.is_dir() and (p / "config.json").exists()
+    )
+
+
+def infer_dense_from_name(name: str) -> str:
+    lower = name.lower()
+    if "qwen3-4b" in lower:
+        return "Qwen/Qwen3-4B"
+    if "qwen3-1.7b" in lower or "qwen3-1.7" in lower:
+        return "Qwen/Qwen3-1.7B"
+    if "gpt2" in lower:
+        return "gpt2"
+    return ""
+
+
+def is_local_checkpoint(model_id: str) -> bool:
+    path = Path(model_id)
+    return path.is_dir() and (path / "config.json").exists()
+
+
 def choose_model():
     print("\nAvailable models:\n")
     print("1) Qwen3-4B")
     print("2) Qwen3-1.7B")
     print("3) GPT2")
+    ckpts = list_pruned_checkpoints()
+    for idx, path in enumerate(ckpts, start=4):
+        print(f"{idx}) {path}  [pruned]")
     choice = input("\nSelect model: ").strip()
-    if choice not in MODELS:
-        raise ValueError("Invalid model selection")
-    return MODELS[choice]
+    if choice in MODELS:
+        return MODELS[choice]
+    try:
+        n = int(choice)
+    except ValueError as exc:
+        raise ValueError("Invalid model selection") from exc
+    if n >= 4 and n - 4 < len(ckpts):
+        path = ckpts[n - 4]
+        return str(path), path.name
+    raise ValueError("Invalid model selection")
 
 
 def choose_algorithm():
@@ -155,6 +192,43 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--prunen", type=int, default=None)
     parser.add_argument("--prunem", type=int, default=None)
     parser.add_argument(
+        "--base",
+        type=str,
+        default=None,
+        help="DSnoT initial metric (wanda|magnitude|sparsegpt)",
+    )
+    parser.add_argument("--cycles", type=int, default=None, help="DSnoT max cycles T")
+    parser.add_argument(
+        "--epsilon",
+        type=float,
+        default=None,
+        help="DSnoT reconstruction-error stop threshold",
+    )
+    parser.add_argument(
+        "--var_power",
+        type=float,
+        default=None,
+        help="DSnoT power of activation variance in the grow score",
+    )
+    parser.add_argument(
+        "--same_sign",
+        type=int,
+        default=None,
+        help="DSnoT: reject swaps that flip error sign (1/0)",
+    )
+    parser.add_argument(
+        "--skip_layer",
+        type=str,
+        default=None,
+        help="DSnoT: skip refinement on this module prefix (none|mlp|self_attn)",
+    )
+    parser.add_argument(
+        "--dense",
+        type=str,
+        default=None,
+        help="Dense original HF id/path when refining a saved sparse checkpoint",
+    )
+    parser.add_argument(
         "--skip-eval",
         action="store_true",
         help="Only prune + save; do not run lm-eval",
@@ -191,7 +265,21 @@ def run_pipeline(args: argparse.Namespace) -> None:
             f"Non-interactive: model={model_id}, algorithm={algorithm}, params={params}"
         )
 
-    needs_tokenizer = algorithm in {"sparsegpt", "wanda"}
+    if algorithm == "dsnot":
+        dense = str(params.get("dense") or "").strip()
+        if not dense and is_local_checkpoint(model_id):
+            dense = infer_dense_from_name(model_name)
+            if dense:
+                print(
+                    f"Sparse checkpoint {model_id} → DSnoT refine only "
+                    f"(dense original {dense})"
+                )
+                params["dense"] = dense
+                params["base"] = "existing"
+        elif dense:
+            params["base"] = "existing"
+
+    needs_tokenizer = algorithm in {"sparsegpt", "wanda", "dsnot"}
 
     print("\nLoading model...\n")
     model, tokenizer = load_model_and_tokenizer(
@@ -211,7 +299,10 @@ def run_pipeline(args: argparse.Namespace) -> None:
 
     sparsity = float(params.get("sparsity", 0.0))
     percent = int(sparsity * 100)
-    output_name = f"{model_name}-{algorithm}{percent}"
+    if algorithm == "dsnot" and str(params.get("base", "")).lower() == "existing":
+        output_name = f"{model_name}-dsnot"
+    else:
+        output_name = f"{model_name}-{algorithm}{percent}"
     output_dir = f"experiments/pruned/{output_name}"
 
     print(f"\nSaving model to {output_dir}\n")
