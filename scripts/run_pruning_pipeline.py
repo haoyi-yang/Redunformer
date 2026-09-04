@@ -32,17 +32,38 @@ MODEL_ALIASES = {
 
 
 def discover_pruning_algorithms():
+    """Top-level pruning modules plus DSnoT-family under pruning/dsnot/."""
     pruning_dir = Path("src/redundancy/pruning")
-    algorithms = []
+    algorithms: list[str] = []
     for file in sorted(pruning_dir.glob("*.py")):
         if file.name.startswith("__"):
             continue
         algorithms.append(file.stem)
+    dsnot_dir = pruning_dir / "dsnot"
+    if dsnot_dir.is_dir():
+        for file in sorted(dsnot_dir.glob("*.py")):
+            if file.name.startswith("__"):
+                continue
+            algorithms.append(file.stem)
     return algorithms
 
 
 def load_algorithm_module(algo_name: str):
-    return importlib.import_module(f"redundancy.pruning.{algo_name}")
+    """Load a top-level or ``pruning/dsnot/`` algorithm module by stem name."""
+    pruning_dir = Path("src/redundancy/pruning")
+    dsnot_file = pruning_dir / "dsnot" / f"{algo_name}.py"
+    top_file = pruning_dir / f"{algo_name}.py"
+    # Prefer the real .py module path. Important: ``dsnot`` is both a package
+    # directory and ``dsnot/dsnot.py`` — importing ``redundancy.pruning.dsnot``
+    # would load the package, not the refine algorithm.
+    if dsnot_file.is_file():
+        return importlib.import_module(f"redundancy.pruning.dsnot.{algo_name}")
+    if top_file.is_file():
+        return importlib.import_module(f"redundancy.pruning.{algo_name}")
+    raise ModuleNotFoundError(
+        f"No pruning algorithm module named {algo_name!r} "
+        f"(looked in {top_file} and {dsnot_file})"
+    )
 
 
 def resolve_prune_fn(module):
@@ -279,12 +300,21 @@ def run_pipeline(args: argparse.Namespace) -> None:
         elif dense:
             params["base"] = "existing"
 
-    needs_tokenizer = algorithm in {"sparsegpt", "wanda", "dsnot"}
+    needs_tokenizer = algorithm in {
+        "sparsegpt",
+        "sparse_dsnot",
+        "wanda",
+        "dsnot",
+    }
 
     print("\nLoading model...\n")
     model, tokenizer = load_model_and_tokenizer(
         model_id,
-        dtype="float16" if algorithm == "sparsegpt" else "float32",
+        dtype=(
+            "float16"
+            if algorithm in {"sparsegpt", "sparse_dsnot"}
+            else "float32"
+        ),
         device_map="cpu",
     )
 

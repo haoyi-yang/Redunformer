@@ -47,7 +47,7 @@ def main() -> int:
     print(f"  ok  configs ({', '.join(configs)})")
 
     sys.path.insert(0, str(ROOT / "src"))
-    from redundancy.pruning import dsnot as dsnot_mod
+    from redundancy.pruning.dsnot import dsnot as dsnot_mod
     from redundancy.pruning import sparsegpt as sparsegpt_mod
 
     assert hasattr(sparsegpt_mod, "SparseGPT")

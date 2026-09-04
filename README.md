@@ -93,7 +93,8 @@ Evaluation results are stored under:
 All pruning algorithms must be placed in:
 
 ```text
-src/redundancy/pruning/
+src/redundancy/pruning/           # standard first-stage pruners
+src/redundancy/pruning/dsnot/     # DSnoT refine + DSnoT-compatible masks
 ```
 
 Each algorithm is implemented as a standalone Python module.
@@ -124,16 +125,17 @@ def prune(model, **kwargs):
 
 ### Adding a new algorithm
 
-Create a new file:
+Create a new file under `src/redundancy/pruning/` (or `.../pruning/dsnot/` for DSnoT-family):
 
 ```bash
 src/redundancy/pruning/my_algorithm.py
+# or
+src/redundancy/pruning/dsnot/my_dsnot_algo.py
 ```
 
 Implement the required interface.
 
-The pruning pipeline automatically discovers available algorithms and presents them in the selection menu. 
-No modifications to run_pruning_pipeline.py are required.
+The pruning pipeline automatically discovers available algorithms (top-level and `dsnot/`) and presents them in the selection menu.
 
 ### DSnoT (weight-level, training-free fine-tuning)
 
@@ -159,7 +161,7 @@ One-shot from a dense HF model (Wanda then DSnoT in one run) is still available:
 make pipeline ALGORITHM=dsnot MODEL=gpt2 SPARSITY=0.5 BASE=wanda SKIP_EVAL=1
 ```
 
-Module: `src/redundancy/pruning/dsnot.py`. Extra knobs: `DENSE`, `BASE`, `CYCLES`, `EPSILON`, `VAR_POWER`, `SAME_SIGN`, `SKIP_LAYER`.
+Modules under `src/redundancy/pruning/dsnot/` (`dsnot`, `magnitude_dsnot`, `sparse_dsnot`). Extra knobs: `DENSE`, `BASE`, `CYCLES`, `EPSILON`, `VAR_POWER`, `SAME_SIGN`, `SKIP_LAYER`. For DSnoT `base=existing`, prefer Wanda or `magnitude_dsnot` / `sparse_dsnot` checkpoints (equal zeros per row) — classic `magnitude` / `sparsegpt` masks are uneven.
 
 ### SparseGPT (weight-level, one-shot)
 
