@@ -171,23 +171,8 @@ class SparseGPT:
         inp = math.sqrt(2 / self.nsamples) * inp.float()
         self.H += inp.matmul(inp.t())
 
-    @torch.no_grad()
-    def fasterprune(
-        self,
-        sparsity: float,
-        *,
-        prunen: int = 0,
-        prunem: int = 0,
-        blocksize: int = 128,
-        percdamp: float = 0.01,
-    ) -> float:
-        """
-        Prune the wrapped layer in-place.
-
-        Matches Algorithm 1: Cholesky of H^{-1}, iterative blocking with
-        adaptive OBS mask selection, lazy batch weight updates.
-        Returns the accumulated OBS reconstruction error.
-        """
+    def _prepare_w_hinv(self, percdamp: float = 0.01) -> tuple[torch.Tensor, torch.Tensor]:
+        """Clone weight as (out, in) and build damped Cholesky factor of H^{-1}."""
         W = self.layer.weight.data.clone()
         if isinstance(self.layer, nn.Conv2d):
             W = W.flatten(1)
@@ -201,15 +186,77 @@ class SparseGPT:
         H[dead, dead] = 1
         W[:, dead] = 0
 
-        Losses = torch.zeros(self.rows, device=self.dev)
-
         damp = percdamp * torch.mean(torch.diag(H))
         diag = torch.arange(self.columns, device=self.dev)
         H[diag, diag] += damp
         H = torch.linalg.cholesky(H)
         H = torch.cholesky_inverse(H)
         H = torch.linalg.cholesky(H, upper=True)
-        Hinv = H
+        return W, H
+
+    def _write_w(self, W: torch.Tensor) -> None:
+        if transformers is not None and isinstance(self.layer, transformers.Conv1D):
+            W = W.t()
+        self.layer.weight.data = W.reshape(self.layer.weight.shape).to(
+            self.layer.weight.data.dtype
+        )
+
+    @torch.no_grad()
+    def prune_per_row_obs(
+        self,
+        sparsity: float,
+        *,
+        percdamp: float = 0.01,
+    ) -> float:
+        """
+        DSnoT-compatible SparseGPT *initial* mask (official ``initial_method=sparsegpt``).
+
+        Uses the OBS / Hessian diagonal metric, then zeros exactly
+        ``⌊sparsity · C_in⌋`` entries **per output row**. No block-wise flatten
+        threshold and no iterative OBS weight updates — equal zeros per row so
+        ``dsnot base=existing`` can refine the saved checkpoint.
+        """
+        W, Hinv = self._prepare_w_hinv(percdamp=percdamp)
+        metric = (W**2) / (torch.diag(Hinv).reshape((1, -1))) ** 2
+        k = int(self.columns * sparsity)
+        if k > 0:
+            indices = torch.sort(metric, dim=-1, stable=True).indices[:, :k]
+            mask = torch.zeros_like(W, dtype=torch.bool)
+            mask.scatter_(1, indices, True)
+            W[mask] = 0
+        self._write_w(W)
+        return 0.0
+
+    @torch.no_grad()
+    def fasterprune(
+        self,
+        sparsity: float,
+        *,
+        prunen: int = 0,
+        prunem: int = 0,
+        blocksize: int = 128,
+        percdamp: float = 0.01,
+        mask_layout: str = "block",
+    ) -> float:
+        """
+        Prune the wrapped layer in-place.
+
+        Matches Algorithm 1: Cholesky of H^{-1}, iterative blocking with
+        adaptive OBS mask selection, lazy batch weight updates.
+        Returns the accumulated OBS reconstruction error.
+
+        ``mask_layout="per_row"`` switches to :meth:`prune_per_row_obs` (DSnoT init).
+        """
+        if mask_layout == "per_row":
+            if prunen != 0:
+                raise ValueError("per_row SparseGPT layout is unstructured only")
+            return self.prune_per_row_obs(sparsity, percdamp=percdamp)
+        if mask_layout != "block":
+            raise ValueError("mask_layout must be 'block' or 'per_row'")
+
+        W, Hinv = self._prepare_w_hinv(percdamp=percdamp)
+
+        Losses = torch.zeros(self.rows, device=self.dev)
 
         for i1 in range(0, self.columns, blocksize):
             i2 = min(i1 + blocksize, self.columns)
@@ -259,13 +306,8 @@ class SparseGPT:
             Losses += torch.sum(Losses1, 1) / 2
             W[:, i2:] -= Err1.matmul(Hinv[i1:i2, i2:])
 
-        if transformers is not None and isinstance(self.layer, transformers.Conv1D):
-            W = W.t()
-        self.layer.weight.data = W.reshape(self.layer.weight.shape).to(
-            self.layer.weight.data.dtype
-        )
+        self._write_w(W)
         return float(torch.sum(Losses).item())
-
     def free(self) -> None:
         self.H = None
         if torch.cuda.is_available():
@@ -382,6 +424,7 @@ def sparsegpt_prune_model(
     seed: int = 42,
     prunen: int = 0,
     prunem: int = 0,
+    mask_layout: str = "block",
     device: str | torch.device | None = None,
     exclude_substrings: tuple[str, ...] = ("lm_head",),
 ) -> nn.Module:
@@ -391,6 +434,9 @@ def sparsegpt_prune_model(
 
     Embeddings and the language-model head are left dense, matching the
     SparseGPT paper setup.
+
+    ``mask_layout="per_row"`` builds the official DSnoT SparseGPT *initial*
+    mask (equal zeros per output row) instead of block-flatten thresholds.
     """
     if prunen == 0 and not (0.0 <= sparsity < 1.0):
         raise ValueError("sparsity must be in [0, 1)")
@@ -410,9 +456,10 @@ def sparsegpt_prune_model(
             if hasattr(cfg, attr) and getattr(cfg, attr):
                 seqlen = min(seqlen, int(getattr(cfg, attr)))
 
+    layout = "per-row OBS init" if mask_layout == "per_row" else f"block={blocksize}"
     print(
         f"SparseGPT: sparsity={sparsity}, nsamples={nsamples}, "
-        f"seqlen={seqlen}, blocksize={blocksize}, device={device}"
+        f"seqlen={seqlen}, {layout}, device={device}"
     )
 
     calibration = get_calibration_loader(
@@ -515,9 +562,11 @@ def sparsegpt_prune_model(
                 prunem=prunem,
                 percdamp=percdamp,
                 blocksize=blocksize,
+                mask_layout=mask_layout,
             )
             total_error += err
-            print(f"    OBS error={err:.4g}")
+            if mask_layout != "per_row":
+                print(f"    OBS error={err:.4g}")
             gpt.free()
 
         for j in range(nsamples):
