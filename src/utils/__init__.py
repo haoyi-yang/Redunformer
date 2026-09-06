@@ -17,11 +17,12 @@ def load_json_config(path: str) -> dict:
 def build_config(args):
     """Merge JSON config with CLI overrides."""
     cfg = {}
-    if args.config:
-        cfg = load_json_config(args.config)
+
+    confg_path = args.config or "configs/baseline.json"
+    cfg = load_json_config(confg_path)
 
     return {
-        "model_name":    "gpt2",
+        "model_name":    cfg.get("model_name", "gpt2"),
         "dataset":       "wikitext-2-raw-v1",
         "max_length":    args.max_length   or cfg.get("max_length", 1024),
         "stride":        args.stride       or cfg.get("stride", 512),
@@ -56,12 +57,20 @@ def build_result_dict(cfg, ppl, device):
 
 def save_results(results: dict, output_dir: str, model_name: str):
     """Save results as a timestamped JSON file."""
+
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)
+
+    # Hugging Face model names can contain "/" (e.g. Qwen/Qwen3-0.6B).
+    # Make them safe for use in filenames.
+    safe_model_name = model_name.replace("/", "_").replace("\\", "_")
+
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-    path = out / f"baseline_{model_name}_{ts}.json"
+    path = out / f"baseline_{safe_model_name}_{ts}.json"
+
     with open(path, "w") as f:
         json.dump(results, f, indent=2)
+
     print(f"\n  Results saved to {path}")
     return path
 
@@ -127,12 +136,19 @@ def build_measurement_result_dict(cfg, stats, similarity_matrix, device, command
 
 def save_measurement_results(results: dict, output_dir: str, model_name: str):
     """Save measurement results as a timestamped JSON file."""
+
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)
+
+    # Make Hugging Face model IDs safe for filenames.
+    safe_model_name = model_name.replace("/", "_").replace("\\", "_")
+
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-    path = out / f"measurement_{model_name}_{ts}.json"
+    path = out / f"measurement_{safe_model_name}_{ts}.json"
+
     with open(path, "w") as f:
         json.dump(results, f, indent=2)
+
     print(f"\n  Results saved to {path}")
     return path
 

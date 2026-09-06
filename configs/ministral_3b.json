@@ -1,0 +1,9 @@
+{
+  "model_name": "ministral/Ministral-3b-instruct",
+  "dataset": "wikitext-2-raw-v1",
+  "max_length": 1024,
+  "stride": 512,
+  "lm_eval_tasks": ["hellaswag"],
+  "batch_size": 1,
+  "seed": 42
+}

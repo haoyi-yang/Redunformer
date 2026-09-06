@@ -32,7 +32,12 @@ def parse_args():
     p.add_argument("--seed", type=int, default=None)
     p.add_argument("--device", type=str, default=None)
     p.add_argument("--dtype", type=str, default=None, choices=list(DTYPES))
-    p.add_argument("--max-windows", type=int, default=None, help="Subsample calibration windows (for quick smoke tests).")
+    p.add_argument(
+        "--max-windows",
+        type=int,
+        default=None,
+        help="Subsample calibration windows (for quick smoke tests).",
+    )
     p.add_argument("--output-dir", type=str, default="experiments")
     p.add_argument("--figures-dir", type=str, default="reports/group9/figures")
     return p.parse_args()
@@ -44,7 +49,10 @@ def main():
     command = "python " + " ".join(sys.argv)
 
     print("=" * 50)
-    print("BLOCK INFLUENCE MEASUREMENT — GPT-2 × WikiText-2")
+    print(
+        f"BLOCK INFLUENCE MEASUREMENT — "
+        f"{cfg['model_name']} × WikiText-2"
+    )
     print("=" * 50)
     print(f"  max_length={cfg['max_length']}  stride={cfg['stride']}  dtype={cfg['dtype']}  seed={cfg['seed']}")
     print(f"  max_windows={cfg['max_windows'] or 'all'}")
@@ -69,7 +77,11 @@ def main():
     print("\nSaving figures ...")
     figures_dir = cfg["figures_dir"]
     plot_bi_bar(stats.bi_scores, f"{figures_dir}/bi_bar.png")
-    plot_similarity_heatmap(similarity_matrix, f"{figures_dir}/cosine_heatmap.png", title="Hidden-state cosine similarity (centered)")
+    plot_similarity_heatmap(
+        similarity_matrix,
+        f"{figures_dir}/cosine_heatmap.png",
+        title="Hidden-state cosine similarity (centered)",
+    )
     plot_residual_norms(stats.relative_residual_norms, f"{figures_dir}/residual_norms.png")
 
 

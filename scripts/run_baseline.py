@@ -1,22 +1,24 @@
 #!/usr/bin/env python3
-"""Week 1-2 deliverable: baseline evaluation of GPT-2 on WikiText-2."""
+"""Baseline evaluation of a causal language model on WikiText-2."""
 
 import argparse
 import sys
 from pathlib import Path
 
-import torch
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
+
+import torch
+
+from redundancy.eval import compute_perplexity, run_lm_eval
 from redundancy.models import get_device, load_model
 from redundancy.data import load_wikitext, prepare_encodings
-from redundancy.eval import compute_perplexity, run_lm_eval
 from utils import build_config, build_result_dict, save_results, print_summary
 
 
 def parse_args():
-    p = argparse.ArgumentParser(description="Baseline GPT-2 evaluation.")
+    p = argparse.ArgumentParser(description="Baseline model evaluation.")
     p.add_argument("--config", type=str, default=None, help="JSON config file.")
     p.add_argument("--max-length", type=int, default=None)
     p.add_argument("--stride", type=int, default=None)
@@ -32,8 +34,10 @@ def main():
     args = parse_args()
     cfg = build_config(args)
 
+    print("DEBUG MODEL:", cfg["model_name"])
+
     print("=" * 50)
-    print("BASELINE EVALUATION — GPT-2 × WikiText-2")
+    print(f"BASELINE EVALUATION — {cfg['model_name']} × WikiText-2")
     print("=" * 50)
     print(f"  max_length={cfg['max_length']}  stride={cfg['stride']}  seed={cfg['seed']}")
     print(f"  lm-eval: {'skip' if cfg['skip_lm_eval'] else cfg['lm_eval_tasks']}")
@@ -42,7 +46,7 @@ def main():
     torch.manual_seed(cfg["seed"])
     device = get_device(cfg["device"])
 
-    model, tokenizer = load_model("gpt2", device=str(device))
+    model, tokenizer = load_model(cfg["model_name"], device=str(device))
     dataset = load_wikitext(split="test")
     input_ids = prepare_encodings(dataset, tokenizer, cfg["max_length"], cfg["stride"])
 
@@ -59,8 +63,6 @@ def main():
             cfg["lm_eval_tasks"],
             device=str(device),
             batch_size=cfg["batch_size"],
-            model=model,
-            tokenizer=tokenizer,
         )
         lm_eval_summary = {
             task: {k: v for k, v in res.items() if isinstance(v, (int, float, str, bool))}

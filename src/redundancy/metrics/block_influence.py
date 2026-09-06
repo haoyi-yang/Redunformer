@@ -45,7 +45,7 @@ def collect_layer_stats(
     n_tokens = 0
 
     for i in range(n_windows):
-        ids = input_windows[i : i + 1].to(device)
+        ids = input_windows[i: i + 1].to(device)
         outputs = model(ids, output_hidden_states=True)
         hidden_states = outputs.hidden_states  # tuple of (1, seq_len, hidden_dim), len = n_layers + 1
 

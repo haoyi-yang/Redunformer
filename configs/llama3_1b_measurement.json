@@ -1,5 +1,5 @@
 {
-  "model_name": "gpt2-medium",
+  "model_name": "meta-llama/Llama-3.2-1B",
   "dataset": "wikitext-2-raw-v1",
   "max_length": 1024,
   "stride": 1024,

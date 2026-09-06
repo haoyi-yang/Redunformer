@@ -1,0 +1,9 @@
+{
+  "model_name": "Qwen/Qwen3-0.6B",
+  "dataset": "wikitext-2-raw-v1",
+  "max_length": 1024,
+  "stride": 512,
+  "lm_eval_tasks": ["hellaswag"],
+  "batch_size": 4,
+  "seed": 42
+}

@@ -1,5 +1,5 @@
 {
-  "model_name": "gpt2-medium",
+  "model_name": "Qwen/Qwen3-0.6B",
   "dataset": "wikitext-2-raw-v1",
   "max_length": 1024,
   "stride": 1024,

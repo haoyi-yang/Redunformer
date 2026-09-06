@@ -1,0 +1,13 @@
+{
+  "model_name": "meta-llama/Llama-3.2-1B",
+  "dataset": "wikitext-2-raw-v1",
+  "max_length": 1024,
+  "stride": 512,
+  "batch_size": 4,
+  "seed": 42,
+  "device": "cpu",
+  "lm_eval_tasks": [
+    "hellaswag"
+  ],
+  "skip_lm_eval": false
+}
