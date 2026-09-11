@@ -54,7 +54,8 @@ def main():
     ppl = compute_perplexity(model, input_ids, device=device, stride=cfg["stride"])
     print(f"\n  Perplexity: {ppl:.2f}")
 
-    results = build_result_dict(cfg, ppl, device)
+    results = build_result_dict(cfg, device)
+    results["perplexity"] = ppl
 
     lm_eval_summary = None
     if not cfg["skip_lm_eval"]:

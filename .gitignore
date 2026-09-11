@@ -16,7 +16,7 @@ build/
 .DS_Store
 
 # Experiment outputs
-experiments/*.json
+# experiments/*.json
 
 # uv
 .python-version

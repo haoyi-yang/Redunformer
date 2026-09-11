@@ -92,14 +92,19 @@ def run_lm_eval(
         tasks=tasks,
     )
 
+    acc_norm = None
+    acc_stderr = None
     for task, metrics in results.get("results", {}).items():
-        for key, value in metrics.items():
-            if (
-                not key.startswith("alias")
-                and isinstance(value, float)
-            ):
-                print(
-                    f"  {task} / {key} = {value:.4f}"
-                )
+        # try both the lm-eval key format and simpler variants
+        acc_norm = metrics.get("acc_norm,none", metrics.get("acc_norm"))
+        acc_stderr = metrics.get("acc_stderr,none", metrics.get("acc_stderr"))
+        if (
+            not any(k.startswith("alias") for k in metrics.keys())
+            and (isinstance(acc_norm, float) or isinstance(acc_stderr, float))
+        ):
+            print(
+                f"  {task} / acc_norm = {acc_norm:.4f}    acc_stderr = {acc_stderr:.4f}"
+            )
+        break  # take first task's metrics (remove if you want to aggregate multiple)
 
-    return results
+    return acc_norm, acc_stderr

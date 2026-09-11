@@ -35,7 +35,7 @@ def build_config(args):
     }
 
 
-def build_result_dict(cfg, ppl, device):
+def build_result_dict(cfg, device):
     """Build a structured results dict with system info."""
     return {
         "timestamp":  datetime.now(timezone.utc).isoformat(),
@@ -49,9 +49,7 @@ def build_result_dict(cfg, ppl, device):
             "platform": platform.platform(),
             "python":   platform.python_version(),
             "torch":    torch.__version__,
-        },
-        "perplexity": round(ppl, 4),
-        "lm_eval":    None,
+        }
     }
 
 
