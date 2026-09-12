@@ -10,6 +10,7 @@ import json
 import random
 import sys
 from pathlib import Path
+import time
 
 import torch
 
@@ -167,7 +168,7 @@ def main():
     dataset = load_wikitext(split="test")
 
     input_ids = prepare_encodings(dataset, tokenizer, cfg["max_length"], cfg["stride"])
-
+    
     # Select all blocks needed for the maximum sweep once.
     # This makes the k experiments nested:
     # k=1 uses the first block,
@@ -176,13 +177,14 @@ def main():
     
 
     print(f"\nLowest-BI block order: {blocks_to_remove_lowest}")
-    evaluate(model, tokenizer, input_ids, device, cfg, run_type="lowest_bi", blocks_to_remove=blocks_to_remove_lowest, max_k=args.max_k)
+    evaluate(model, tokenizer, input_ids, device, cfg, run_type="lowest_bi", blocks_to_remove=blocks_to_remove_lowest, max_k=n_blocks-2)
 
-    #for random baseline, we needs to run 5 times 
-    for i in range(5):
+    #for random baseline, we needs to run 3 times 
+    for i in range(3):
+        random.seed(time.time())  # Different seed for each run
         blocks_to_remove_random = random.sample(range(n_blocks), args.max_k)
         print(f"Random block order:    {blocks_to_remove_random}")
-        evaluate(model, tokenizer, input_ids, device, cfg, run_type=f"random_run{i}", blocks_to_remove=blocks_to_remove_random, max_k=args.max_k)
+        evaluate(model, tokenizer, input_ids, device, cfg, run_type=f"random_run{i}", blocks_to_remove=blocks_to_remove_random, max_k=5)
 
 
 if __name__ == "__main__":
