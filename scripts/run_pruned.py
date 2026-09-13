@@ -79,11 +79,14 @@ def evaluate(model, tokenizer, input_ids, device, cfg, run_type, blocks_to_remov
     print(f"  Removing blocks: {blocks_to_remove}")
     results = build_result_dict(cfg, device)
     results["pruning"] = {
-            "run_type": run_type,
-            "blocks_removed": blocks_to_remove,
-            "perplexity": [],
-            "lm_eval": [],
-        }
+        "run_type": run_type,
+        "blocks_removed": blocks_to_remove,
+        "perplexity": [],
+        "lm_eval": {
+            "acc_norm": [],
+            "acc_stderr": [],
+        },
+    }
 
     # rewrittten logic 
     # now write only one json file for each run_type and max_k
@@ -99,10 +102,6 @@ def evaluate(model, tokenizer, input_ids, device, cfg, run_type, blocks_to_remov
         results["pruning"]["perplexity"].append(ppl)
 
         if not cfg["skip_lm_eval"]:
-            print(f"\n[DEBUG] Before lm-eval:")
-            print(f"  pruned_model device: {next(pruned_model.parameters()).device}")
-            print(f"  device parameter passed: {device}")
-            
             lm_results = run_lm_eval(
                 cfg["model_name"],
                 cfg["lm_eval_tasks"],
@@ -120,15 +119,7 @@ def evaluate(model, tokenizer, input_ids, device, cfg, run_type, blocks_to_remov
 
             results["pruning"]["lm_eval"]["acc_norm"].append(acc_norm)
             results["pruning"]["lm_eval"]["acc_stderr"].append(acc_stderr)
-
-
-    
-
-    # Do not run lm-eval here yet.
-    #
-    # run_lm_eval(model_name, ...) reloads a fresh model from Hugging Face,
-    # so it would evaluate the original unpruned model rather than
-    # pruned_model. Perplexity above is correctly evaluated on pruned_model.
+            print(f"\n  lm-eval acc_norm: {acc_norm}, acc_stderr: {acc_stderr}")
 
     save_results(results, cfg["output_dir"], f"{cfg['model_name']}_{run_type}")
     #print_summary(cfg, results["pruning"]["perplexity"], None)
@@ -166,25 +157,18 @@ def main():
         raise ValueError(f"max_k={args.max_k} exceeds the number of blocks ({n_blocks}).")
 
     dataset = load_wikitext(split="test")
-
     input_ids = prepare_encodings(dataset, tokenizer, cfg["max_length"], cfg["stride"])
     
-    # Select all blocks needed for the maximum sweep once.
-    # This makes the k experiments nested:
-    # k=1 uses the first block,
-    # k=2 uses the first two blocks, etc.
-    blocks_to_remove_lowest = select_blocks(bi_scores, args.max_k)
-    
-
+    blocks_to_remove_lowest = select_blocks(bi_scores, n_blocks-2)
     print(f"\nLowest-BI block order: {blocks_to_remove_lowest}")
-    evaluate(model, tokenizer, input_ids, device, cfg, run_type="lowest_bi", blocks_to_remove=blocks_to_remove_lowest, max_k=n_blocks-2)
+    evaluate(model, tokenizer, input_ids, device, cfg, run_type="lowest_bi", blocks_to_remove=blocks_to_remove_lowest,max_k=n_blocks-2)
 
     #for random baseline, we needs to run 3 times 
     for i in range(3):
         random.seed(time.time())  # Different seed for each run
-        blocks_to_remove_random = random.sample(range(n_blocks), args.max_k)
+        blocks_to_remove_random = random.sample(range(1, n_blocks - 1), 5)
         print(f"Random block order:    {blocks_to_remove_random}")
-        evaluate(model, tokenizer, input_ids, device, cfg, run_type=f"random_run{i}", blocks_to_remove=blocks_to_remove_random, max_k=5)
+        evaluate(model, tokenizer, input_ids, device, cfg, run_type=f"random_run{i}", blocks_to_remove=blocks_to_remove_random,max_k=5)
 
 
 if __name__ == "__main__":
