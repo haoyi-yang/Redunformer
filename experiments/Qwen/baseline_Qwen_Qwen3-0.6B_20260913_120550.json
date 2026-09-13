@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-09-13T09:57:14.663318+00:00",
+  "model_name": "Qwen/Qwen3-0.6B",
+  "dataset": "wikitext-2-raw-v1",
+  "max_length": 1024,
+  "stride": 512,
+  "seed": 42,
+  "device": "cuda",
+  "system": {
+    "platform": "Windows-10-10.0.19044-SP0",
+    "python": "3.14.3",
+    "torch": "2.13.0+cu132"
+  },
+  "perplexity": 19.882762908935547,
+  "lm_eval": {
+    "lm_eval": {
+      "acc_norm,none": 0.47341167098187614,
+      "acc_stderr,none": 0.004833444556338864
+    }
+  }
+}

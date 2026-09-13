@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-09-13T09:50:04.050604+00:00",
+  "model_name": "gpt2",
+  "dataset": "wikitext-2-raw-v1",
+  "max_length": 1024,
+  "stride": 512,
+  "seed": 42,
+  "device": "cuda",
+  "system": {
+    "platform": "Windows-10-10.0.19044-SP0",
+    "python": "3.14.3",
+    "torch": "2.13.0+cu132"
+  },
+  "perplexity": 25.18117904663086,
+  "lm_eval": {
+    "lm_eval": {
+      "acc_norm,none": 0.31159131647082255,
+      "acc_stderr,none": 0.004521798577922026
+    }
+  }
+}

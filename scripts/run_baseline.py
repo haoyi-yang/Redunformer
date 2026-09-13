@@ -34,8 +34,6 @@ def main():
     args = parse_args()
     cfg = build_config(args)
 
-    print("DEBUG MODEL:", cfg["model_name"])
-
     print("=" * 50)
     print(f"BASELINE EVALUATION — {cfg['model_name']} × WikiText-2")
     print("=" * 50)
@@ -64,12 +62,21 @@ def main():
             cfg["lm_eval_tasks"],
             device=str(device),
             batch_size=cfg["batch_size"],
+            model=model,
+            tokenizer=tokenizer,
         )
-        lm_eval_summary = {
-            task: {k: v for k, v in res.items() if isinstance(v, (int, float, str, bool))}
-            for task, res in lm_results.get("results", {}).items()
-        }
+
+        if isinstance(lm_results, tuple):
+            acc_norm, acc_stderr = lm_results
+            lm_eval_summary = {"lm_eval": {"acc_norm,none": acc_norm, "acc_stderr,none": acc_stderr}}
+        else:
+            lm_eval_summary = {
+                task: {k: v for k, v in res.items() if isinstance(v, (int, float, str, bool))}
+                for task, res in lm_results.get("results", {}).items()
+            }
+
         results["lm_eval"] = lm_eval_summary
+        print(f"\n  lm-eval acc_norm: {acc_norm if isinstance(lm_results, tuple) else next(iter(lm_eval_summary.values()), {}).get('acc_norm,none')}, acc_stderr: {acc_stderr if isinstance(lm_results, tuple) else next(iter(lm_eval_summary.values()), {}).get('acc_stderr,none')}")
 
     save_results(results, cfg["output_dir"], cfg["model_name"])
     print_summary(cfg, ppl, lm_eval_summary)

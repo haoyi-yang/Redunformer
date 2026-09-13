@@ -1,0 +1,8 @@
+{
+  "model_name": "ministral/Ministral-3b-instruct",
+  "dataset": "wikitext-2-raw-v1",
+  "max_length": 1024,
+  "stride": 1024,
+  "dtype": "float32",
+  "seed": 42
+}

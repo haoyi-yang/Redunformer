@@ -76,13 +76,14 @@ def main():
 
     print("\nSaving figures ...")
     figures_dir = cfg["figures_dir"]
-    plot_bi_bar(stats.bi_scores, f"{figures_dir}/bi_bar_{cfg['model_name']}.png")
+    safe_model_name = cfg["model_name"].replace("/", "_").replace("\\", "_")
+    plot_bi_bar(stats.bi_scores, f"{figures_dir}/bi_bar_{safe_model_name}.png")
     plot_similarity_heatmap(
         similarity_matrix,
-        f"{figures_dir}/cosine_heatmap_{cfg['model_name']}.png",
+        f"{figures_dir}/cosine_heatmap_{safe_model_name}.png",
         title="Hidden-state cosine similarity (centered)",
     )
-    plot_residual_norms(stats.relative_residual_norms, f"{figures_dir}/residual_norms_{cfg['model_name']}.png")
+    plot_residual_norms(stats.relative_residual_norms, f"{figures_dir}/residual_norms_{safe_model_name}.png")
 
 
 if __name__ == "__main__":
