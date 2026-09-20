@@ -7,6 +7,8 @@ build/
 
 # Virtual environment
 .venv/
+.tools/
+.cache/
 
 # IDE
 .vscode/
@@ -17,6 +19,8 @@ build/
 
 # Experiment outputs
 # experiments/*.json
+experiments/*_logs/
+experiments/smoke/
 
 # uv
 .python-version

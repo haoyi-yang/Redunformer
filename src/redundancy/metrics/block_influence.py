@@ -46,7 +46,7 @@ def collect_layer_stats(
 
     for i in range(n_windows):
         ids = input_windows[i: i + 1].to(device)
-        outputs = model(ids, output_hidden_states=True)
+        outputs = model(ids, output_hidden_states=True, use_cache=False)
         hidden_states = outputs.hidden_states  # tuple of (1, seq_len, hidden_dim), len = n_layers + 1
 
         if n_layers is None:
@@ -61,11 +61,11 @@ def collect_layer_stats(
         # Reduce on-device in float32 first (MPS has no float64 support), then move the small
         # reduced tensors to CPU and upcast for accumulation.
         for layer_idx, hs in enumerate(hidden_states):
-            mean_sum[layer_idx] += hs[0].sum(dim=0).cpu().double()
+            mean_sum[layer_idx] += hs[0].float().sum(dim=0).cpu().double()
 
         for block_idx in range(n_layers):
-            x_in = hidden_states[block_idx][0]
-            x_out = hidden_states[block_idx + 1][0]
+            x_in = hidden_states[block_idx][0].float()
+            x_out = hidden_states[block_idx + 1][0].float()
             cos_sum[block_idx] += F.cosine_similarity(x_in, x_out, dim=-1).sum().cpu().double()
             # Relative update: ||X_out - X_in|| / ||X_in|| per token. Normalizing by the input
             # magnitude makes the update comparable across depth (the raw residual-stream norm

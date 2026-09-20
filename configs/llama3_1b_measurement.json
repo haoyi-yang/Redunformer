@@ -3,6 +3,7 @@
   "dataset": "wikitext-2-raw-v1",
   "max_length": 1024,
   "stride": 1024,
-  "dtype": "float32",
+  "device": "cuda",
+  "dtype": "bfloat16",
   "seed": 42
 }

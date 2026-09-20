@@ -3,9 +3,9 @@
   "dataset": "wikitext-2-raw-v1",
   "max_length": 1024,
   "stride": 512,
-  "batch_size": 4,
+  "batch_size": 1,
   "seed": 42,
-  "device": "cpu",
+  "device": "cuda",
   "lm_eval_tasks": [
     "hellaswag"
   ],

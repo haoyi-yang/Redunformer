@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-09-18T17:29:53.821624+00:00",
+  "model_name": "ministral/Ministral-3b-instruct",
+  "dataset": "wikitext-2-raw-v1",
+  "max_length": 1024,
+  "stride": 512,
+  "seed": 42,
+  "device": "cuda",
+  "system": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.14",
+    "torch": "2.12.0+cu130"
+  },
+  "perplexity": 46.66603469848633,
+  "lm_eval": {
+    "lm_eval": {
+      "acc_norm,none": 0.39245170284803826,
+      "acc_stderr,none": 0.004695076629884271
+    }
+  }
+}
