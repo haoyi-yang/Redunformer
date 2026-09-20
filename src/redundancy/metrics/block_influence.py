@@ -101,3 +101,48 @@ def compute_cosine_similarity_matrix(layer_means: np.ndarray, center: bool = Tru
     """
     x = layer_means - layer_means.mean(axis=0, keepdims=True) if center else layer_means
     return cosine_similarity(x)
+
+
+@torch.no_grad()
+def compute_tokenwise_cosine_similarity_matrix(
+    model, input_windows: torch.Tensor, device, max_windows: int | None = None
+) -> np.ndarray:
+    """Average tokenwise cosine similarity for every pair of hidden states.
+
+    Each token vector is normalized independently before pairwise similarities are
+    accumulated. This makes adjacent entries consistent with Block Influence
+    (similarity = 1 - BI) and avoids the artifact caused by centering layer means
+    across depth.
+    """
+    n_windows = input_windows.size(0)
+    if max_windows is not None:
+        n_windows = min(n_windows, max_windows)
+
+    similarity_sum = None
+    n_tokens = 0
+
+    for i in range(n_windows):
+        ids = input_windows[i : i + 1].to(device)
+        hidden_states = model(
+            ids, output_hidden_states=True, use_cache=False
+        ).hidden_states
+
+        normalized = torch.stack(
+            [F.normalize(hidden[0].float(), dim=-1) for hidden in hidden_states]
+        )
+        flattened = normalized.flatten(start_dim=1)
+        window_sum = flattened @ flattened.T
+
+        if similarity_sum is None:
+            similarity_sum = torch.zeros_like(window_sum, device="cpu", dtype=torch.float64)
+        similarity_sum += window_sum.cpu().double()
+        n_tokens += ids.size(1)
+
+        if (i + 1) % 50 == 0 or (i + 1) == n_windows:
+            print(f"  [{i + 1}/{n_windows}] similarity windows processed")
+
+    matrix = (similarity_sum / n_tokens).numpy()
+    # A vector compared with itself is exactly 1. TF32 matrix multiplication can
+    # leave the diagonal a few 1e-4 below 1 through rounding.
+    np.fill_diagonal(matrix, 1.0)
+    return matrix

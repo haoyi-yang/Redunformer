@@ -40,7 +40,13 @@ immediately. BI ranks the endpoint-adjacent early blocks as influential and dela
 their removal. This gives the lowest-BI strategy a much smoother initial pruning
 curve, although both models degrade substantially after several blocks are removed.
 
+The Ministral similarity heatmap was recomputed as the mean tokenwise cosine
+similarity for every pair of hidden states. Its adjacent entries agree with
+`1 - BI` (maximum absolute difference 0.00026). This replaces the original plot
+based on layer means centered across depth, which produced an artificial negative
+final row because the final state dominated the centering operation.
+
 The timestamped JSON files in `experiments/` contain every evaluated point,
 standard errors, removal orders, system versions, and measurement matrices. The
-corresponding BI, centered cosine-similarity, and residual-norm figures are in
+corresponding BI, cosine-similarity, and residual-norm figures are in
 `reports/group9/figures/`.

@@ -24,15 +24,23 @@ def plot_bi_bar(bi_scores: np.ndarray, out_path: str, title: str = "Block Influe
     return _save(fig, out_path)
 
 
-def plot_similarity_heatmap(matrix: np.ndarray, out_path: str, title: str = "Layer similarity") -> Path:
+def plot_similarity_heatmap(
+    matrix: np.ndarray,
+    out_path: str,
+    title: str = "Layer similarity",
+    vmin: float = -1.0,
+    vmax: float = 1.0,
+) -> Path:
     """Heatmap of an (L+1)x(L+1) similarity matrix across all layer pairs."""
     fig, ax = plt.subplots(figsize=(7, 6))
-    sns.heatmap(matrix, vmin=-1.0, vmax=1.0, cmap="viridis", square=True, ax=ax)
+    sns.heatmap(matrix, vmin=vmin, vmax=vmax, cmap="viridis", square=True, ax=ax)
     # Heatmap is indexed by hidden state (0..L), NOT block (0..L-1): hidden state 0 is the
     # embedding output, hidden state L is the final block's output. BI block i is the i->i+1
     # transition, so it does not line up 1:1 with a single heatmap index.
-    ax.set_xlabel("Hidden state (0 = embeddings, 12 = final)")
-    ax.set_ylabel("Hidden state (0 = embeddings, 12 = final)")
+    final_index = matrix.shape[0] - 1
+    axis_label = f"Hidden state (0 = embeddings, {final_index} = final)"
+    ax.set_xlabel(axis_label)
+    ax.set_ylabel(axis_label)
     ax.set_title(title)
     fig.tight_layout()
     return _save(fig, out_path)
