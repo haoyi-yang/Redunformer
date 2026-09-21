@@ -1,0 +1,41 @@
+{
+  "timestamp": "2026-09-20T06:50:29.219443+00:00",
+  "model_name": "gpt2-medium",
+  "dataset": "wikitext-2-raw-v1",
+  "max_length": 1024,
+  "stride": 512,
+  "seed": 42,
+  "device": "cuda",
+  "system": {
+    "platform": "Windows-10-10.0.19044-SP0",
+    "python": "3.14.3",
+    "torch": "2.13.0+cu132"
+  },
+  "policy": "random_run0",
+  "result": {
+    "blocks_removed": [
+      7,
+      11,
+      14,
+      1,
+      9,
+      21,
+      13,
+      15,
+      3
+    ],
+    "perplexity_at_step": [
+      19.38994789123535,
+      20.80872344970703,
+      23.15074348449707,
+      23.539766311645508,
+      28.278770446777344,
+      29.655820846557617,
+      35.0302734375,
+      41.02255630493164,
+      60.18815231323242
+    ],
+    "total_removed": 9,
+    "elapsed_seconds": 154.68647479999998
+  }
+}
