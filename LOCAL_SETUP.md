@@ -49,8 +49,10 @@ measurement, and perplexity checks; those tests are not pretrained model results
 The full Ministral and Llama sequences use WikiText-2 and HellaSwag. Pruning automatically
 selects the newest measurement for the configured model from `experiments/`.
 It preserves the first and last blocks, evaluates removal of every interior block
-in lowest-BI order, then runs three random sweeps of 1–5 removals with seeds 42,
-43, and 44. Results are checkpointed after every completed step.
+in lowest-BI order, then runs three random sweeps of 1–5 removals. Following the
+original script behavior, each random sweep is initialized from the current time,
+so its removal order changes between executions. Results are checkpointed after
+every completed step.
 Baseline and pruning use FP16; BI measurement uses BF16 with FP32 reductions.
 
 Both model runs completed successfully. Access to `meta-llama/Llama-3.2-1B`

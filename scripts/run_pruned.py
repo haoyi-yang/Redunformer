@@ -11,6 +11,7 @@ import random
 import sys
 from pathlib import Path
 import gc
+import time
 
 import torch
 
@@ -196,10 +197,10 @@ def main():
 
     #for random baseline, we needs to run 3 times 
     for i in range(3):
-        run_cfg = dict(cfg, seed=cfg["seed"] + i)
-        blocks_to_remove_random = random.Random(run_cfg["seed"]).sample(range(1, n_blocks - 1), args.max_k)
+        random.seed(time.time())  # Different clock-based seed for each run.
+        blocks_to_remove_random = random.sample(range(1, n_blocks - 1), args.max_k)
         print(f"Random block order:    {blocks_to_remove_random}")
-        evaluate(model, tokenizer, input_ids, device, run_cfg, run_type=f"random_run{i}", blocks_to_remove=blocks_to_remove_random,max_k=args.max_k)
+        evaluate(model, tokenizer, input_ids, device, cfg, run_type=f"random_run{i}", blocks_to_remove=blocks_to_remove_random,max_k=args.max_k)
 
 
 if __name__ == "__main__":
