@@ -1,0 +1,17 @@
+# Qwen3.5 4B — tuned for ~8 GB GPU (4-bit weights).
+# Uses ImageTextToText weights; text-only forward pass works for perplexity baselines.
+model_id: "Qwen/Qwen3.5-4B"
+local_dir: "models/cache/Qwen3.5-4B"
+architecture: "qwen3_5"
+trust_remote_code: true
+torch_dtype: "auto"
+device_map: "auto"
+load_in_4bit: true
+bnb_4bit_compute_dtype: "bfloat16"
+bnb_4bit_quant_type: "nf4"
+bnb_4bit_use_double_quant: true
+max_memory_gb: 8
+
+# Lighter fallback for smoke tests without GPU / tight VRAM
+fallback_model_id: "Qwen/Qwen3-0.6B"
+fallback_load_in_4bit: true

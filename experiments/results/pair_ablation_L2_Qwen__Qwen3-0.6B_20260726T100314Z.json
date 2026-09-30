@@ -1,0 +1,115 @@
+{
+  "timestamp_utc": "2026-07-26T10:03:15.303821+00:00",
+  "task": "weeks_9_10_duplicate_pair_ablation",
+  "hypothesis": "H5: one neuron of a near-duplicate pair is cheaper to mask than a matched-importance uncorrelated neuron",
+  "seed": 42,
+  "config_path": "configs/pruning/pair_ablation_qwen3_0.6b.yaml",
+  "command": "scripts/run_pair_ablation.py --config configs/pruning/pair_ablation_qwen3_0.6b.yaml --layers 2 --tag L2",
+  "model": {
+    "model_id": "Qwen/Qwen3-0.6B",
+    "load_in_4bit": false,
+    "config": "configs/models/qwen3-0.6b.yaml"
+  },
+  "dataset": {
+    "dataset_id": "wikitext",
+    "dataset_config": "wikitext-2-raw-v1",
+    "split": "test",
+    "num_samples": 332
+  },
+  "measurement_artifact": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_Qwen__Qwen3-0.6B_20260629T182308Z.json",
+  "pairs": {
+    "min_abs_corr": 0.9,
+    "layers": [
+      2
+    ],
+    "num_pairs": 5,
+    "selected": [
+      {
+        "layer": "model.layers.2.mlp.down_proj",
+        "drop": 46,
+        "keep": 1489,
+        "correlation": 0.9993844210690925
+      },
+      {
+        "layer": "model.layers.2.mlp.down_proj",
+        "drop": 646,
+        "keep": 128,
+        "correlation": 0.99899845105783
+      },
+      {
+        "layer": "model.layers.2.mlp.down_proj",
+        "drop": 321,
+        "keep": 55,
+        "correlation": -0.9977209853657089
+      },
+      {
+        "layer": "model.layers.2.mlp.down_proj",
+        "drop": 503,
+        "keep": 666,
+        "correlation": 0.9551426504007628
+      },
+      {
+        "layer": "model.layers.2.mlp.down_proj",
+        "drop": 77,
+        "keep": 0,
+        "correlation": 0.9374811992219267
+      }
+    ]
+  },
+  "baseline_perplexity": 38.38690988649566,
+  "conditions": [
+    {
+      "condition": "duplicate_one",
+      "description": "one neuron of each near-duplicate pair (lower-importance twin)",
+      "num_masked": 5,
+      "mean_importance": 13.591276796128124,
+      "perplexity": 40.22640473892417,
+      "delta_perplexity": 1.8394948524285084
+    },
+    {
+      "condition": "duplicate_both",
+      "description": "both neurons of each near-duplicate pair",
+      "num_masked": 10,
+      "mean_importance": 30.023219702555508,
+      "perplexity": 2936.817975563641,
+      "delta_perplexity": 2898.4310656771454
+    },
+    {
+      "condition": "importance_matched",
+      "description": "uncorrelated neurons with importance matched to duplicate_one",
+      "num_masked": 5,
+      "mean_importance": 0.33635176818508333,
+      "perplexity": 38.36122183319733,
+      "delta_perplexity": -0.02568805329833168
+    },
+    {
+      "condition": "random_matched",
+      "description": "random uncorrelated neurons, same count as duplicate_one",
+      "num_masked": 5,
+      "mean_importance": 0.09553184455154676,
+      "perplexity": 38.51936402071508,
+      "delta_perplexity": 0.13245413421942231
+    },
+    {
+      "condition": "lowest_importance",
+      "description": "least-important neurons, same count as duplicate_one",
+      "num_masked": 5,
+      "mean_importance": 0.03900846889024983,
+      "perplexity": 38.44575269366883,
+      "delta_perplexity": 0.05884280717317125
+    }
+  ],
+  "verdict": {
+    "supported": false,
+    "delta_duplicate_one": 1.8394948524285084,
+    "delta_importance_matched": -0.02568805329833168,
+    "margin": -1.86518290572684,
+    "importance_match_ratio": 0.024747621083024595,
+    "summary": "duplicate_one costs +1.8395 PPL vs -0.0257 for matched-importance controls (margin -1.8652, control held 0.02x the duplicates' mean importance) - not supported"
+  },
+  "artifacts": {
+    "figures": {
+      "pair_ablation": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\pair_ablation_L2_Qwen__Qwen3-0.6B_20260726T100314Z.png"
+    }
+  }
+}

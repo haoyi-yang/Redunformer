@@ -1,0 +1,33 @@
+# Weeks 13-14 duplicate-neuron replacement (merge) - Llama-2-7B.
+#
+# Mirrors pair_ablation_llama2-7b.yaml so the merge arms are directly comparable
+# to the mask-only numbers: same pairs, same eval slice, same seed.
+#
+# The repair recovered 87% of the masking cost on Qwen3-0.6B and 102% on GPT-2.
+# Llama-2 tests it on a model an order of magnitude larger, and through 4-bit
+# weights - the merge writes into a dequantized copy of W_down, so a clean
+# result here also confirms the quantized write path.
+seed: 42
+model_config: "configs/models/llama2-7b.yaml"
+dataset_config: "configs/datasets/wikitext2.yaml"
+max_samples: 512
+
+measurement_path: "auto"
+
+pairs:
+  min_abs_corr: 0.9
+  max_pairs_per_layer: 8
+  layers: "all"
+
+fit:
+  dataset_config: "configs/datasets/wikitext2_calib.yaml"
+  seq_len: 512
+  num_blocks: 32
+
+eval:
+  max_length: 2048
+  stride: 1024
+
+output_dir: "experiments/results"
+figures_dir: "experiments/results/figures"
+use_fallback_model: false

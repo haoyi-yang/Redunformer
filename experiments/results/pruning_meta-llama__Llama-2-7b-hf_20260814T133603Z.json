@@ -1,0 +1,215 @@
+{
+  "timestamp_utc": "2026-08-14T13:36:04.359331+00:00",
+  "task": "weeks_9_10_neuron_masking",
+  "seed": 42,
+  "config_path": "configs/pruning/neuron_masking_llama2-7b.yaml",
+  "command": "scripts/run_pruning.py --config configs/pruning/neuron_masking_llama2-7b.yaml",
+  "model": {
+    "model_id": "meta-llama/Llama-2-7b-hf",
+    "load_in_4bit": true,
+    "config": "configs/models/llama2-7b.yaml"
+  },
+  "dataset": {
+    "dataset_id": "wikitext",
+    "dataset_config": "wikitext-2-raw-v1",
+    "split": "test",
+    "text_builder": null,
+    "num_samples": 157
+  },
+  "measurement_artifact": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_meta-llama__Llama-2-7b-hf_20260814T131909Z.json",
+  "intervention": {
+    "kind": "activation masking (post-SwiGLU channel -> down_proj input)",
+    "strategies": [
+      "importance",
+      "frequency",
+      "random"
+    ],
+    "ratios": [
+      0.05,
+      0.1,
+      0.25,
+      0.5
+    ],
+    "layers": "all",
+    "num_masked_layers": 32
+  },
+  "eval": {
+    "max_length": 2048,
+    "stride": 512,
+    "num_documents": 157,
+    "lm_eval_tasks": [
+      "piqa"
+    ]
+  },
+  "baseline": {
+    "perplexity": 9.460768420127858,
+    "lm_eval": {
+      "piqa.acc": 0.765,
+      "piqa.acc_norm": 0.785
+    }
+  },
+  "runs": [
+    {
+      "perplexity": 9.888108668947888,
+      "lm_eval": {
+        "piqa.acc": 0.75,
+        "piqa.acc_norm": 0.77
+      },
+      "strategy": "importance",
+      "ratio": 0.05,
+      "num_masked": 17600,
+      "masked_fraction": 0.04996366279069767,
+      "importance_removed_fraction": 0.03240539194889167,
+      "delta_perplexity": 0.4273402488200304
+    },
+    {
+      "perplexity": 10.280925200803866,
+      "lm_eval": {
+        "piqa.acc": 0.74,
+        "piqa.acc_norm": 0.75
+      },
+      "strategy": "importance",
+      "ratio": 0.1,
+      "num_masked": 35232,
+      "masked_fraction": 0.10001816860465117,
+      "importance_removed_fraction": 0.06707807651796163,
+      "delta_perplexity": 0.8201567806760082
+    },
+    {
+      "perplexity": 11.985522782182068,
+      "lm_eval": {
+        "piqa.acc": 0.75,
+        "piqa.acc_norm": 0.765
+      },
+      "strategy": "importance",
+      "ratio": 0.25,
+      "num_masked": 88064,
+      "masked_fraction": 0.25,
+      "importance_removed_fraction": 0.177496089616632,
+      "delta_perplexity": 2.5247543620542103
+    },
+    {
+      "perplexity": 21.453996603467743,
+      "lm_eval": {
+        "piqa.acc": 0.675,
+        "piqa.acc_norm": 0.685
+      },
+      "strategy": "importance",
+      "ratio": 0.5,
+      "num_masked": 176128,
+      "masked_fraction": 0.5,
+      "importance_removed_fraction": 0.3797400323649089,
+      "delta_perplexity": 11.993228183339886
+    },
+    {
+      "perplexity": 10.266656291325283,
+      "lm_eval": {
+        "piqa.acc": 0.765,
+        "piqa.acc_norm": 0.78
+      },
+      "strategy": "frequency",
+      "ratio": 0.05,
+      "num_masked": 17600,
+      "masked_fraction": 0.04996366279069767,
+      "importance_removed_fraction": 0.04344950010028923,
+      "delta_perplexity": 0.8058878711974256
+    },
+    {
+      "perplexity": 10.8643261429936,
+      "lm_eval": {
+        "piqa.acc": 0.76,
+        "piqa.acc_norm": 0.765
+      },
+      "strategy": "frequency",
+      "ratio": 0.1,
+      "num_masked": 35232,
+      "masked_fraction": 0.10001816860465117,
+      "importance_removed_fraction": 0.08590421801961412,
+      "delta_perplexity": 1.4035577228657417
+    },
+    {
+      "perplexity": 15.12821904727319,
+      "lm_eval": {
+        "piqa.acc": 0.735,
+        "piqa.acc_norm": 0.745
+      },
+      "strategy": "frequency",
+      "ratio": 0.25,
+      "num_masked": 88064,
+      "masked_fraction": 0.25,
+      "importance_removed_fraction": 0.2151266068121143,
+      "delta_perplexity": 5.667450627145332
+    },
+    {
+      "perplexity": 91.81628100766282,
+      "lm_eval": {
+        "piqa.acc": 0.6,
+        "piqa.acc_norm": 0.62
+      },
+      "strategy": "frequency",
+      "ratio": 0.5,
+      "num_masked": 176128,
+      "masked_fraction": 0.5,
+      "importance_removed_fraction": 0.4366753520413321,
+      "delta_perplexity": 82.35551258753496
+    },
+    {
+      "perplexity": 10.596521813955974,
+      "lm_eval": {
+        "piqa.acc": 0.77,
+        "piqa.acc_norm": 0.76
+      },
+      "strategy": "random",
+      "ratio": 0.05,
+      "num_masked": 17600,
+      "masked_fraction": 0.04996366279069767,
+      "importance_removed_fraction": 0.04991653581222576,
+      "delta_perplexity": 1.1357533938281161
+    },
+    {
+      "perplexity": 11.385319342138851,
+      "lm_eval": {
+        "piqa.acc": 0.735,
+        "piqa.acc_norm": 0.76
+      },
+      "strategy": "random",
+      "ratio": 0.1,
+      "num_masked": 35232,
+      "masked_fraction": 0.10001816860465117,
+      "importance_removed_fraction": 0.09947709637106109,
+      "delta_perplexity": 1.9245509220109938
+    },
+    {
+      "perplexity": 17.894539550515386,
+      "lm_eval": {
+        "piqa.acc": 0.695,
+        "piqa.acc_norm": 0.715
+      },
+      "strategy": "random",
+      "ratio": 0.25,
+      "num_masked": 88064,
+      "masked_fraction": 0.25,
+      "importance_removed_fraction": 0.2493353435634105,
+      "delta_perplexity": 8.433771130387528
+    },
+    {
+      "perplexity": 2829.7372511417834,
+      "lm_eval": {
+        "piqa.acc": 0.515,
+        "piqa.acc_norm": 0.48
+      },
+      "strategy": "random",
+      "ratio": 0.5,
+      "num_masked": 176128,
+      "masked_fraction": 0.5,
+      "importance_removed_fraction": 0.5011558657699409,
+      "delta_perplexity": 2820.2764827216556
+    }
+  ],
+  "artifacts": {
+    "figures": {
+      "removal_curve_ppl": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\prune_ppl_meta-llama__Llama-2-7b-hf_20260814T133603Z.png",
+      "removal_curve_accuracy": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\prune_acc_meta-llama__Llama-2-7b-hf_20260814T133603Z.png"
+    }
+  }
+}

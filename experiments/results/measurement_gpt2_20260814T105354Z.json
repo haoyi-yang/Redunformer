@@ -1,0 +1,687 @@
+{
+  "timestamp_utc": "2026-08-14T10:54:05.766021+00:00",
+  "task": "weeks_5_8_neuron_measurement",
+  "seed": 42,
+  "config_path": "configs/measurement/neuron_activations_gpt2.yaml",
+  "command": "scripts/run_measurement.py --config configs/measurement/neuron_activations_gpt2.yaml",
+  "model": {
+    "model_id": "gpt2",
+    "load_in_4bit": false,
+    "config": "configs/models/gpt2.yaml",
+    "num_ffn_layers": 12
+  },
+  "dataset": {
+    "dataset_id": "wikitext",
+    "dataset_config": "wikitext-2-raw-v1",
+    "split": "train",
+    "text_builder": null,
+    "num_samples": 2549
+  },
+  "calibration": {
+    "seq_len": 512,
+    "num_blocks": 128,
+    "num_tokens": 65536
+  },
+  "measurement": {
+    "fixed_eps": 0.001,
+    "rms_alpha": 0.001,
+    "rms_alphas": [
+      0.001,
+      0.01,
+      0.05,
+      0.1,
+      0.25
+    ],
+    "max_reservoir_tokens": 4096,
+    "importance_definition": "rms * down_proj_input_column_norm (Wanda/LLM-Pruner style)",
+    "col_norm_available": true
+  },
+  "layers": [
+    {
+      "name": "transformer.h.0.mlp.c_proj",
+      "layer_index": 0,
+      "width": 3072,
+      "num_tokens": 65536,
+      "layer_rms": 0.20252145217179526,
+      "fixed_eps": 0.001,
+      "rms_alpha": 0.001,
+      "rms_eps": 0.00020252145217179525,
+      "reservoir_tokens": 4096,
+      "mean_freq_rms": 0.9972812334696451,
+      "mean_freq_fixed": 0.9943274656931559,
+      "mean_abs": 0.13132274764551657,
+      "lazy_fraction_le_1pct": 0.0,
+      "lazy_fraction_zero": 0.0,
+      "lazy_fraction_by_alpha_le_1pct": {
+        "0.001": 0.0,
+        "0.01": 0.0003255208333333333,
+        "0.05": 0.0006510416666666666,
+        "0.1": 0.001953125,
+        "0.25": 0.0022786458333333335
+      },
+      "col_norm_available": true,
+      "mean_importance": 0.4493703072119526,
+      "median_importance": 0.3770591862345767,
+      "importance_share_bottom_10pct": 0.05914668257269967,
+      "importance_share_bottom_25pct": 0.16473956544377036
+    },
+    {
+      "name": "transformer.h.1.mlp.c_proj",
+      "layer_index": 1,
+      "width": 3072,
+      "num_tokens": 65536,
+      "layer_rms": 0.1592211323831363,
+      "fixed_eps": 0.001,
+      "rms_alpha": 0.001,
+      "rms_eps": 0.0001592211323831363,
+      "reservoir_tokens": 4096,
+      "mean_freq_rms": 0.9956488609313965,
+      "mean_freq_fixed": 0.9890951464573542,
+      "mean_abs": 0.10858663165000182,
+      "lazy_fraction_le_1pct": 0.0009765625,
+      "lazy_fraction_zero": 0.0,
+      "lazy_fraction_by_alpha_le_1pct": {
+        "0.001": 0.0009765625,
+        "0.01": 0.0016276041666666667,
+        "0.05": 0.001953125,
+        "0.1": 0.001953125,
+        "0.25": 0.0022786458333333335
+      },
+      "col_norm_available": true,
+      "mean_importance": 0.35688691329393835,
+      "median_importance": 0.3270640673000257,
+      "importance_share_bottom_10pct": 0.06426506737261946,
+      "importance_share_bottom_25pct": 0.18459664424883263
+    },
+    {
+      "name": "transformer.h.2.mlp.c_proj",
+      "layer_index": 2,
+      "width": 3072,
+      "num_tokens": 65536,
+      "layer_rms": 0.1723437432396231,
+      "fixed_eps": 0.001,
+      "rms_alpha": 0.001,
+      "rms_eps": 0.0001723437432396231,
+      "reservoir_tokens": 4096,
+      "mean_freq_rms": 0.994912306467692,
+      "mean_freq_fixed": 0.986723780632019,
+      "mean_abs": 0.1091404952434783,
+      "lazy_fraction_le_1pct": 0.0003255208333333333,
+      "lazy_fraction_zero": 0.0,
+      "lazy_fraction_by_alpha_le_1pct": {
+        "0.001": 0.0003255208333333333,
+        "0.01": 0.0003255208333333333,
+        "0.05": 0.0003255208333333333,
+        "0.1": 0.0003255208333333333,
+        "0.25": 0.0006510416666666666
+      },
+      "col_norm_available": true,
+      "mean_importance": 0.4003021798659436,
+      "median_importance": 0.34037255435844316,
+      "importance_share_bottom_10pct": 0.06011583897168572,
+      "importance_share_bottom_25pct": 0.16656046692349583
+    },
+    {
+      "name": "transformer.h.3.mlp.c_proj",
+      "layer_index": 3,
+      "width": 3072,
+      "num_tokens": 65536,
+      "layer_rms": 0.16164617691211103,
+      "fixed_eps": 0.001,
+      "rms_alpha": 0.001,
+      "rms_eps": 0.00016164617691211104,
+      "reservoir_tokens": 4096,
+      "mean_freq_rms": 0.9953830242156982,
+      "mean_freq_fixed": 0.986332173148791,
+      "mean_abs": 0.1108242184079914,
+      "lazy_fraction_le_1pct": 0.0003255208333333333,
+      "lazy_fraction_zero": 0.0,
+      "lazy_fraction_by_alpha_le_1pct": {
+        "0.001": 0.0003255208333333333,
+        "0.01": 0.0003255208333333333,
+        "0.05": 0.0003255208333333333,
+        "0.1": 0.0003255208333333333,
+        "0.25": 0.0003255208333333333
+      },
+      "col_norm_available": true,
+      "mean_importance": 0.37219247771313047,
+      "median_importance": 0.34140852990475734,
+      "importance_share_bottom_10pct": 0.06811388704130629,
+      "importance_share_bottom_25pct": 0.18500302470007876
+    },
+    {
+      "name": "transformer.h.4.mlp.c_proj",
+      "layer_index": 4,
+      "width": 3072,
+      "num_tokens": 65536,
+      "layer_rms": 0.16818107560988466,
+      "fixed_eps": 0.001,
+      "rms_alpha": 0.001,
+      "rms_eps": 0.00016818107560988467,
+      "reservoir_tokens": 4096,
+      "mean_freq_rms": 0.9969219366709391,
+      "mean_freq_fixed": 0.9903298169374466,
+      "mean_abs": 0.11998922474128383,
+      "lazy_fraction_le_1pct": 0.0,
+      "lazy_fraction_zero": 0.0,
+      "lazy_fraction_by_alpha_le_1pct": {
+        "0.001": 0.0,
+        "0.01": 0.0,
+        "0.05": 0.0003255208333333333,
+        "0.1": 0.0003255208333333333,
+        "0.25": 0.0003255208333333333
+      },
+      "col_norm_available": true,
+      "mean_importance": 0.3925792602438161,
+      "median_importance": 0.36630962272655876,
+      "importance_share_bottom_10pct": 0.06911550972420301,
+      "importance_share_bottom_25pct": 0.18717550212170786
+    },
+    {
+      "name": "transformer.h.5.mlp.c_proj",
+      "layer_index": 5,
+      "width": 3072,
+      "num_tokens": 65536,
+      "layer_rms": 0.17905044823309813,
+      "fixed_eps": 0.001,
+      "rms_alpha": 0.001,
+      "rms_eps": 0.00017905044823309814,
+      "reservoir_tokens": 4096,
+      "mean_freq_rms": 0.9968234697977701,
+      "mean_freq_fixed": 0.9898319741090139,
+      "mean_abs": 0.12138211586339119,
+      "lazy_fraction_le_1pct": 0.0,
+      "lazy_fraction_zero": 0.0,
+      "lazy_fraction_by_alpha_le_1pct": {
+        "0.001": 0.0,
+        "0.01": 0.0,
+        "0.05": 0.0,
+        "0.1": 0.0,
+        "0.25": 0.0
+      },
+      "col_norm_available": true,
+      "mean_importance": 0.44328607989402075,
+      "median_importance": 0.41698359902028503,
+      "importance_share_bottom_10pct": 0.06663348920502868,
+      "importance_share_bottom_25pct": 0.18149501486801017
+    },
+    {
+      "name": "transformer.h.6.mlp.c_proj",
+      "layer_index": 6,
+      "width": 3072,
+      "num_tokens": 65536,
+      "layer_rms": 0.18876370705708154,
+      "fixed_eps": 0.001,
+      "rms_alpha": 0.001,
+      "rms_eps": 0.00018876370705708155,
+      "reservoir_tokens": 4096,
+      "mean_freq_rms": 0.9984458287556967,
+      "mean_freq_fixed": 0.9942875802516937,
+      "mean_abs": 0.12909044740649525,
+      "lazy_fraction_le_1pct": 0.0,
+      "lazy_fraction_zero": 0.0,
+      "lazy_fraction_by_alpha_le_1pct": {
+        "0.001": 0.0,
+        "0.01": 0.0,
+        "0.05": 0.0,
+        "0.1": 0.0,
+        "0.25": 0.0
+      },
+      "col_norm_available": true,
+      "mean_importance": 0.520140992937637,
+      "median_importance": 0.48620657876871104,
+      "importance_share_bottom_10pct": 0.0662923962885571,
+      "importance_share_bottom_25pct": 0.18079080303718847
+    },
+    {
+      "name": "transformer.h.7.mlp.c_proj",
+      "layer_index": 7,
+      "width": 3072,
+      "num_tokens": 65536,
+      "layer_rms": 0.19773595537190025,
+      "fixed_eps": 0.001,
+      "rms_alpha": 0.001,
+      "rms_eps": 0.00019773595537190026,
+      "reservoir_tokens": 4096,
+      "mean_freq_rms": 0.9982409477233887,
+      "mean_freq_fixed": 0.994916578133901,
+      "mean_abs": 0.1338597115624365,
+      "lazy_fraction_le_1pct": 0.0,
+      "lazy_fraction_zero": 0.0,
+      "lazy_fraction_by_alpha_le_1pct": {
+        "0.001": 0.0,
+        "0.01": 0.0,
+        "0.05": 0.0,
+        "0.1": 0.0,
+        "0.25": 0.0
+      },
+      "col_norm_available": true,
+      "mean_importance": 0.6005814880821182,
+      "median_importance": 0.5595611431246141,
+      "importance_share_bottom_10pct": 0.0681690101412267,
+      "importance_share_bottom_25pct": 0.18490996627480336
+    },
+    {
+      "name": "transformer.h.8.mlp.c_proj",
+      "layer_index": 8,
+      "width": 3072,
+      "num_tokens": 65536,
+      "layer_rms": 0.20495319279864752,
+      "fixed_eps": 0.001,
+      "rms_alpha": 0.001,
+      "rms_eps": 0.00020495319279864753,
+      "reservoir_tokens": 4096,
+      "mean_freq_rms": 0.998498280843099,
+      "mean_freq_fixed": 0.9949612021446228,
+      "mean_abs": 0.1352309449377033,
+      "lazy_fraction_le_1pct": 0.0,
+      "lazy_fraction_zero": 0.0,
+      "lazy_fraction_by_alpha_le_1pct": {
+        "0.001": 0.0,
+        "0.01": 0.0,
+        "0.05": 0.0,
+        "0.1": 0.0,
+        "0.25": 0.0
+      },
+      "col_norm_available": true,
+      "mean_importance": 0.7008375527961158,
+      "median_importance": 0.6473313485440825,
+      "importance_share_bottom_10pct": 0.06727604694718822,
+      "importance_share_bottom_25pct": 0.18273202201418542
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj",
+      "layer_index": 9,
+      "width": 3072,
+      "num_tokens": 65536,
+      "layer_rms": 0.21461615488433908,
+      "fixed_eps": 0.001,
+      "rms_alpha": 0.001,
+      "rms_eps": 0.00021461615488433907,
+      "reservoir_tokens": 4096,
+      "mean_freq_rms": 0.9978129069010416,
+      "mean_freq_fixed": 0.9944106092055639,
+      "mean_abs": 0.1372419780478534,
+      "lazy_fraction_le_1pct": 0.0,
+      "lazy_fraction_zero": 0.0,
+      "lazy_fraction_by_alpha_le_1pct": {
+        "0.001": 0.0,
+        "0.01": 0.0,
+        "0.05": 0.0,
+        "0.1": 0.0,
+        "0.25": 0.0
+      },
+      "col_norm_available": true,
+      "mean_importance": 0.8321795003693584,
+      "median_importance": 0.758871761045147,
+      "importance_share_bottom_10pct": 0.06645793266534154,
+      "importance_share_bottom_25pct": 0.18029775184672328
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj",
+      "layer_index": 10,
+      "width": 3072,
+      "num_tokens": 65536,
+      "layer_rms": 0.25096302710961327,
+      "fixed_eps": 0.001,
+      "rms_alpha": 0.001,
+      "rms_eps": 0.00025096302710961326,
+      "reservoir_tokens": 4096,
+      "mean_freq_rms": 0.9965583483378092,
+      "mean_freq_fixed": 0.9928733557462692,
+      "mean_abs": 0.14921833494478184,
+      "lazy_fraction_le_1pct": 0.0,
+      "lazy_fraction_zero": 0.0,
+      "lazy_fraction_by_alpha_le_1pct": {
+        "0.001": 0.0,
+        "0.01": 0.0,
+        "0.05": 0.0,
+        "0.1": 0.0,
+        "0.25": 0.0
+      },
+      "col_norm_available": true,
+      "mean_importance": 1.0800798510413623,
+      "median_importance": 0.9552130900290242,
+      "importance_share_bottom_10pct": 0.06153669286691245,
+      "importance_share_bottom_25pct": 0.16994281748136403
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj",
+      "layer_index": 11,
+      "width": 3072,
+      "num_tokens": 65536,
+      "layer_rms": 0.30273888911864016,
+      "fixed_eps": 0.001,
+      "rms_alpha": 0.001,
+      "rms_eps": 0.0003027388891186402,
+      "reservoir_tokens": 4096,
+      "mean_freq_rms": 0.9949097633361816,
+      "mean_freq_fixed": 0.99183918039004,
+      "mean_abs": 0.1649115463975129,
+      "lazy_fraction_le_1pct": 0.0,
+      "lazy_fraction_zero": 0.0,
+      "lazy_fraction_by_alpha_le_1pct": {
+        "0.001": 0.0,
+        "0.01": 0.0,
+        "0.05": 0.0,
+        "0.1": 0.0,
+        "0.25": 0.0
+      },
+      "col_norm_available": true,
+      "mean_importance": 1.3485736988660644,
+      "median_importance": 1.1361376209064697,
+      "importance_share_bottom_10pct": 0.056653698081943274,
+      "importance_share_bottom_25pct": 0.1573507219950095
+    }
+  ],
+  "depth_tertiles": {
+    "early": {
+      "layers": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "mean_freq_rms": 0.9958063562711079,
+      "mean_importance_share_bottom_10pct": 0.06291036898957779,
+      "mean_lazy_fraction_le_1pct": 0.00040690104166666663
+    },
+    "middle": {
+      "layers": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "mean_freq_rms": 0.9976080457369486,
+      "mean_importance_share_bottom_10pct": 0.06755260133975388,
+      "mean_lazy_fraction_le_1pct": 0.0
+    },
+    "deep": {
+      "layers": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "mean_freq_rms": 0.9969448248545328,
+      "mean_importance_share_bottom_10pct": 0.06298109264034636,
+      "mean_lazy_fraction_le_1pct": 0.0
+    }
+  },
+  "correlation": {
+    "selection": "auto",
+    "layers": [
+      0,
+      1,
+      2
+    ],
+    "abs_threshold": 0.9,
+    "top_pairs": {
+      "0": [
+        {
+          "neuron_i": 1981,
+          "neuron_j": 2053,
+          "correlation": 0.9681534987576477
+        },
+        {
+          "neuron_i": 2247,
+          "neuron_j": 2587,
+          "correlation": 0.965847442867898
+        },
+        {
+          "neuron_i": 1561,
+          "neuron_j": 2059,
+          "correlation": 0.9571329215181298
+        },
+        {
+          "neuron_i": 1641,
+          "neuron_j": 2102,
+          "correlation": 0.9560010462327339
+        },
+        {
+          "neuron_i": 101,
+          "neuron_j": 1175,
+          "correlation": 0.9537878405670753
+        },
+        {
+          "neuron_i": 2059,
+          "neuron_j": 2291,
+          "correlation": 0.9474252411705003
+        },
+        {
+          "neuron_i": 631,
+          "neuron_j": 2009,
+          "correlation": 0.9467274446997624
+        },
+        {
+          "neuron_i": 2108,
+          "neuron_j": 2110,
+          "correlation": 0.9444646894489575
+        },
+        {
+          "neuron_i": 769,
+          "neuron_j": 2059,
+          "correlation": 0.9437018539633562
+        },
+        {
+          "neuron_i": 1150,
+          "neuron_j": 1993,
+          "correlation": 0.942313232277759
+        },
+        {
+          "neuron_i": 96,
+          "neuron_j": 1747,
+          "correlation": 0.9402702377826726
+        },
+        {
+          "neuron_i": 1817,
+          "neuron_j": 2119,
+          "correlation": 0.9326621323373112
+        },
+        {
+          "neuron_i": 2898,
+          "neuron_j": 3012,
+          "correlation": 0.9301547661411455
+        },
+        {
+          "neuron_i": 371,
+          "neuron_j": 1223,
+          "correlation": 0.9253771692130046
+        },
+        {
+          "neuron_i": 2108,
+          "neuron_j": 2659,
+          "correlation": 0.9251363070877898
+        },
+        {
+          "neuron_i": 1561,
+          "neuron_j": 2291,
+          "correlation": 0.923835413243856
+        },
+        {
+          "neuron_i": 559,
+          "neuron_j": 2428,
+          "correlation": 0.9223772767411383
+        },
+        {
+          "neuron_i": 1671,
+          "neuron_j": 2935,
+          "correlation": -0.9221873268050812
+        },
+        {
+          "neuron_i": 1759,
+          "neuron_j": 2119,
+          "correlation": 0.9204024742553392
+        },
+        {
+          "neuron_i": 769,
+          "neuron_j": 1561,
+          "correlation": 0.9195974815002187
+        },
+        {
+          "neuron_i": 1122,
+          "neuron_j": 2063,
+          "correlation": 0.9194580181208672
+        },
+        {
+          "neuron_i": 1223,
+          "neuron_j": 1671,
+          "correlation": 0.9189275817842611
+        },
+        {
+          "neuron_i": 1223,
+          "neuron_j": 2991,
+          "correlation": 0.9180450255830673
+        },
+        {
+          "neuron_i": 1122,
+          "neuron_j": 2239,
+          "correlation": 0.9155212108608843
+        },
+        {
+          "neuron_i": 1671,
+          "neuron_j": 2991,
+          "correlation": 0.9139220126836126
+        },
+        {
+          "neuron_i": 698,
+          "neuron_j": 1102,
+          "correlation": 0.9098887203399733
+        },
+        {
+          "neuron_i": 889,
+          "neuron_j": 2108,
+          "correlation": 0.9084191505461103
+        },
+        {
+          "neuron_i": 2110,
+          "neuron_j": 2659,
+          "correlation": 0.9043020032594069
+        },
+        {
+          "neuron_i": 444,
+          "neuron_j": 2054,
+          "correlation": 0.902331967474434
+        },
+        {
+          "neuron_i": 1451,
+          "neuron_j": 2212,
+          "correlation": 0.9020077972822761
+        }
+      ],
+      "1": [
+        {
+          "neuron_i": 242,
+          "neuron_j": 1120,
+          "correlation": 0.9990593037124166
+        },
+        {
+          "neuron_i": 1120,
+          "neuron_j": 2401,
+          "correlation": 0.9979527829739748
+        },
+        {
+          "neuron_i": 242,
+          "neuron_j": 2401,
+          "correlation": 0.9942397789647356
+        },
+        {
+          "neuron_i": 1263,
+          "neuron_j": 1825,
+          "correlation": 0.9732044047791739
+        },
+        {
+          "neuron_i": 925,
+          "neuron_j": 3020,
+          "correlation": 0.940514065481425
+        },
+        {
+          "neuron_i": 79,
+          "neuron_j": 824,
+          "correlation": 0.9387523564888335
+        },
+        {
+          "neuron_i": 73,
+          "neuron_j": 2730,
+          "correlation": 0.929203298268655
+        },
+        {
+          "neuron_i": 675,
+          "neuron_j": 2677,
+          "correlation": 0.9231431976024609
+        },
+        {
+          "neuron_i": 1429,
+          "neuron_j": 2673,
+          "correlation": 0.9062178117707147
+        }
+      ],
+      "2": [
+        {
+          "neuron_i": 666,
+          "neuron_j": 1825,
+          "correlation": 0.9999210365912882
+        },
+        {
+          "neuron_i": 1825,
+          "neuron_j": 3034,
+          "correlation": 0.9997315429780326
+        },
+        {
+          "neuron_i": 666,
+          "neuron_j": 3034,
+          "correlation": 0.9996435531224701
+        },
+        {
+          "neuron_i": 676,
+          "neuron_j": 1195,
+          "correlation": 0.9844473181143103
+        },
+        {
+          "neuron_i": 2769,
+          "neuron_j": 2830,
+          "correlation": 0.9739540365576717
+        },
+        {
+          "neuron_i": 589,
+          "neuron_j": 2617,
+          "correlation": 0.9436887100664294
+        },
+        {
+          "neuron_i": 1587,
+          "neuron_j": 2942,
+          "correlation": 0.9256342947254916
+        },
+        {
+          "neuron_i": 783,
+          "neuron_j": 2900,
+          "correlation": 0.9228691910891009
+        },
+        {
+          "neuron_i": 352,
+          "neuron_j": 1929,
+          "correlation": 0.917660768972293
+        },
+        {
+          "neuron_i": 1587,
+          "neuron_j": 2147,
+          "correlation": 0.909370131224403
+        }
+      ]
+    }
+  },
+  "artifacts": {
+    "npz": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_gpt2_20260814T105354Z.npz",
+    "figures": {
+      "frequency_histograms": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\freq_hist_gpt2_20260814T105354Z.png",
+      "freq_distribution_heatmap": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\freq_depth_gpt2_20260814T105354Z.png",
+      "lazy_fraction_sweep": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\lazy_sweep_gpt2_20260814T105354Z.png",
+      "importance_histograms": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\imp_hist_gpt2_20260814T105354Z.png",
+      "importance_share_by_depth": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\imp_depth_gpt2_20260814T105354Z.png",
+      "corr_layer0": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\corr_layer0_gpt2_20260814T105354Z.png",
+      "corr_layer1": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\corr_layer1_gpt2_20260814T105354Z.png",
+      "corr_layer2": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\corr_layer2_gpt2_20260814T105354Z.png"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+# Fast baseline for pipeline verification (fallback 0.6B or 0.8B).
+seed: 42
+model_config: "configs/models/qwen3.5-4b.yaml"
+dataset_config: "configs/datasets/wikitext2.yaml"
+use_fallback_model: true
+max_samples: 32
+
+eval:
+  run_perplexity: true
+  max_length: 1024
+  stride: 512
+  batch_size: 1
+  run_lm_eval: false
+
+output_dir: "experiments/results"

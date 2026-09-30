@@ -1,0 +1,39 @@
+{
+  "task": "weeks_11_12_lora_recovery",
+  "model": {
+    "model_id": "Qwen/Qwen3.5-4B",
+    "load_in_4bit": true
+  },
+  "strategy": "importance",
+  "ratios": [0.10],
+  "recovery_config": {
+    "rank": 16,
+    "steps": 100,
+    "batch_size": 1,
+    "seq_len": 512,
+    "num_blocks": 128,
+    "lm_eval_limit": 200
+  },
+  "baseline": {"perplexity": 18.877},
+  "unmasked_control": {"perplexity": 25.799},
+  "runs": [
+    {
+      "ratio": 0.10,
+      "masked": {"perplexity": 20.708},
+      "masked_recovered": {"perplexity": 27.587},
+      "delta_masked": 1.831,
+      "residual_vs_control": 1.788,
+      "recovery_fraction": -3.759,
+      "adjusted_recovery_fraction": 0.0235
+    }
+  ],
+  "provenance": {
+    "runner": "MaSc303",
+    "github_issue": 16,
+    "branch": "dev/marcel",
+    "run_date": "2026-08-12",
+    "platform": "Google Colab",
+    "source_json": "experiments/results/recovery_colab_Qwen_Qwen3.5-4B_20250812T115950Z.json",
+    "note": "Numbers transcribed from the Colab JSON posted on dev/marcel (gitignored under experiments/results/). Untrained arms match Weeks 9-10 (18.87 / +1.82). Both LoRA arms overfit WikiText-2 train: eval PPL rose while train loss fell."
+  }
+}

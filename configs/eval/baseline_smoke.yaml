@@ -1,0 +1,15 @@
+# Minimal smoke test: fallback model, 8 documents.
+seed: 42
+model_config: "configs/models/qwen3.5-4b.yaml"
+dataset_config: "configs/datasets/wikitext2.yaml"
+use_fallback_model: true
+max_samples: 8
+
+eval:
+  run_perplexity: true
+  max_length: 512
+  stride: 256
+  batch_size: 1
+  run_lm_eval: false
+
+output_dir: "experiments/results"

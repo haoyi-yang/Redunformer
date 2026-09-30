@@ -1,0 +1,22 @@
+# Fast smoke run of the Weeks 9-10 masking sweep (few docs, two ratios).
+seed: 42
+model_config: "configs/models/qwen3-0.6b.yaml"
+dataset_config: "configs/datasets/wikitext2.yaml"
+max_samples: 16
+
+measurement_path: "auto"
+
+pruning:
+  strategies: ["importance", "random"]
+  ratios: [0.10]
+  layers: "all"
+  log_y: false
+
+eval:
+  max_length: 1024
+  stride: 512
+  run_lm_eval: false
+
+output_dir: "experiments/results"
+figures_dir: "experiments/results/figures"
+use_fallback_model: false

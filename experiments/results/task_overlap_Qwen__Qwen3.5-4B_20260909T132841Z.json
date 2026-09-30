@@ -1,0 +1,948 @@
+{
+  "timestamp_utc": "2026-09-09T13:28:42.134810+00:00",
+  "task": "weeks_11_12_cross_task_overlap",
+  "hypothesis": "H3: neurons that look redundant under WikiText-2 are not redundant under PIQA",
+  "command": "scripts/run_task_overlap.py --config configs/measurement/task_overlap_qwen3.5-4b.yaml --reference D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_Qwen__Qwen3.5-4B_20260629T183140Z.json --comparison D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_piqacalib_Qwen__Qwen3.5-4B_20260909T132811Z.json",
+  "model_id": "Qwen/Qwen3.5-4B",
+  "strategy": "importance",
+  "artifacts_compared": {
+    "wikitext2": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_Qwen__Qwen3.5-4B_20260629T183140Z.json",
+    "piqa": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_piqacalib_Qwen__Qwen3.5-4B_20260909T132811Z.json"
+  },
+  "calibration": {
+    "wikitext2": {
+      "dataset_id": "wikitext",
+      "dataset_config": "wikitext-2-raw-v1",
+      "split": "train",
+      "num_samples": 2549
+    },
+    "piqa": {
+      "dataset_id": "baber/piqa",
+      "dataset_config": null,
+      "split": "train",
+      "text_builder": "piqa",
+      "num_samples": 4000
+    }
+  },
+  "ratios": [
+    0.05,
+    0.1,
+    0.25
+  ],
+  "by_ratio": {
+    "0.05": {
+      "ratio": 0.05,
+      "summary": {
+        "num_layers": 32,
+        "mean_jaccard_bottom": 0.2022042946464564,
+        "min_jaccard_bottom": 0.11893203883495146,
+        "max_jaccard_bottom": 0.43167701863354035,
+        "mean_jaccard_top": 0.2463892200864584,
+        "mean_spearman": 0.5147542574032837,
+        "mean_chance_jaccard": 0.025652440042290357,
+        "bottom_over_chance": 7.882458522974984
+      },
+      "layers": [
+        {
+          "layer": "model.language_model.layers.0.mlp.down_proj",
+          "layer_index": 0,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.20838794233289645,
+          "jaccard_top": 0.20680628272251309,
+          "spearman": 0.5883517645185092
+        },
+        {
+          "layer": "model.language_model.layers.1.mlp.down_proj",
+          "layer_index": 1,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.22933333333333333,
+          "jaccard_top": 0.21957671957671956,
+          "spearman": 0.5210683918719876
+        },
+        {
+          "layer": "model.language_model.layers.2.mlp.down_proj",
+          "layer_index": 2,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.22769640479360853,
+          "jaccard_top": 0.07962529274004684,
+          "spearman": 0.45474870541653456
+        },
+        {
+          "layer": "model.language_model.layers.3.mlp.down_proj",
+          "layer_index": 3,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.1626733921815889,
+          "jaccard_top": 0.06712962962962964,
+          "spearman": 0.35067602281215965
+        },
+        {
+          "layer": "model.language_model.layers.4.mlp.down_proj",
+          "layer_index": 4,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.15538847117794485,
+          "jaccard_top": 0.10817307692307693,
+          "spearman": 0.42778684397446964
+        },
+        {
+          "layer": "model.language_model.layers.5.mlp.down_proj",
+          "layer_index": 5,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.24258760107816713,
+          "jaccard_top": 0.11218335343787696,
+          "spearman": 0.40403031092206504
+        },
+        {
+          "layer": "model.language_model.layers.6.mlp.down_proj",
+          "layer_index": 6,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.24594594594594596,
+          "jaccard_top": 0.14962593516209477,
+          "spearman": 0.34884382951333287
+        },
+        {
+          "layer": "model.language_model.layers.7.mlp.down_proj",
+          "layer_index": 7,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.19895968790637192,
+          "jaccard_top": 0.042986425339366516,
+          "spearman": 0.3595015257611866
+        },
+        {
+          "layer": "model.language_model.layers.8.mlp.down_proj",
+          "layer_index": 8,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.1525,
+          "jaccard_top": 0.05855338691159587,
+          "spearman": 0.28429137658336673
+        },
+        {
+          "layer": "model.language_model.layers.9.mlp.down_proj",
+          "layer_index": 9,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.11893203883495146,
+          "jaccard_top": 0.14250309789343246,
+          "spearman": 0.32329995772742876
+        },
+        {
+          "layer": "model.language_model.layers.10.mlp.down_proj",
+          "layer_index": 10,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.15683814303638646,
+          "jaccard_top": 0.31339031339031337,
+          "spearman": 0.4374279244621938
+        },
+        {
+          "layer": "model.language_model.layers.11.mlp.down_proj",
+          "layer_index": 11,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.15538847117794485,
+          "jaccard_top": 0.3781763826606876,
+          "spearman": 0.5433915173186422
+        },
+        {
+          "layer": "model.language_model.layers.12.mlp.down_proj",
+          "layer_index": 12,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.1760204081632653,
+          "jaccard_top": 0.361890694239291,
+          "spearman": 0.586854866344873
+        },
+        {
+          "layer": "model.language_model.layers.13.mlp.down_proj",
+          "layer_index": 13,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.17452229299363056,
+          "jaccard_top": 0.41846153846153844,
+          "spearman": 0.6256929911570693
+        },
+        {
+          "layer": "model.language_model.layers.14.mlp.down_proj",
+          "layer_index": 14,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.16561314791403287,
+          "jaccard_top": 0.4704944178628389,
+          "spearman": 0.6562476447120092
+        },
+        {
+          "layer": "model.language_model.layers.15.mlp.down_proj",
+          "layer_index": 15,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.20052083333333334,
+          "jaccard_top": 0.5139573070607554,
+          "spearman": 0.7023824846031633
+        },
+        {
+          "layer": "model.language_model.layers.16.mlp.down_proj",
+          "layer_index": 16,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.1866151866151866,
+          "jaccard_top": 0.49432739059967584,
+          "spearman": 0.7104156299474921
+        },
+        {
+          "layer": "model.language_model.layers.17.mlp.down_proj",
+          "layer_index": 17,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.19895968790637192,
+          "jaccard_top": 0.3885542168674699,
+          "spearman": 0.7149022853798359
+        },
+        {
+          "layer": "model.language_model.layers.18.mlp.down_proj",
+          "layer_index": 18,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.2476319350473613,
+          "jaccard_top": 0.4991869918699187,
+          "spearman": 0.7223124000598116
+        },
+        {
+          "layer": "model.language_model.layers.19.mlp.down_proj",
+          "layer_index": 19,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.239247311827957,
+          "jaccard_top": 0.2131578947368421,
+          "spearman": 0.5911681729950218
+        },
+        {
+          "layer": "model.language_model.layers.20.mlp.down_proj",
+          "layer_index": 20,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.18205128205128204,
+          "jaccard_top": 0.15683814303638646,
+          "spearman": 0.46053581558645473
+        },
+        {
+          "layer": "model.language_model.layers.21.mlp.down_proj",
+          "layer_index": 21,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.1927554980595084,
+          "jaccard_top": 0.20522875816993463,
+          "spearman": 0.48297497350990487
+        },
+        {
+          "layer": "model.language_model.layers.22.mlp.down_proj",
+          "layer_index": 22,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.20365535248041775,
+          "jaccard_top": 0.36592592592592593,
+          "spearman": 0.5220855129531883
+        },
+        {
+          "layer": "model.language_model.layers.23.mlp.down_proj",
+          "layer_index": 23,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.17302798982188294,
+          "jaccard_top": 0.13967861557478367,
+          "spearman": 0.37803914358607993
+        },
+        {
+          "layer": "model.language_model.layers.24.mlp.down_proj",
+          "layer_index": 24,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.16561314791403287,
+          "jaccard_top": 0.10023866348448687,
+          "spearman": 0.36169104987546496
+        },
+        {
+          "layer": "model.language_model.layers.25.mlp.down_proj",
+          "layer_index": 25,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.17302798982188294,
+          "jaccard_top": 0.09501187648456057,
+          "spearman": 0.38184738400263896
+        },
+        {
+          "layer": "model.language_model.layers.26.mlp.down_proj",
+          "layer_index": 26,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.1927554980595084,
+          "jaccard_top": 0.15106117353308365,
+          "spearman": 0.4577408546949023
+        },
+        {
+          "layer": "model.language_model.layers.27.mlp.down_proj",
+          "layer_index": 27,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.14250309789343246,
+          "jaccard_top": 0.16856780735107732,
+          "spearman": 0.4590589484063022
+        },
+        {
+          "layer": "model.language_model.layers.28.mlp.down_proj",
+          "layer_index": 28,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.20680628272251309,
+          "jaccard_top": 0.16414141414141414,
+          "spearman": 0.5536110902331327
+        },
+        {
+          "layer": "model.language_model.layers.29.mlp.down_proj",
+          "layer_index": 29,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.2787794729542302,
+          "jaccard_top": 0.20052083333333334,
+          "spearman": 0.6310179909564249
+        },
+        {
+          "layer": "model.language_model.layers.30.mlp.down_proj",
+          "layer_index": 30,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.2841225626740947,
+          "jaccard_top": 0.2752420470262794,
+          "spearman": 0.6409144186345371
+        },
+        {
+          "layer": "model.language_model.layers.31.mlp.down_proj",
+          "layer_index": 31,
+          "width": 9216,
+          "count": 461,
+          "jaccard_bottom": 0.43167701863354035,
+          "jaccard_top": 0.6232394366197183,
+          "spearman": 0.7892244083848929
+        }
+      ]
+    },
+    "0.1": {
+      "ratio": 0.1,
+      "summary": {
+        "num_layers": 32,
+        "mean_jaccard_bottom": 0.24108034815903415,
+        "min_jaccard_bottom": 0.16120906801007556,
+        "max_jaccard_bottom": 0.449685534591195,
+        "mean_jaccard_top": 0.28098489874498356,
+        "mean_spearman": 0.5147542574032837,
+        "mean_chance_jaccard": 0.05265562535693889,
+        "bottom_over_chance": 4.578434811566907
+      },
+      "layers": [
+        {
+          "layer": "model.language_model.layers.0.mlp.down_proj",
+          "layer_index": 0,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.26822558459422285,
+          "jaccard_top": 0.28322894919972164,
+          "spearman": 0.5883517645185092
+        },
+        {
+          "layer": "model.language_model.layers.1.mlp.down_proj",
+          "layer_index": 1,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.25698704839809133,
+          "jaccard_top": 0.24847664184157076,
+          "spearman": 0.5210683918719876
+        },
+        {
+          "layer": "model.language_model.layers.2.mlp.down_proj",
+          "layer_index": 2,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.2621492128678987,
+          "jaccard_top": 0.14250309789343246,
+          "spearman": 0.45474870541653456
+        },
+        {
+          "layer": "model.language_model.layers.3.mlp.down_proj",
+          "layer_index": 3,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.19121447028423771,
+          "jaccard_top": 0.1095066185318893,
+          "spearman": 0.35067602281215965
+        },
+        {
+          "layer": "model.language_model.layers.4.mlp.down_proj",
+          "layer_index": 4,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.1935275080906149,
+          "jaccard_top": 0.1626733921815889,
+          "spearman": 0.42778684397446964
+        },
+        {
+          "layer": "model.language_model.layers.5.mlp.down_proj",
+          "layer_index": 5,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.25186693822131706,
+          "jaccard_top": 0.14038342609771182,
+          "spearman": 0.40403031092206504
+        },
+        {
+          "layer": "model.language_model.layers.6.mlp.down_proj",
+          "layer_index": 6,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.23675385647216632,
+          "jaccard_top": 0.16635041113219481,
+          "spearman": 0.34884382951333287
+        },
+        {
+          "layer": "model.language_model.layers.7.mlp.down_proj",
+          "layer_index": 7,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.2384150436534587,
+          "jaccard_top": 0.0677475390851187,
+          "spearman": 0.3595015257611866
+        },
+        {
+          "layer": "model.language_model.layers.8.mlp.down_proj",
+          "layer_index": 8,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.18129404228058937,
+          "jaccard_top": 0.08726415094339622,
+          "spearman": 0.28429137658336673
+        },
+        {
+          "layer": "model.language_model.layers.9.mlp.down_proj",
+          "layer_index": 9,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.16120906801007556,
+          "jaccard_top": 0.1722822631913541,
+          "spearman": 0.32329995772742876
+        },
+        {
+          "layer": "model.language_model.layers.10.mlp.down_proj",
+          "layer_index": 10,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.18280949326491341,
+          "jaccard_top": 0.3410909090909091,
+          "spearman": 0.4374279244621938
+        },
+        {
+          "layer": "model.language_model.layers.11.mlp.down_proj",
+          "layer_index": 11,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.19198448610213317,
+          "jaccard_top": 0.4162826420890937,
+          "spearman": 0.5433915173186422
+        },
+        {
+          "layer": "model.language_model.layers.12.mlp.down_proj",
+          "layer_index": 12,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.22362309223623092,
+          "jaccard_top": 0.43837753510140404,
+          "spearman": 0.586854866344873
+        },
+        {
+          "layer": "model.language_model.layers.13.mlp.down_proj",
+          "layer_index": 13,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.22281167108753316,
+          "jaccard_top": 0.4588607594936709,
+          "spearman": 0.6256929911570693
+        },
+        {
+          "layer": "model.language_model.layers.14.mlp.down_proj",
+          "layer_index": 14,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.24091520861372812,
+          "jaccard_top": 0.4600158353127474,
+          "spearman": 0.6562476447120092
+        },
+        {
+          "layer": "model.language_model.layers.15.mlp.down_proj",
+          "layer_index": 15,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.24426450742240216,
+          "jaccard_top": 0.5353871773522065,
+          "spearman": 0.7023824846031633
+        },
+        {
+          "layer": "model.language_model.layers.16.mlp.down_proj",
+          "layer_index": 16,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.2578444747612551,
+          "jaccard_top": 0.5040783034257749,
+          "spearman": 0.7104156299474921
+        },
+        {
+          "layer": "model.language_model.layers.17.mlp.down_proj",
+          "layer_index": 17,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.25698704839809133,
+          "jaccard_top": 0.4882970137207425,
+          "spearman": 0.7149022853798359
+        },
+        {
+          "layer": "model.language_model.layers.18.mlp.down_proj",
+          "layer_index": 18,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.3022598870056497,
+          "jaccard_top": 0.4811244979919679,
+          "spearman": 0.7223124000598116
+        },
+        {
+          "layer": "model.language_model.layers.19.mlp.down_proj",
+          "layer_index": 19,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.2976776917663617,
+          "jaccard_top": 0.26474622770919065,
+          "spearman": 0.5911681729950218
+        },
+        {
+          "layer": "model.language_model.layers.20.mlp.down_proj",
+          "layer_index": 20,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.2244355909694555,
+          "jaccard_top": 0.1974025974025974,
+          "spearman": 0.46053581558645473
+        },
+        {
+          "layer": "model.language_model.layers.21.mlp.down_proj",
+          "layer_index": 21,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.23758389261744967,
+          "jaccard_top": 0.2359249329758713,
+          "spearman": 0.48297497350990487
+        },
+        {
+          "layer": "model.language_model.layers.22.mlp.down_proj",
+          "layer_index": 22,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.24258760107816713,
+          "jaccard_top": 0.3730454206999255,
+          "spearman": 0.5220855129531883
+        },
+        {
+          "layer": "model.language_model.layers.23.mlp.down_proj",
+          "layer_index": 23,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.20601700457815567,
+          "jaccard_top": 0.15901948460087995,
+          "spearman": 0.37803914358607993
+        },
+        {
+          "layer": "model.language_model.layers.24.mlp.down_proj",
+          "layer_index": 24,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.20759659462999344,
+          "jaccard_top": 0.14890965732087227,
+          "spearman": 0.36169104987546496
+        },
+        {
+          "layer": "model.language_model.layers.25.mlp.down_proj",
+          "layer_index": 25,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.2013029315960912,
+          "jaccard_top": 0.12507626601586333,
+          "spearman": 0.38184738400263896
+        },
+        {
+          "layer": "model.language_model.layers.26.mlp.down_proj",
+          "layer_index": 26,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.2131578947368421,
+          "jaccard_top": 0.18280949326491341,
+          "spearman": 0.4577408546949023
+        },
+        {
+          "layer": "model.language_model.layers.27.mlp.down_proj",
+          "layer_index": 27,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.18356867779204109,
+          "jaccard_top": 0.2131578947368421,
+          "spearman": 0.4590589484063022
+        },
+        {
+          "layer": "model.language_model.layers.28.mlp.down_proj",
+          "layer_index": 28,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.24008069939475454,
+          "jaccard_top": 0.2147562582345191,
+          "spearman": 0.5536110902331327
+        },
+        {
+          "layer": "model.language_model.layers.29.mlp.down_proj",
+          "layer_index": 29,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.3143264433357092,
+          "jaccard_top": 0.2690984170681349,
+          "spearman": 0.6310179909564249
+        },
+        {
+          "layer": "model.language_model.layers.30.mlp.down_proj",
+          "layer_index": 30,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.33140794223826714,
+          "jaccard_top": 0.318084345961401,
+          "spearman": 0.6409144186345371
+        },
+        {
+          "layer": "model.language_model.layers.31.mlp.down_proj",
+          "layer_index": 31,
+          "width": 9216,
+          "count": 922,
+          "jaccard_bottom": 0.449685534591195,
+          "jaccard_top": 0.585554600171969,
+          "spearman": 0.7892244083848929
+        }
+      ]
+    },
+    "0.25": {
+      "ratio": 0.25,
+      "summary": {
+        "num_layers": 32,
+        "mean_jaccard_bottom": 0.3513060218312113,
+        "min_jaccard_bottom": 0.26593406593406593,
+        "max_jaccard_bottom": 0.5217965653896962,
+        "mean_jaccard_top": 0.3713373862921584,
+        "mean_spearman": 0.5147542574032837,
+        "mean_chance_jaccard": 0.14285714285714285,
+        "bottom_over_chance": 2.459142152818479
+      },
+      "layers": [
+        {
+          "layer": "model.language_model.layers.0.mlp.down_proj",
+          "layer_index": 0,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.39721043056397815,
+          "jaccard_top": 0.3904646952323476,
+          "spearman": 0.5883517645185092
+        },
+        {
+          "layer": "model.language_model.layers.1.mlp.down_proj",
+          "layer_index": 1,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.3556928508384819,
+          "jaccard_top": 0.3525095391840329,
+          "spearman": 0.5210683918719876
+        },
+        {
+          "layer": "model.language_model.layers.2.mlp.down_proj",
+          "layer_index": 2,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.35092348284960423,
+          "jaccard_top": 0.26837324525185796,
+          "spearman": 0.45474870541653456
+        },
+        {
+          "layer": "model.language_model.layers.3.mlp.down_proj",
+          "layer_index": 3,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.28895104895104895,
+          "jaccard_top": 0.24037685060565275,
+          "spearman": 0.35067602281215965
+        },
+        {
+          "layer": "model.language_model.layers.4.mlp.down_proj",
+          "layer_index": 4,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.31770088647412065,
+          "jaccard_top": 0.2903948473816858,
+          "spearman": 0.42778684397446964
+        },
+        {
+          "layer": "model.language_model.layers.5.mlp.down_proj",
+          "layer_index": 5,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.3180778032036613,
+          "jaccard_top": 0.26489157287949494,
+          "spearman": 0.40403031092206504
+        },
+        {
+          "layer": "model.language_model.layers.6.mlp.down_proj",
+          "layer_index": 6,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.29839391377852914,
+          "jaccard_top": 0.2501356483993489,
+          "spearman": 0.34884382951333287
+        },
+        {
+          "layer": "model.language_model.layers.7.mlp.down_proj",
+          "layer_index": 7,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.3348783314020857,
+          "jaccard_top": 0.21454928835002635,
+          "spearman": 0.3595015257611866
+        },
+        {
+          "layer": "model.language_model.layers.8.mlp.down_proj",
+          "layer_index": 8,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.2824937378235458,
+          "jaccard_top": 0.2094488188976378,
+          "spearman": 0.28429137658336673
+        },
+        {
+          "layer": "model.language_model.layers.9.mlp.down_proj",
+          "layer_index": 9,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.26593406593406593,
+          "jaccard_top": 0.2572987721691678,
+          "spearman": 0.32329995772742876
+        },
+        {
+          "layer": "model.language_model.layers.10.mlp.down_proj",
+          "layer_index": 10,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.29693216999718547,
+          "jaccard_top": 0.3625073920756949,
+          "spearman": 0.4374279244621938
+        },
+        {
+          "layer": "model.language_model.layers.11.mlp.down_proj",
+          "layer_index": 11,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.31958762886597936,
+          "jaccard_top": 0.45133858267716537,
+          "spearman": 0.5433915173186422
+        },
+        {
+          "layer": "model.language_model.layers.12.mlp.down_proj",
+          "layer_index": 12,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.3501318488133607,
+          "jaccard_top": 0.46471710108073744,
+          "spearman": 0.586854866344873
+        },
+        {
+          "layer": "model.language_model.layers.13.mlp.down_proj",
+          "layer_index": 13,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.3657379964433906,
+          "jaccard_top": 0.4946480700616283,
+          "spearman": 0.6256929911570693
+        },
+        {
+          "layer": "model.language_model.layers.14.mlp.down_proj",
+          "layer_index": 14,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.3755223880597015,
+          "jaccard_top": 0.5093350802489355,
+          "spearman": 0.6562476447120092
+        },
+        {
+          "layer": "model.language_model.layers.15.mlp.down_proj",
+          "layer_index": 15,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.4040219378427788,
+          "jaccard_top": 0.5478669801813907,
+          "spearman": 0.7023824846031633
+        },
+        {
+          "layer": "model.language_model.layers.16.mlp.down_proj",
+          "layer_index": 16,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.4204685573366215,
+          "jaccard_top": 0.5509929316728375,
+          "spearman": 0.7104156299474921
+        },
+        {
+          "layer": "model.language_model.layers.17.mlp.down_proj",
+          "layer_index": 17,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.4152334152334152,
+          "jaccard_top": 0.5562310030395137,
+          "spearman": 0.7149022853798359
+        },
+        {
+          "layer": "model.language_model.layers.18.mlp.down_proj",
+          "layer_index": 18,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.43730505302557704,
+          "jaccard_top": 0.5339547270306259,
+          "spearman": 0.7223124000598116
+        },
+        {
+          "layer": "model.language_model.layers.19.mlp.down_proj",
+          "layer_index": 19,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.41219736438859944,
+          "jaccard_top": 0.40487804878048783,
+          "spearman": 0.5911681729950218
+        },
+        {
+          "layer": "model.language_model.layers.20.mlp.down_proj",
+          "layer_index": 20,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.3310225303292894,
+          "jaccard_top": 0.32299741602067183,
+          "spearman": 0.46053581558645473
+        },
+        {
+          "layer": "model.language_model.layers.21.mlp.down_proj",
+          "layer_index": 21,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.3302540415704388,
+          "jaccard_top": 0.3493411420204978,
+          "spearman": 0.48297497350990487
+        },
+        {
+          "layer": "model.language_model.layers.22.mlp.down_proj",
+          "layer_index": 22,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.3283366964543096,
+          "jaccard_top": 0.4061641745498932,
+          "spearman": 0.5220855129531883
+        },
+        {
+          "layer": "model.language_model.layers.23.mlp.down_proj",
+          "layer_index": 23,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.30612244897959184,
+          "jaccard_top": 0.2743362831858407,
+          "spearman": 0.37803914358607993
+        },
+        {
+          "layer": "model.language_model.layers.24.mlp.down_proj",
+          "layer_index": 24,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.2849972113775795,
+          "jaccard_top": 0.2583287820862916,
+          "spearman": 0.36169104987546496
+        },
+        {
+          "layer": "model.language_model.layers.25.mlp.down_proj",
+          "layer_index": 25,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.2907563025210084,
+          "jaccard_top": 0.25183374083129584,
+          "spearman": 0.38184738400263896
+        },
+        {
+          "layer": "model.language_model.layers.26.mlp.down_proj",
+          "layer_index": 26,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.3169476993426693,
+          "jaccard_top": 0.30243075183719614,
+          "spearman": 0.4577408546949023
+        },
+        {
+          "layer": "model.language_model.layers.27.mlp.down_proj",
+          "layer_index": 27,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.3146932952924394,
+          "jaccard_top": 0.31770088647412065,
+          "spearman": 0.4590589484063022
+        },
+        {
+          "layer": "model.language_model.layers.28.mlp.down_proj",
+          "layer_index": 28,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.3755223880597015,
+          "jaccard_top": 0.3552941176470588,
+          "spearman": 0.5536110902331327
+        },
+        {
+          "layer": "model.language_model.layers.29.mlp.down_proj",
+          "layer_index": 29,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.4174100276837896,
+          "jaccard_top": 0.3993319161858488,
+          "spearman": 0.6310179909564249
+        },
+        {
+          "layer": "model.language_model.layers.30.mlp.down_proj",
+          "layer_index": 30,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.4165385797725177,
+          "jaccard_top": 0.4422535211267606,
+          "spearman": 0.6409144186345371
+        },
+        {
+          "layer": "model.language_model.layers.31.mlp.down_proj",
+          "layer_index": 31,
+          "width": 9216,
+          "count": 2304,
+          "jaccard_bottom": 0.5217965653896962,
+          "jaccard_top": 0.5878704341833219,
+          "spearman": 0.7892244083848929
+        }
+      ]
+    }
+  },
+  "artifacts": {
+    "figures": {
+      "task_overlap": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\task_overlap_Qwen__Qwen3.5-4B_20260909T132841Z.png"
+    }
+  }
+}

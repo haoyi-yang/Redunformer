@@ -1,0 +1,336 @@
+{
+  "timestamp_utc": "2026-08-14T13:49:18.356957+00:00",
+  "task": "weeks_11_12_duplicate_neuron_replacement",
+  "question": "does routing a redundant twin's contribution through its partner remove the cost of masking it?",
+  "seed": 42,
+  "config_path": "configs/pruning/merge_llama2-7b.yaml",
+  "command": "scripts/run_merge.py --config configs/pruning/merge_llama2-7b.yaml",
+  "model": {
+    "model_id": "meta-llama/Llama-2-7b-hf",
+    "load_in_4bit": true,
+    "config": "configs/models/llama2-7b.yaml"
+  },
+  "dataset": {
+    "dataset_id": "wikitext",
+    "dataset_config": "wikitext-2-raw-v1",
+    "split": "test",
+    "text_builder": null,
+    "num_samples": 332
+  },
+  "fit_dataset": {
+    "dataset_id": "wikitext",
+    "dataset_config": "wikitext-2-raw-v1",
+    "split": "train",
+    "text_builder": null,
+    "num_samples": 2549,
+    "num_blocks": 32
+  },
+  "measurement_artifact": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_meta-llama__Llama-2-7b-hf_20260814T131909Z.json",
+  "pairs": {
+    "min_abs_corr": 0.9,
+    "layers": "all",
+    "num_pairs": 17,
+    "selected": [
+      {
+        "layer": "model.layers.0.mlp.down_proj",
+        "drop": 2565,
+        "keep": 10288,
+        "correlation": -0.9871436886828706
+      },
+      {
+        "layer": "model.layers.0.mlp.down_proj",
+        "drop": 5368,
+        "keep": 509,
+        "correlation": 0.9685908300652907
+      },
+      {
+        "layer": "model.layers.0.mlp.down_proj",
+        "drop": 578,
+        "keep": 3729,
+        "correlation": -0.9551057451178145
+      },
+      {
+        "layer": "model.layers.0.mlp.down_proj",
+        "drop": 4865,
+        "keep": 3629,
+        "correlation": -0.9489234562633846
+      },
+      {
+        "layer": "model.layers.0.mlp.down_proj",
+        "drop": 7778,
+        "keep": 1464,
+        "correlation": -0.9487275967785986
+      },
+      {
+        "layer": "model.layers.0.mlp.down_proj",
+        "drop": 5311,
+        "keep": 5196,
+        "correlation": 0.9412535016216947
+      },
+      {
+        "layer": "model.layers.0.mlp.down_proj",
+        "drop": 6975,
+        "keep": 1422,
+        "correlation": 0.9349717390703102
+      },
+      {
+        "layer": "model.layers.0.mlp.down_proj",
+        "drop": 8101,
+        "keep": 7531,
+        "correlation": -0.9278392584128546
+      },
+      {
+        "layer": "model.layers.1.mlp.down_proj",
+        "drop": 4801,
+        "keep": 10494,
+        "correlation": -0.9965745123296031
+      },
+      {
+        "layer": "model.layers.1.mlp.down_proj",
+        "drop": 6970,
+        "keep": 1134,
+        "correlation": 0.9961499487222749
+      },
+      {
+        "layer": "model.layers.1.mlp.down_proj",
+        "drop": 2050,
+        "keep": 2549,
+        "correlation": 0.9926713118695892
+      },
+      {
+        "layer": "model.layers.1.mlp.down_proj",
+        "drop": 9848,
+        "keep": 7890,
+        "correlation": -0.9771139971763863
+      },
+      {
+        "layer": "model.layers.1.mlp.down_proj",
+        "drop": 2707,
+        "keep": 5805,
+        "correlation": -0.9762905092998586
+      },
+      {
+        "layer": "model.layers.1.mlp.down_proj",
+        "drop": 2713,
+        "keep": 5843,
+        "correlation": -0.9745237843480414
+      },
+      {
+        "layer": "model.layers.1.mlp.down_proj",
+        "drop": 7546,
+        "keep": 5041,
+        "correlation": 0.9673848889498913
+      },
+      {
+        "layer": "model.layers.1.mlp.down_proj",
+        "drop": 4182,
+        "keep": 8868,
+        "correlation": -0.950539374973515
+      },
+      {
+        "layer": "model.layers.31.mlp.down_proj",
+        "drop": 4280,
+        "keep": 10133,
+        "correlation": -0.9389657674347852
+      }
+    ]
+  },
+  "merge_plans": [
+    {
+      "layer": "model.layers.0.mlp.down_proj",
+      "drop": 2565,
+      "keep": 10288,
+      "alpha": -0.5212071607053717,
+      "beta": 0.0004971355071870145,
+      "r2": 0.09208089741151426,
+      "correlation": -0.9871436886828706
+    },
+    {
+      "layer": "model.layers.0.mlp.down_proj",
+      "drop": 5368,
+      "keep": 509,
+      "alpha": 0.14501018311747824,
+      "beta": 0.00012715161249160858,
+      "r2": 0.15478870855970428,
+      "correlation": 0.9685908300652907
+    },
+    {
+      "layer": "model.layers.0.mlp.down_proj",
+      "drop": 578,
+      "keep": 3729,
+      "alpha": -0.1037815156697768,
+      "beta": -0.00018174327409314315,
+      "r2": 0.08230242426998513,
+      "correlation": -0.9551057451178145
+    },
+    {
+      "layer": "model.layers.0.mlp.down_proj",
+      "drop": 4865,
+      "keep": 3629,
+      "alpha": -0.6015100512496828,
+      "beta": 0.00036402269461085514,
+      "r2": 0.8161638524500777,
+      "correlation": -0.9489234562633846
+    },
+    {
+      "layer": "model.layers.0.mlp.down_proj",
+      "drop": 7778,
+      "keep": 1464,
+      "alpha": -0.3731636098118018,
+      "beta": -0.0003860907929541412,
+      "r2": 0.13887262960080127,
+      "correlation": -0.9487275967785986
+    },
+    {
+      "layer": "model.layers.0.mlp.down_proj",
+      "drop": 5311,
+      "keep": 5196,
+      "alpha": 0.8785346174087851,
+      "beta": -1.3486454411743964e-05,
+      "r2": 0.8297546242965426,
+      "correlation": 0.9412535016216947
+    },
+    {
+      "layer": "model.layers.0.mlp.down_proj",
+      "drop": 6975,
+      "keep": 1422,
+      "alpha": 0.29391437987581703,
+      "beta": -4.1366357751367305e-05,
+      "r2": 0.8580899660465516,
+      "correlation": 0.9349717390703102
+    },
+    {
+      "layer": "model.layers.0.mlp.down_proj",
+      "drop": 8101,
+      "keep": 7531,
+      "alpha": -0.5746906892916948,
+      "beta": 0.00021398966417020748,
+      "r2": 0.6724137949841115,
+      "correlation": -0.9278392584128546
+    },
+    {
+      "layer": "model.layers.1.mlp.down_proj",
+      "drop": 4801,
+      "keep": 10494,
+      "alpha": -0.6539045815330333,
+      "beta": 0.00860378276081865,
+      "r2": 0.7833894519172009,
+      "correlation": -0.9965745123296031
+    },
+    {
+      "layer": "model.layers.1.mlp.down_proj",
+      "drop": 6970,
+      "keep": 1134,
+      "alpha": 0.12212447298123688,
+      "beta": 0.004810403124781465,
+      "r2": 0.71436206026643,
+      "correlation": 0.9961499487222749
+    },
+    {
+      "layer": "model.layers.1.mlp.down_proj",
+      "drop": 2050,
+      "keep": 2549,
+      "alpha": 0.7294184209536666,
+      "beta": -0.004106917173845544,
+      "r2": 0.6379178130796469,
+      "correlation": 0.9926713118695892
+    },
+    {
+      "layer": "model.layers.1.mlp.down_proj",
+      "drop": 9848,
+      "keep": 7890,
+      "alpha": -0.0017377841244157744,
+      "beta": -0.00429620650825611,
+      "r2": 0.7278736107850613,
+      "correlation": -0.9771139971763863
+    },
+    {
+      "layer": "model.layers.1.mlp.down_proj",
+      "drop": 2707,
+      "keep": 5805,
+      "alpha": -0.20080664720228197,
+      "beta": -0.008643017376286826,
+      "r2": 0.453962415235857,
+      "correlation": -0.9762905092998586
+    },
+    {
+      "layer": "model.layers.1.mlp.down_proj",
+      "drop": 2713,
+      "keep": 5843,
+      "alpha": -0.7212241178900503,
+      "beta": -0.012585503001947225,
+      "r2": 0.8692348915294211,
+      "correlation": -0.9745237843480414
+    },
+    {
+      "layer": "model.layers.1.mlp.down_proj",
+      "drop": 7546,
+      "keep": 5041,
+      "alpha": 0.9238362902066526,
+      "beta": -0.0004661950236009675,
+      "r2": 0.8765789166725072,
+      "correlation": 0.9673848889498913
+    },
+    {
+      "layer": "model.layers.1.mlp.down_proj",
+      "drop": 4182,
+      "keep": 8868,
+      "alpha": -0.3997552893044278,
+      "beta": -0.0012745665958434835,
+      "r2": 0.9335544234456542,
+      "correlation": -0.950539374973515
+    },
+    {
+      "layer": "model.layers.31.mlp.down_proj",
+      "drop": 4280,
+      "keep": 10133,
+      "alpha": -0.52804489830416,
+      "beta": -0.1291845797457755,
+      "r2": 0.8661894928031152,
+      "correlation": -0.9389657674347852
+    }
+  ],
+  "merge_stats": {
+    "num_plans": 17.0,
+    "mean_r2": 0.6180899984325992,
+    "min_r2": 0.08230242426998513,
+    "mean_abs_alpha": 0.4572155711547255
+  },
+  "baseline_perplexity": 10.631140153231074,
+  "conditions": [
+    {
+      "condition": "mask_only",
+      "description": "drop the redundant twin (Weeks 9-10 intervention)",
+      "num_neurons": 17,
+      "perplexity": 10.67492368767191,
+      "delta_perplexity": 0.043783534440835936
+    },
+    {
+      "condition": "merge",
+      "description": "drop the twin and route its contribution through its partner",
+      "num_neurons": 17,
+      "perplexity": 10.654250435625386,
+      "delta_perplexity": 0.023110282394311454
+    },
+    {
+      "condition": "merge_no_bias",
+      "description": "same, without the constant beta term",
+      "num_neurons": 17,
+      "perplexity": 10.657918127747362,
+      "delta_perplexity": 0.026777974516287273
+    }
+  ],
+  "verdict": {
+    "delta_mask_only": 0.043783534440835936,
+    "delta_merge": 0.023110282394311454,
+    "mean_fit_r2": 0.6180899984325992,
+    "supported": true,
+    "fraction_of_mask_cost_recovered": 0.47216955667341,
+    "summary": "masking costs +0.0438 PPL, merging +0.0231 (47.2% of the masking cost recovered); mean fit r2 = 0.6181"
+  },
+  "artifacts": {
+    "figures": {
+      "merge": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\merge_meta-llama__Llama-2-7b-hf_20260814T134918Z.png"
+    }
+  }
+}

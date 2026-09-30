@@ -1,0 +1,11 @@
+# H3: WikiText-2 vs PIQA ranking overlap — GPT-2 small.
+reference: null
+comparison: null
+reference_label: "wikitext2"
+comparison_label: "piqa"
+
+strategy: "importance"
+ratios: [0.05, 0.10, 0.25]
+
+output_dir: "experiments/results"
+figures_dir: "experiments/results/figures"

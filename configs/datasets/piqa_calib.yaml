@@ -1,0 +1,14 @@
+# PIQA train split as *calibration text*, for the H3 task-dimension test.
+#
+# PIQA has no free-form text column: `text_builder: piqa` assembles
+# "Question: {goal}\nAnswer: {correct solution}" for each row, matching the
+# prompt format lm-evaluation-harness scores. Feeding this through the ordinary
+# measurement pipeline yields a PIQA-calibrated neuron ranking that can be
+# compared against the WikiText-2 one.
+#
+# The train split is used so the ranking is not derived from the same rows the
+# accuracy metric is computed on.
+dataset_id: "baber/piqa"
+split: "train"
+text_builder: "piqa"
+max_samples: 4000

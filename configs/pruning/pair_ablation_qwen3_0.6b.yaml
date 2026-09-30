@@ -1,0 +1,21 @@
+# Weeks 9-10 duplicate-neuron ablation (H5) — Qwen3-0.6B.
+# The removal budget is a handful of neurons, so the eval set is larger than in
+# the ratio sweep: the perplexity differences we are comparing are small.
+seed: 42
+model_config: "configs/models/qwen3-0.6b.yaml"
+dataset_config: "configs/datasets/wikitext2.yaml"
+max_samples: 512
+
+measurement_path: "auto"
+
+pairs:
+  min_abs_corr: 0.9        # duplicate threshold from the proposal (Q1)
+  max_pairs_per_layer: 8   # keep the ablation small enough to attribute
+  layers: "all"            # measurement only stores pairs for the drill-down layers
+
+eval:
+  max_length: 2048
+  stride: 512
+
+output_dir: "experiments/results"
+figures_dir: "experiments/results/figures"

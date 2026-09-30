@@ -1,0 +1,67 @@
+{
+  "timestamp_utc": "2026-08-23T08:15:22.222569+00:00",
+  "task": "weeks_9_10_neuron_masking",
+  "seed": 42,
+  "config_path": "configs/pruning/neuron_masking_llama2-7b.yaml",
+  "command": "scripts/run_pruning.py --config configs/pruning/neuron_masking_llama2-7b.yaml --layers 0,1,2,3,4,5,6,7,8,9 --ratios 0.10 --strategies importance --no-lm-eval --tag h1early",
+  "model": {
+    "model_id": "meta-llama/Llama-2-7b-hf",
+    "load_in_4bit": true,
+    "config": "configs/models/llama2-7b.yaml"
+  },
+  "dataset": {
+    "dataset_id": "wikitext",
+    "dataset_config": "wikitext-2-raw-v1",
+    "split": "test",
+    "text_builder": null,
+    "num_samples": 157
+  },
+  "measurement_artifact": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_meta-llama__Llama-2-7b-hf_20260814T131909Z.json",
+  "intervention": {
+    "kind": "activation masking (post-SwiGLU channel -> down_proj input)",
+    "strategies": [
+      "importance"
+    ],
+    "ratios": [
+      0.1
+    ],
+    "layers": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "num_masked_layers": 32
+  },
+  "eval": {
+    "max_length": 2048,
+    "stride": 512,
+    "num_documents": 157,
+    "lm_eval_tasks": []
+  },
+  "baseline": {
+    "perplexity": 9.460768420127858
+  },
+  "runs": [
+    {
+      "perplexity": 9.729657165049472,
+      "strategy": "importance",
+      "ratio": 0.1,
+      "num_masked": 11010,
+      "masked_fraction": 0.10001816860465117,
+      "importance_removed_fraction": 0.06923138776176066,
+      "delta_perplexity": 0.26888874492161463
+    }
+  ],
+  "artifacts": {
+    "figures": {
+      "removal_curve_ppl": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\prune_ppl_h1early_meta-llama__Llama-2-7b-hf_20260823T081521Z.png"
+    }
+  }
+}

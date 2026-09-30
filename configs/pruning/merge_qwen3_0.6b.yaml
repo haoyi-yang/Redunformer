@@ -1,0 +1,31 @@
+# Weeks 11-12 duplicate-neuron replacement (merge) — Qwen3-0.6B.
+#
+# Mirrors pair_ablation_qwen3_0.6b.yaml so the merge arms are directly comparable
+# to the Weeks 9-10 mask-only numbers: same pairs, same eval slice, same seed.
+seed: 42
+model_config: "configs/models/qwen3-0.6b.yaml"
+dataset_config: "configs/datasets/wikitext2.yaml"
+max_samples: 512
+
+measurement_path: "auto"
+
+pairs:
+  min_abs_corr: 0.9
+  max_pairs_per_layer: 8
+  layers: "all"
+
+# Calibration pass used to fit h_drop ~= alpha * h_keep + beta. Only the paired
+# neurons' columns are captured, so this is cheap; 32 blocks of 512 tokens is
+# ~16k samples per fit, plenty for two coefficients.
+fit:
+  dataset_config: "configs/datasets/wikitext2_calib.yaml"
+  seq_len: 512
+  num_blocks: 32
+
+eval:
+  max_length: 2048
+  stride: 512
+
+output_dir: "experiments/results"
+figures_dir: "experiments/results/figures"
+use_fallback_model: false

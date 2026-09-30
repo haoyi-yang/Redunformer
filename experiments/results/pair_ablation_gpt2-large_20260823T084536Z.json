@@ -1,0 +1,180 @@
+{
+  "timestamp_utc": "2026-08-23T08:45:37.081279+00:00",
+  "task": "weeks_9_10_duplicate_pair_ablation",
+  "hypothesis": "H5: one neuron of a near-duplicate pair is cheaper to mask than a matched-importance uncorrelated neuron",
+  "seed": 42,
+  "config_path": "configs/pruning/pair_ablation_gpt2-large.yaml",
+  "command": "scripts/run_pair_ablation.py --config configs/pruning/pair_ablation_gpt2-large.yaml",
+  "model": {
+    "model_id": "gpt2-large",
+    "load_in_4bit": false,
+    "config": "configs/models/gpt2-large.yaml"
+  },
+  "dataset": {
+    "dataset_id": "wikitext",
+    "dataset_config": "wikitext-2-raw-v1",
+    "split": "test",
+    "text_builder": null,
+    "num_samples": 332
+  },
+  "measurement_artifact": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_gpt2-large_20260814T121109Z.json",
+  "pairs": {
+    "min_abs_corr": 0.9,
+    "layers": "all",
+    "num_pairs": 16,
+    "selected": [
+      {
+        "layer": "transformer.h.0.mlp.c_proj",
+        "drop": 1317,
+        "keep": 341,
+        "correlation": 0.9852295601016114
+      },
+      {
+        "layer": "transformer.h.0.mlp.c_proj",
+        "drop": 1863,
+        "keep": 3366,
+        "correlation": 0.9692378266198896
+      },
+      {
+        "layer": "transformer.h.0.mlp.c_proj",
+        "drop": 3564,
+        "keep": 290,
+        "correlation": 0.9566862075057756
+      },
+      {
+        "layer": "transformer.h.0.mlp.c_proj",
+        "drop": 3157,
+        "keep": 67,
+        "correlation": 0.9455761966706693
+      },
+      {
+        "layer": "transformer.h.0.mlp.c_proj",
+        "drop": 4378,
+        "keep": 926,
+        "correlation": 0.9444937008342098
+      },
+      {
+        "layer": "transformer.h.0.mlp.c_proj",
+        "drop": 3417,
+        "keep": 4487,
+        "correlation": 0.942163550880087
+      },
+      {
+        "layer": "transformer.h.0.mlp.c_proj",
+        "drop": 4918,
+        "keep": 310,
+        "correlation": 0.9354627211672909
+      },
+      {
+        "layer": "transformer.h.0.mlp.c_proj",
+        "drop": 4633,
+        "keep": 1302,
+        "correlation": 0.9238517537502928
+      },
+      {
+        "layer": "transformer.h.8.mlp.c_proj",
+        "drop": 4840,
+        "keep": 1165,
+        "correlation": 0.995775727037655
+      },
+      {
+        "layer": "transformer.h.8.mlp.c_proj",
+        "drop": 813,
+        "keep": 4898,
+        "correlation": 0.9919715216561139
+      },
+      {
+        "layer": "transformer.h.8.mlp.c_proj",
+        "drop": 942,
+        "keep": 3407,
+        "correlation": 0.9835397412819538
+      },
+      {
+        "layer": "transformer.h.8.mlp.c_proj",
+        "drop": 2608,
+        "keep": 2194,
+        "correlation": 0.9113293747127368
+      },
+      {
+        "layer": "transformer.h.9.mlp.c_proj",
+        "drop": 1847,
+        "keep": 4569,
+        "correlation": 0.9974340254743734
+      },
+      {
+        "layer": "transformer.h.9.mlp.c_proj",
+        "drop": 1053,
+        "keep": 2655,
+        "correlation": 0.9907678081087717
+      },
+      {
+        "layer": "transformer.h.9.mlp.c_proj",
+        "drop": 833,
+        "keep": 4525,
+        "correlation": 0.9877283231924544
+      },
+      {
+        "layer": "transformer.h.9.mlp.c_proj",
+        "drop": 847,
+        "keep": 4939,
+        "correlation": 0.9609472746572162
+      }
+    ]
+  },
+  "baseline_perplexity": 33.68791773735486,
+  "conditions": [
+    {
+      "condition": "duplicate_one",
+      "description": "one neuron of each near-duplicate pair (lower-importance twin)",
+      "num_masked": 16,
+      "mean_importance": 0.8633026382562741,
+      "perplexity": 33.569374554129546,
+      "delta_perplexity": -0.11854318322531299
+    },
+    {
+      "condition": "duplicate_both",
+      "description": "both neurons of each near-duplicate pair",
+      "num_masked": 32,
+      "mean_importance": 0.9855332353599563,
+      "perplexity": 33.4656348490145,
+      "delta_perplexity": -0.22228288834035936
+    },
+    {
+      "condition": "importance_matched",
+      "description": "uncorrelated neurons with importance matched to duplicate_one",
+      "num_masked": 16,
+      "mean_importance": 0.5580705558846755,
+      "perplexity": 33.72208731314384,
+      "delta_perplexity": 0.0341695757889795
+    },
+    {
+      "condition": "random_matched",
+      "description": "random uncorrelated neurons, same count as duplicate_one",
+      "num_masked": 16,
+      "mean_importance": 0.1591259770319774,
+      "perplexity": 33.70625088208118,
+      "delta_perplexity": 0.018333144726319972
+    },
+    {
+      "condition": "lowest_importance",
+      "description": "least-important neurons, same count as duplicate_one",
+      "num_masked": 16,
+      "mean_importance": 0.03132096507636874,
+      "perplexity": 33.683218807696804,
+      "delta_perplexity": -0.004698929658054851
+    }
+  ],
+  "verdict": {
+    "supported": true,
+    "delta_duplicate_one": -0.11854318322531299,
+    "delta_importance_matched": 0.0341695757889795,
+    "margin": 0.1527127590142925,
+    "importance_match_ratio": 0.6464367548000132,
+    "summary": "duplicate_one costs -0.1185 PPL vs +0.0342 for matched-importance controls (margin +0.1527, control held 0.65x the duplicates' mean importance) - supported"
+  },
+  "artifacts": {
+    "figures": {
+      "pair_ablation": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\pair_ablation_gpt2-large_20260823T084536Z.png"
+    }
+  }
+}

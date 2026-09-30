@@ -1,0 +1,36 @@
+# Python / uv
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+# Experiments & artifacts
+experiments/results/*.json
+experiments/results/*.npz
+experiments/results/*.log
+experiments/results/*.err
+experiments/results/figures/*
+!experiments/results/.gitkeep
+!experiments/results/figures/.gitkeep
+*.pt
+*.bin
+checkpoints/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+.env.*
+.cursorindexingignore
+.specstory/**
+
+# Large downloads (cache via HF_HOME instead)
+models/cache/

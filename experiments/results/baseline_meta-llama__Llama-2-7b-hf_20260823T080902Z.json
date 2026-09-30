@@ -1,0 +1,27 @@
+{
+  "timestamp_utc": "2026-08-23T07:57:40.118651+00:00",
+  "task": "weeks_1_2_baseline",
+  "seed": 42,
+  "config_path": "configs/eval/baseline_llama2-7b.yaml",
+  "command": "scripts/run_baseline.py --config configs/eval/baseline_llama2-7b.yaml",
+  "model": {
+    "model_id": "meta-llama/Llama-2-7b-hf",
+    "load_in_4bit": true,
+    "config": "configs/models/llama2-7b.yaml"
+  },
+  "dataset": {
+    "dataset_id": "wikitext",
+    "dataset_config": "wikitext-2-raw-v1",
+    "split": "test",
+    "text_builder": null,
+    "num_samples": 2891
+  },
+  "metrics": {
+    "perplexity": {
+      "perplexity": 10.581054671947843,
+      "avg_nll": 2.3590651069011948,
+      "num_tokens": 335644.0,
+      "num_documents": 2891.0
+    }
+  }
+}

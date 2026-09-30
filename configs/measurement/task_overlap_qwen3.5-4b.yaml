@@ -1,0 +1,18 @@
+# Weeks 13-16 (H3): compare a WikiText-2-calibrated ranking against a
+# PIQA-calibrated one for Qwen3.5-4B, the project's primary model.
+#
+# Both artifacts must exist first:
+#   run_measurement.py --config configs/measurement/neuron_activations.yaml
+#   run_measurement.py --config configs/measurement/neuron_activations_piqa_qwen3.5-4b.yaml
+# Then point `reference` / `comparison` at the two measurement JSONs (paths are
+# relative to the repo root), or pass them on the command line.
+reference: null
+comparison: null
+reference_label: "wikitext2"
+comparison_label: "piqa"
+
+strategy: "importance"
+ratios: [0.05, 0.10, 0.25]
+
+output_dir: "experiments/results"
+figures_dir: "experiments/results/figures"

@@ -1,0 +1,67 @@
+{
+  "timestamp_utc": "2026-09-09T13:17:04.118891+00:00",
+  "task": "weeks_9_10_neuron_masking",
+  "seed": 42,
+  "config_path": "configs/pruning/neuron_masking.yaml",
+  "command": "scripts/run_pruning.py --config configs/pruning/neuron_masking.yaml --measurement D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_Qwen__Qwen3.5-4B_20260629T183140Z.json --layers 0,1,2,3,4,5,6,7,8,9 --ratios 0.10 --strategies importance --no-lm-eval --tag h1early",
+  "model": {
+    "model_id": "Qwen/Qwen3.5-4B",
+    "load_in_4bit": true,
+    "config": "configs/models/qwen3.5-4b.yaml"
+  },
+  "dataset": {
+    "dataset_id": "wikitext",
+    "dataset_config": "wikitext-2-raw-v1",
+    "split": "test",
+    "text_builder": null,
+    "num_samples": 79
+  },
+  "measurement_artifact": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_Qwen__Qwen3.5-4B_20260629T183140Z.json",
+  "intervention": {
+    "kind": "activation masking (post-SwiGLU channel -> down_proj input)",
+    "strategies": [
+      "importance"
+    ],
+    "ratios": [
+      0.1
+    ],
+    "layers": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "num_masked_layers": 32
+  },
+  "eval": {
+    "max_length": 2048,
+    "stride": 512,
+    "num_documents": 79,
+    "lm_eval_tasks": []
+  },
+  "baseline": {
+    "perplexity": 18.873973338800038
+  },
+  "runs": [
+    {
+      "perplexity": 19.2182884728499,
+      "strategy": "importance",
+      "ratio": 0.1,
+      "num_masked": 9220,
+      "masked_fraction": 0.10004340277777778,
+      "importance_removed_fraction": 0.07280402066902376,
+      "delta_perplexity": 0.3443151340498609
+    }
+  ],
+  "artifacts": {
+    "figures": {
+      "removal_curve_ppl": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\prune_ppl_h1early_Qwen__Qwen3.5-4B_20260909T131703Z.png"
+    }
+  }
+}

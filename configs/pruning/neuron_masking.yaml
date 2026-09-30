@@ -1,0 +1,28 @@
+# Weeks 9-10 neuron masking intervention — Qwen3.5-4B (primary).
+seed: 42
+model_config: "configs/models/qwen3.5-4b.yaml"
+dataset_config: "configs/datasets/wikitext2.yaml"
+# WikiText-2 test rows pulled before empty-row filtering. Smaller than the 0.6B
+# sweep because every point on the curve is a full 4-bit forward pass.
+max_samples: 128
+
+# "auto" = newest measurement_<model>_*.json in output_dir.
+measurement_path: "auto"
+
+pruning:
+  strategies: ["importance", "frequency", "random"]
+  ratios: [0.05, 0.10, 0.25, 0.50]
+  layers: "all"           # "all" or an explicit list of layer indices
+  log_y: true             # perplexity blows up at 50%; log axis keeps the curve readable
+
+eval:
+  max_length: 2048
+  stride: 512
+  run_lm_eval: true       # PIQA on the masked in-memory model (primary-model accuracy story)
+  lm_eval_tasks: ["piqa"]
+  lm_eval_limit: 200
+  lm_eval_batch_size: 4
+
+output_dir: "experiments/results"
+figures_dir: "experiments/results/figures"
+use_fallback_model: false

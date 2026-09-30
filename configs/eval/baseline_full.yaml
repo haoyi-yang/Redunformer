@@ -1,0 +1,14 @@
+# Qwen3.5-4B full WikiText-2 test split baseline
+seed: 42
+model_config: "configs/models/qwen3.5-4b.yaml"
+dataset_config: "configs/datasets/wikitext2.yaml"
+
+eval:
+  run_perplexity: true
+  max_length: 2048
+  stride: 512
+  batch_size: 1
+  run_lm_eval: false
+
+output_dir: "experiments/results"
+use_fallback_model: false

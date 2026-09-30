@@ -1,0 +1,214 @@
+{
+  "timestamp_utc": "2026-07-29T23:03:52.355886+00:00",
+  "task": "weeks_9_10_neuron_masking",
+  "seed": 42,
+  "config_path": "configs/pruning/neuron_masking.yaml",
+  "command": "scripts/run_pruning.py --config configs/pruning/neuron_masking.yaml",
+  "model": {
+    "model_id": "Qwen/Qwen3.5-4B",
+    "load_in_4bit": true,
+    "config": "configs/models/qwen3.5-4b.yaml"
+  },
+  "dataset": {
+    "dataset_id": "wikitext",
+    "dataset_config": "wikitext-2-raw-v1",
+    "split": "test",
+    "num_samples": 79
+  },
+  "measurement_artifact": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_Qwen__Qwen3.5-4B_20260629T183140Z.json",
+  "intervention": {
+    "kind": "activation masking (post-SwiGLU channel -> down_proj input)",
+    "strategies": [
+      "importance",
+      "frequency",
+      "random"
+    ],
+    "ratios": [
+      0.05,
+      0.1,
+      0.25,
+      0.5
+    ],
+    "layers": "all",
+    "num_masked_layers": 32
+  },
+  "eval": {
+    "max_length": 2048,
+    "stride": 512,
+    "num_documents": 79,
+    "lm_eval_tasks": [
+      "piqa"
+    ]
+  },
+  "baseline": {
+    "perplexity": 18.873973338800038,
+    "lm_eval": {
+      "piqa.acc": 0.77,
+      "piqa.acc_norm": 0.79
+    }
+  },
+  "runs": [
+    {
+      "perplexity": 19.513952467708794,
+      "lm_eval": {
+        "piqa.acc": 0.755,
+        "piqa.acc_norm": 0.78
+      },
+      "strategy": "importance",
+      "ratio": 0.05,
+      "num_masked": 14752,
+      "masked_fraction": 0.05002170138888889,
+      "importance_removed_fraction": 0.02779140102452419,
+      "delta_perplexity": 0.639979128908756
+    },
+    {
+      "perplexity": 20.698094892504578,
+      "lm_eval": {
+        "piqa.acc": 0.745,
+        "piqa.acc_norm": 0.765
+      },
+      "strategy": "importance",
+      "ratio": 0.1,
+      "num_masked": 29504,
+      "masked_fraction": 0.10004340277777778,
+      "importance_removed_fraction": 0.05895981414018195,
+      "delta_perplexity": 1.8241215537045399
+    },
+    {
+      "perplexity": 24.976150126864493,
+      "lm_eval": {
+        "piqa.acc": 0.705,
+        "piqa.acc_norm": 0.73
+      },
+      "strategy": "importance",
+      "ratio": 0.25,
+      "num_masked": 73728,
+      "masked_fraction": 0.25,
+      "importance_removed_fraction": 0.16150487910599806,
+      "delta_perplexity": 6.102176788064455
+    },
+    {
+      "perplexity": 39.831453249117956,
+      "lm_eval": {
+        "piqa.acc": 0.645,
+        "piqa.acc_norm": 0.61
+      },
+      "strategy": "importance",
+      "ratio": 0.5,
+      "num_masked": 147456,
+      "masked_fraction": 0.5,
+      "importance_removed_fraction": 0.35780181556580254,
+      "delta_perplexity": 20.957479910317918
+    },
+    {
+      "perplexity": 20.682322008741682,
+      "lm_eval": {
+        "piqa.acc": 0.75,
+        "piqa.acc_norm": 0.785
+      },
+      "strategy": "frequency",
+      "ratio": 0.05,
+      "num_masked": 14752,
+      "masked_fraction": 0.05002170138888889,
+      "importance_removed_fraction": 0.044454771404994334,
+      "delta_perplexity": 1.808348669941644
+    },
+    {
+      "perplexity": 23.18375940020402,
+      "lm_eval": {
+        "piqa.acc": 0.755,
+        "piqa.acc_norm": 0.775
+      },
+      "strategy": "frequency",
+      "ratio": 0.1,
+      "num_masked": 29504,
+      "masked_fraction": 0.10004340277777778,
+      "importance_removed_fraction": 0.0909174374359265,
+      "delta_perplexity": 4.309786061403983
+    },
+    {
+      "perplexity": 35.250927227037195,
+      "lm_eval": {
+        "piqa.acc": 0.695,
+        "piqa.acc_norm": 0.725
+      },
+      "strategy": "frequency",
+      "ratio": 0.25,
+      "num_masked": 73728,
+      "masked_fraction": 0.25,
+      "importance_removed_fraction": 0.23008615975218172,
+      "delta_perplexity": 16.376953888237157
+    },
+    {
+      "perplexity": 128.49871051995586,
+      "lm_eval": {
+        "piqa.acc": 0.695,
+        "piqa.acc_norm": 0.69
+      },
+      "strategy": "frequency",
+      "ratio": 0.5,
+      "num_masked": 147456,
+      "masked_fraction": 0.5,
+      "importance_removed_fraction": 0.45740055970896587,
+      "delta_perplexity": 109.62473718115582
+    },
+    {
+      "perplexity": 20.412916461593603,
+      "lm_eval": {
+        "piqa.acc": 0.735,
+        "piqa.acc_norm": 0.775
+      },
+      "strategy": "random",
+      "ratio": 0.05,
+      "num_masked": 14752,
+      "masked_fraction": 0.05002170138888889,
+      "importance_removed_fraction": 0.05006047306813888,
+      "delta_perplexity": 1.5389431227935653
+    },
+    {
+      "perplexity": 26.35585529812308,
+      "lm_eval": {
+        "piqa.acc": 0.73,
+        "piqa.acc_norm": 0.735
+      },
+      "strategy": "random",
+      "ratio": 0.1,
+      "num_masked": 29504,
+      "masked_fraction": 0.10004340277777778,
+      "importance_removed_fraction": 0.10024972188857716,
+      "delta_perplexity": 7.48188195932304
+    },
+    {
+      "perplexity": 47.5394153902016,
+      "lm_eval": {
+        "piqa.acc": 0.675,
+        "piqa.acc_norm": 0.705
+      },
+      "strategy": "random",
+      "ratio": 0.25,
+      "num_masked": 73728,
+      "masked_fraction": 0.25,
+      "importance_removed_fraction": 0.2497930679193092,
+      "delta_perplexity": 28.66544205140156
+    },
+    {
+      "perplexity": 334.23926387302964,
+      "lm_eval": {
+        "piqa.acc": 0.605,
+        "piqa.acc_norm": 0.575
+      },
+      "strategy": "random",
+      "ratio": 0.5,
+      "num_masked": 147456,
+      "masked_fraction": 0.5,
+      "importance_removed_fraction": 0.5001524993976224,
+      "delta_perplexity": 315.3652905342296
+    }
+  ],
+  "artifacts": {
+    "figures": {
+      "removal_curve_ppl": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\prune_ppl_Qwen__Qwen3.5-4B_20260729T230350Z.png",
+      "removal_curve_accuracy": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\prune_acc_Qwen__Qwen3.5-4B_20260729T230350Z.png"
+    }
+  }
+}

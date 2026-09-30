@@ -1,0 +1,25 @@
+# H5′ neuron replacement — GPT-2 medium. Mirrors pair_ablation_gpt2-medium.yaml.
+seed: 42
+model_config: "configs/models/gpt2-medium.yaml"
+dataset_config: "configs/datasets/wikitext2.yaml"
+max_samples: 512
+
+measurement_path: "auto"
+
+pairs:
+  min_abs_corr: 0.9
+  max_pairs_per_layer: 8
+  layers: "all"
+
+fit:
+  dataset_config: "configs/datasets/wikitext2_calib.yaml"
+  seq_len: 512
+  num_blocks: 32
+
+eval:
+  max_length: 1024
+  stride: 512
+
+output_dir: "experiments/results"
+figures_dir: "experiments/results/figures"
+use_fallback_model: false

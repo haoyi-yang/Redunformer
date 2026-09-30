@@ -1,0 +1,214 @@
+{
+  "timestamp_utc": "2026-07-26T09:37:10.757478+00:00",
+  "task": "weeks_9_10_neuron_masking",
+  "seed": 42,
+  "config_path": "configs/pruning/neuron_masking_qwen3_0.6b.yaml",
+  "command": "scripts/run_pruning.py --config configs/pruning/neuron_masking_qwen3_0.6b.yaml",
+  "model": {
+    "model_id": "Qwen/Qwen3-0.6B",
+    "load_in_4bit": false,
+    "config": "configs/models/qwen3-0.6b.yaml"
+  },
+  "dataset": {
+    "dataset_id": "wikitext",
+    "dataset_config": "wikitext-2-raw-v1",
+    "split": "test",
+    "num_samples": 157
+  },
+  "measurement_artifact": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_Qwen__Qwen3-0.6B_20260629T182308Z.json",
+  "intervention": {
+    "kind": "activation masking (post-SwiGLU channel -> down_proj input)",
+    "strategies": [
+      "importance",
+      "frequency",
+      "random"
+    ],
+    "ratios": [
+      0.05,
+      0.1,
+      0.25,
+      0.5
+    ],
+    "layers": "all",
+    "num_masked_layers": 28
+  },
+  "eval": {
+    "max_length": 2048,
+    "stride": 512,
+    "num_documents": 157,
+    "lm_eval_tasks": [
+      "piqa"
+    ]
+  },
+  "baseline": {
+    "perplexity": 33.748757730047664,
+    "lm_eval": {
+      "piqa.acc": 0.698,
+      "piqa.acc_norm": 0.692
+    }
+  },
+  "runs": [
+    {
+      "perplexity": 35.166199015162896,
+      "lm_eval": {
+        "piqa.acc": 0.678,
+        "piqa.acc_norm": 0.676
+      },
+      "strategy": "importance",
+      "ratio": 0.05,
+      "num_masked": 4312,
+      "masked_fraction": 0.050130208333333336,
+      "importance_removed_fraction": 0.015591492390837939,
+      "delta_perplexity": 1.4174412851152312
+    },
+    {
+      "perplexity": 38.14873868025592,
+      "lm_eval": {
+        "piqa.acc": 0.656,
+        "piqa.acc_norm": 0.674
+      },
+      "strategy": "importance",
+      "ratio": 0.1,
+      "num_masked": 8596,
+      "masked_fraction": 0.09993489583333333,
+      "importance_removed_fraction": 0.03571035457148713,
+      "delta_perplexity": 4.399980950208253
+    },
+    {
+      "perplexity": 52.85813867678463,
+      "lm_eval": {
+        "piqa.acc": 0.594,
+        "piqa.acc_norm": 0.598
+      },
+      "strategy": "importance",
+      "ratio": 0.25,
+      "num_masked": 21504,
+      "masked_fraction": 0.25,
+      "importance_removed_fraction": 0.11178062110883996,
+      "delta_perplexity": 19.109380946736962
+    },
+    {
+      "perplexity": 100.02601405836303,
+      "lm_eval": {
+        "piqa.acc": 0.548,
+        "piqa.acc_norm": 0.51
+      },
+      "strategy": "importance",
+      "ratio": 0.5,
+      "num_masked": 43008,
+      "masked_fraction": 0.5,
+      "importance_removed_fraction": 0.28455709433186327,
+      "delta_perplexity": 66.27725632831536
+    },
+    {
+      "perplexity": 35.97117682735412,
+      "lm_eval": {
+        "piqa.acc": 0.698,
+        "piqa.acc_norm": 0.696
+      },
+      "strategy": "frequency",
+      "ratio": 0.05,
+      "num_masked": 4312,
+      "masked_fraction": 0.050130208333333336,
+      "importance_removed_fraction": 0.04197887852386965,
+      "delta_perplexity": 2.2224190973064566
+    },
+    {
+      "perplexity": 39.73288822543894,
+      "lm_eval": {
+        "piqa.acc": 0.666,
+        "piqa.acc_norm": 0.678
+      },
+      "strategy": "frequency",
+      "ratio": 0.1,
+      "num_masked": 8596,
+      "masked_fraction": 0.09993489583333333,
+      "importance_removed_fraction": 0.0814586786917205,
+      "delta_perplexity": 5.984130495391277
+    },
+    {
+      "perplexity": 66.58386154531313,
+      "lm_eval": {
+        "piqa.acc": 0.63,
+        "piqa.acc_norm": 0.604
+      },
+      "strategy": "frequency",
+      "ratio": 0.25,
+      "num_masked": 21504,
+      "masked_fraction": 0.25,
+      "importance_removed_fraction": 0.21311010851981643,
+      "delta_perplexity": 32.83510381526546
+    },
+    {
+      "perplexity": 242.14424268828753,
+      "lm_eval": {
+        "piqa.acc": 0.568,
+        "piqa.acc_norm": 0.56
+      },
+      "strategy": "frequency",
+      "ratio": 0.5,
+      "num_masked": 43008,
+      "masked_fraction": 0.5,
+      "importance_removed_fraction": 0.44199684582394205,
+      "delta_perplexity": 208.39548495823988
+    },
+    {
+      "perplexity": 42.01624737047511,
+      "lm_eval": {
+        "piqa.acc": 0.682,
+        "piqa.acc_norm": 0.674
+      },
+      "strategy": "random",
+      "ratio": 0.05,
+      "num_masked": 4312,
+      "masked_fraction": 0.050130208333333336,
+      "importance_removed_fraction": 0.04895591384231965,
+      "delta_perplexity": 8.267489640427442
+    },
+    {
+      "perplexity": 57.6591377378889,
+      "lm_eval": {
+        "piqa.acc": 0.628,
+        "piqa.acc_norm": 0.638
+      },
+      "strategy": "random",
+      "ratio": 0.1,
+      "num_masked": 8596,
+      "masked_fraction": 0.09993489583333333,
+      "importance_removed_fraction": 0.0983996900118251,
+      "delta_perplexity": 23.910380007841233
+    },
+    {
+      "perplexity": 198.7358219343459,
+      "lm_eval": {
+        "piqa.acc": 0.594,
+        "piqa.acc_norm": 0.566
+      },
+      "strategy": "random",
+      "ratio": 0.25,
+      "num_masked": 21504,
+      "masked_fraction": 0.25,
+      "importance_removed_fraction": 0.2512031893400607,
+      "delta_perplexity": 164.98706420429824
+    },
+    {
+      "perplexity": 2900.151970780084,
+      "lm_eval": {
+        "piqa.acc": 0.54,
+        "piqa.acc_norm": 0.512
+      },
+      "strategy": "random",
+      "ratio": 0.5,
+      "num_masked": 43008,
+      "masked_fraction": 0.5,
+      "importance_removed_fraction": 0.4998148390645035,
+      "delta_perplexity": 2866.4032130500364
+    }
+  ],
+  "artifacts": {
+    "figures": {
+      "removal_curve_ppl": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\prune_ppl_Qwen__Qwen3-0.6B_20260726T093709Z.png",
+      "removal_curve_accuracy": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\prune_acc_Qwen__Qwen3-0.6B_20260726T093709Z.png"
+    }
+  }
+}

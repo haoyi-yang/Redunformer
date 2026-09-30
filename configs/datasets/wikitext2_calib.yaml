@@ -1,0 +1,9 @@
+# WikiText-2 train split for FFN activation calibration (Weeks 5-8 measurement).
+# Rows are concatenated and re-chunked into uniform blocks by the measurement
+# script (see build_calibration_blocks), so max_samples just bounds how much raw
+# text we pull before chunking.
+dataset_id: "wikitext"
+dataset_config: "wikitext-2-raw-v1"
+split: "train"
+text_column: "text"
+max_samples: 4000

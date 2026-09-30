@@ -1,0 +1,14 @@
+# Qwen3 4B (dense causal LM) — alternative if Qwen3.5 tooling differs on your machine.
+model_id: "Qwen/Qwen3-4B"
+architecture: "causal_lm"
+trust_remote_code: true
+torch_dtype: "auto"
+device_map: "auto"
+load_in_4bit: true
+bnb_4bit_compute_dtype: "bfloat16"
+bnb_4bit_quant_type: "nf4"
+bnb_4bit_use_double_quant: true
+max_memory_gb: 7
+
+fallback_model_id: "Qwen/Qwen3.5-0.8B"
+fallback_load_in_4bit: true

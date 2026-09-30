@@ -1,0 +1,35 @@
+# Weeks 5-8 neuron measurement - Llama-2-7B (4-bit), second SwiGLU family.
+#
+# 32 layers x 11008 neurons = 352,256 measured units. The reservoir is the
+# memory bottleneck here (layers x tokens x width x 2 bytes in float16), so it
+# is halved relative to the Qwen configs to keep the run inside 16 GB of host
+# RAM: 32 x 2048 x 11008 x 2 B = 1.4 GB.
+seed: 42
+model_config: "configs/models/llama2-7b.yaml"
+dataset_config: "configs/datasets/wikitext2_calib.yaml"
+
+calibration:
+  seq_len: 512
+  max_blocks: 128
+  add_special_tokens: false
+
+measurement:
+  fixed_eps: 1.0e-3
+  rms_alpha: 1.0e-3
+  rms_alphas: [1.0e-3, 1.0e-2, 5.0e-2, 1.0e-1, 2.5e-1]
+  max_reservoir_tokens: 2048
+
+correlation:
+  enabled: true
+  layers: "auto"
+  top_n: 3
+  rank_max_neurons: 512
+  k: 50
+  max_neurons: 2048
+  abs_threshold: 0.9
+  save_heatmaps: true
+  heatmap_neurons: 40
+
+output_dir: "experiments/results"
+figures_dir: "experiments/results/figures"
+use_fallback_model: false

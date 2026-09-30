@@ -1,0 +1,5 @@
+dataset_id: "wikitext"
+dataset_config: "wikitext-2-raw-v1"
+split: "test"
+text_column: "text"
+max_samples: null  # null = full split; set e.g. 64 for quick dev runs

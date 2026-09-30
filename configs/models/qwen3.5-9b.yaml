@@ -1,0 +1,22 @@
+# Qwen3.5-9B — size-scaling model (H2). Stub for Henrik's follow-ups (#13–#15).
+#
+# Tuned for a ~16 GB card in 4-bit (Henrik's #11 baseline used ~7.4 GiB allocated /
+# 16 GiB total). Raise or lower max_memory_gb to match the machine before running
+# measurement / pruning / recovery — do not treat 16 as sacred.
+model_id: "Qwen/Qwen3.5-9B"
+architecture: "qwen3_5"
+trust_remote_code: true
+torch_dtype: "auto"
+device_map: "auto"
+load_in_4bit: true
+bnb_4bit_compute_dtype: "bfloat16"
+bnb_4bit_quant_type: "nf4"
+bnb_4bit_use_double_quant: true
+# Henrik: set this to your usable VRAM after the CUDA context (e.g. 14–15 on a 16 GB card).
+max_memory_gb: 14
+
+# Optional local cache once downloaded; omit / leave commented on a fresh machine.
+# local_dir: "models/cache/Qwen3.5-9B"
+
+fallback_model_id: "Qwen/Qwen3-0.6B"
+fallback_load_in_4bit: true

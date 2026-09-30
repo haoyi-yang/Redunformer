@@ -1,0 +1,7 @@
+model_id: "Qwen/Qwen3-0.6B"
+local_dir: "models/cache/Qwen3-0.6B"
+architecture: "causal_lm"
+trust_remote_code: true
+torch_dtype: "auto"
+device_map: "auto"
+load_in_4bit: false

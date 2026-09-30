@@ -1,0 +1,38 @@
+# Weeks 11-12 (H3): the Weeks 5-8 measurement re-run on PIQA-prompt calibration.
+#
+# Everything except `dataset_config` matches neuron_activations_qwen3_0.6b.yaml,
+# so the two artifacts differ only in the corpus the neurons were ranked on. That
+# is what makes the cross-task overlap comparison in run_task_overlap.py fair.
+seed: 42
+model_config: "configs/models/qwen3-0.6b.yaml"
+dataset_config: "configs/datasets/piqa_calib.yaml"
+
+# Keeps this artifact out of `measurement_path: "auto"` resolution, so the
+# WikiText-2 runs cannot silently pick up a PIQA-calibrated ranking.
+output_tag: "piqacalib"
+
+calibration:
+  seq_len: 512
+  max_blocks: 128
+  add_special_tokens: false
+
+measurement:
+  fixed_eps: 1.0e-3
+  rms_alpha: 1.0e-3
+  rms_alphas: [1.0e-3, 1.0e-2, 5.0e-2, 1.0e-1, 2.5e-1]
+  max_reservoir_tokens: 4096
+
+correlation:
+  enabled: true
+  layers: "auto"
+  top_n: 3
+  rank_max_neurons: 512
+  k: 50
+  max_neurons: 2048
+  abs_threshold: 0.9
+  save_heatmaps: true
+  heatmap_neurons: 40
+
+output_dir: "experiments/results"
+figures_dir: "experiments/results/figures"
+use_fallback_model: false

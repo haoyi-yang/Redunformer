@@ -1,0 +1,29 @@
+# Llama-2-7B (4-bit) - second SwiGLU family, to separate "Qwen quirk" from
+# "decoder-only LLM property". 32 layers x 11008 neurons.
+#
+# The repo is gated: it needs a Hugging Face account that has accepted the Meta
+# community licence and been granted access. Weights are fetched once with the
+# project's resumable downloader, which reads HF_TOKEN from .env:
+#
+#   python scripts/download_model.py --model-id meta-llama/Llama-2-7b-hf \
+#       --local-dir models/cache/Llama-2-7b-hf
+#
+# After that local_dir + local_files_only make the run offline, so no token is
+# needed at measurement time. Without access, swap model_id for the ungated
+# mirror NousResearch/Llama-2-7b-hf (identical weights) and drop local_dir.
+model_id: "meta-llama/Llama-2-7b-hf"
+local_dir: "models/cache/Llama-2-7b-hf"
+local_files_only: true
+architecture: "causal_lm"
+trust_remote_code: false
+torch_dtype: "float16"
+device_map: "auto"
+load_in_4bit: true
+bnb_4bit_compute_dtype: "float16"
+bnb_4bit_quant_type: "nf4"
+bnb_4bit_use_double_quant: true
+max_memory_gb: 7
+
+# Lighter stand-in for smoke tests: same Llama-2 architecture at 1.1B.
+fallback_model_id: "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
+fallback_load_in_4bit: true

@@ -1,0 +1,8 @@
+model_id: "Qwen/Qwen3-0.6B"
+local_dir: "models/cache/Qwen3-0.6B"
+architecture: "causal_lm"
+trust_remote_code: true
+
+device_map: "cpu"
+torch_dtype: "float32"
+load_in_4bit: false

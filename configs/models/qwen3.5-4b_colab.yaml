@@ -1,0 +1,19 @@
+# Qwen3.5-4B for Google Colab (T4 16 GB / L4 24 GB).
+#
+# Differs from qwen3.5-4b.yaml only in where weights come from and how much
+# GPU memory we claim: Colab has no local models/cache/, and T4 gives ~15 GB
+# usable after the CUDA context, which is enough for the QLoRA backward pass
+# that OOM'd / spilled on the 8 GB laptop.
+model_id: "Qwen/Qwen3.5-4B"
+architecture: "qwen3_5"
+trust_remote_code: true
+torch_dtype: "auto"
+device_map: "auto"
+load_in_4bit: true
+bnb_4bit_compute_dtype: "bfloat16"
+bnb_4bit_quant_type: "nf4"
+bnb_4bit_use_double_quant: true
+max_memory_gb: 14
+
+fallback_model_id: "Qwen/Qwen3-0.6B"
+fallback_load_in_4bit: true

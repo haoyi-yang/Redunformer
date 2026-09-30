@@ -1,0 +1,108 @@
+{
+  "timestamp_utc": "2026-08-23T08:26:23.316863+00:00",
+  "task": "weeks_9_10_neuron_masking",
+  "seed": 42,
+  "config_path": "configs/pruning/neuron_masking_piqa_ranked_gpt2.yaml",
+  "command": "scripts/run_pruning.py --config configs/pruning/neuron_masking_piqa_ranked_gpt2.yaml --measurement D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_piqacalib_gpt2_20260823T082013Z.json --tag piqaranked",
+  "model": {
+    "model_id": "gpt2",
+    "load_in_4bit": false,
+    "config": "configs/models/gpt2.yaml"
+  },
+  "dataset": {
+    "dataset_id": "wikitext",
+    "dataset_config": "wikitext-2-raw-v1",
+    "split": "test",
+    "text_builder": null,
+    "num_samples": 157
+  },
+  "measurement_artifact": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_piqacalib_gpt2_20260823T082013Z.json",
+  "intervention": {
+    "kind": "activation masking (post-SwiGLU channel -> down_proj input)",
+    "strategies": [
+      "importance",
+      "random"
+    ],
+    "ratios": [
+      0.1,
+      0.25
+    ],
+    "layers": "all",
+    "num_masked_layers": 12
+  },
+  "eval": {
+    "max_length": 1024,
+    "stride": 512,
+    "num_documents": 157,
+    "lm_eval_tasks": [
+      "piqa"
+    ]
+  },
+  "baseline": {
+    "perplexity": 51.646945555916815,
+    "lm_eval": {
+      "piqa.acc": 0.628,
+      "piqa.acc_norm": 0.622
+    }
+  },
+  "runs": [
+    {
+      "perplexity": 86.07576089555957,
+      "lm_eval": {
+        "piqa.acc": 0.59,
+        "piqa.acc_norm": 0.598
+      },
+      "strategy": "importance",
+      "ratio": 0.1,
+      "num_masked": 3684,
+      "masked_fraction": 0.09993489583333333,
+      "importance_removed_fraction": 0.05144628476862625,
+      "delta_perplexity": 34.42881533964275
+    },
+    {
+      "perplexity": 311.6750918649527,
+      "lm_eval": {
+        "piqa.acc": 0.544,
+        "piqa.acc_norm": 0.532
+      },
+      "strategy": "importance",
+      "ratio": 0.25,
+      "num_masked": 9216,
+      "masked_fraction": 0.25,
+      "importance_removed_fraction": 0.14768421446443183,
+      "delta_perplexity": 260.0281463090359
+    },
+    {
+      "perplexity": 76.01232264330946,
+      "lm_eval": {
+        "piqa.acc": 0.598,
+        "piqa.acc_norm": 0.61
+      },
+      "strategy": "random",
+      "ratio": 0.1,
+      "num_masked": 3684,
+      "masked_fraction": 0.09993489583333333,
+      "importance_removed_fraction": 0.09857404037762885,
+      "delta_perplexity": 24.365377087392645
+    },
+    {
+      "perplexity": 193.8617784605045,
+      "lm_eval": {
+        "piqa.acc": 0.57,
+        "piqa.acc_norm": 0.548
+      },
+      "strategy": "random",
+      "ratio": 0.25,
+      "num_masked": 9216,
+      "masked_fraction": 0.25,
+      "importance_removed_fraction": 0.24980134489238223,
+      "delta_perplexity": 142.2148329045877
+    }
+  ],
+  "artifacts": {
+    "figures": {
+      "removal_curve_ppl": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\prune_ppl_piqaranked_gpt2_20260823T082622Z.png",
+      "removal_curve_accuracy": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\prune_acc_piqaranked_gpt2_20260823T082622Z.png"
+    }
+  }
+}

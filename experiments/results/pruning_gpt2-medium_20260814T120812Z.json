@@ -1,0 +1,215 @@
+{
+  "timestamp_utc": "2026-08-14T12:08:13.154457+00:00",
+  "task": "weeks_9_10_neuron_masking",
+  "seed": 42,
+  "config_path": "configs/pruning/neuron_masking_gpt2-medium.yaml",
+  "command": "scripts/run_pruning.py --config configs/pruning/neuron_masking_gpt2-medium.yaml",
+  "model": {
+    "model_id": "gpt2-medium",
+    "load_in_4bit": false,
+    "config": "configs/models/gpt2-medium.yaml"
+  },
+  "dataset": {
+    "dataset_id": "wikitext",
+    "dataset_config": "wikitext-2-raw-v1",
+    "split": "test",
+    "text_builder": null,
+    "num_samples": 157
+  },
+  "measurement_artifact": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_gpt2-medium_20260814T115747Z.json",
+  "intervention": {
+    "kind": "activation masking (post-SwiGLU channel -> down_proj input)",
+    "strategies": [
+      "importance",
+      "frequency",
+      "random"
+    ],
+    "ratios": [
+      0.05,
+      0.1,
+      0.25,
+      0.5
+    ],
+    "layers": "all",
+    "num_masked_layers": 24
+  },
+  "eval": {
+    "max_length": 1024,
+    "stride": 512,
+    "num_documents": 157,
+    "lm_eval_tasks": [
+      "piqa"
+    ]
+  },
+  "baseline": {
+    "perplexity": 37.166968188560936,
+    "lm_eval": {
+      "piqa.acc": 0.68,
+      "piqa.acc_norm": 0.678
+    }
+  },
+  "runs": [
+    {
+      "perplexity": 42.98229471665585,
+      "lm_eval": {
+        "piqa.acc": 0.656,
+        "piqa.acc_norm": 0.638
+      },
+      "strategy": "importance",
+      "ratio": 0.05,
+      "num_masked": 4920,
+      "masked_fraction": 0.050048828125,
+      "importance_removed_fraction": 0.03041501593972477,
+      "delta_perplexity": 5.815326528094914
+    },
+    {
+      "perplexity": 51.08253279483259,
+      "lm_eval": {
+        "piqa.acc": 0.632,
+        "piqa.acc_norm": 0.614
+      },
+      "strategy": "importance",
+      "ratio": 0.1,
+      "num_masked": 9840,
+      "masked_fraction": 0.10009765625,
+      "importance_removed_fraction": 0.06482230126507184,
+      "delta_perplexity": 13.915564606271651
+    },
+    {
+      "perplexity": 91.80132691231279,
+      "lm_eval": {
+        "piqa.acc": 0.592,
+        "piqa.acc_norm": 0.59
+      },
+      "strategy": "importance",
+      "ratio": 0.25,
+      "num_masked": 24576,
+      "masked_fraction": 0.25,
+      "importance_removed_fraction": 0.1778785225474546,
+      "delta_perplexity": 54.63435872375185
+    },
+    {
+      "perplexity": 600.3465578154912,
+      "lm_eval": {
+        "piqa.acc": 0.52,
+        "piqa.acc_norm": 0.512
+      },
+      "strategy": "importance",
+      "ratio": 0.5,
+      "num_masked": 49152,
+      "masked_fraction": 0.5,
+      "importance_removed_fraction": 0.39099176720419365,
+      "delta_perplexity": 563.1795896269302
+    },
+    {
+      "perplexity": 1078.1602642643336,
+      "lm_eval": {
+        "piqa.acc": 0.558,
+        "piqa.acc_norm": 0.538
+      },
+      "strategy": "frequency",
+      "ratio": 0.05,
+      "num_masked": 4920,
+      "masked_fraction": 0.050048828125,
+      "importance_removed_fraction": 0.060426472321793656,
+      "delta_perplexity": 1040.9932960757726
+    },
+    {
+      "perplexity": 1906.3705014316206,
+      "lm_eval": {
+        "piqa.acc": 0.532,
+        "piqa.acc_norm": 0.49
+      },
+      "strategy": "frequency",
+      "ratio": 0.1,
+      "num_masked": 9840,
+      "masked_fraction": 0.10009765625,
+      "importance_removed_fraction": 0.10971608696662986,
+      "delta_perplexity": 1869.2035332430596
+    },
+    {
+      "perplexity": 12999.750094151346,
+      "lm_eval": {
+        "piqa.acc": 0.516,
+        "piqa.acc_norm": 0.494
+      },
+      "strategy": "frequency",
+      "ratio": 0.25,
+      "num_masked": 24576,
+      "masked_fraction": 0.25,
+      "importance_removed_fraction": 0.248646907824926,
+      "delta_perplexity": 12962.583125962785
+    },
+    {
+      "perplexity": 95806.7459193759,
+      "lm_eval": {
+        "piqa.acc": 0.492,
+        "piqa.acc_norm": 0.474
+      },
+      "strategy": "frequency",
+      "ratio": 0.5,
+      "num_masked": 49152,
+      "masked_fraction": 0.5,
+      "importance_removed_fraction": 0.4873243097587933,
+      "delta_perplexity": 95769.57895118734
+    },
+    {
+      "perplexity": 39.66385611770615,
+      "lm_eval": {
+        "piqa.acc": 0.672,
+        "piqa.acc_norm": 0.664
+      },
+      "strategy": "random",
+      "ratio": 0.05,
+      "num_masked": 4920,
+      "masked_fraction": 0.050048828125,
+      "importance_removed_fraction": 0.049680825484198624,
+      "delta_perplexity": 2.496887929145217
+    },
+    {
+      "perplexity": 47.484899489602256,
+      "lm_eval": {
+        "piqa.acc": 0.684,
+        "piqa.acc_norm": 0.674
+      },
+      "strategy": "random",
+      "ratio": 0.1,
+      "num_masked": 9840,
+      "masked_fraction": 0.10009765625,
+      "importance_removed_fraction": 0.1009173379258378,
+      "delta_perplexity": 10.31793130104132
+    },
+    {
+      "perplexity": 152.48836920932598,
+      "lm_eval": {
+        "piqa.acc": 0.592,
+        "piqa.acc_norm": 0.602
+      },
+      "strategy": "random",
+      "ratio": 0.25,
+      "num_masked": 24576,
+      "masked_fraction": 0.25,
+      "importance_removed_fraction": 0.2517638050919448,
+      "delta_perplexity": 115.32140102076505
+    },
+    {
+      "perplexity": 7042.690052650919,
+      "lm_eval": {
+        "piqa.acc": 0.538,
+        "piqa.acc_norm": 0.52
+      },
+      "strategy": "random",
+      "ratio": 0.5,
+      "num_masked": 49152,
+      "masked_fraction": 0.5,
+      "importance_removed_fraction": 0.4990079507737864,
+      "delta_perplexity": 7005.523084462358
+    }
+  ],
+  "artifacts": {
+    "figures": {
+      "removal_curve_ppl": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\prune_ppl_gpt2-medium_20260814T120812Z.png",
+      "removal_curve_accuracy": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\prune_acc_gpt2-medium_20260814T120812Z.png"
+    }
+  }
+}

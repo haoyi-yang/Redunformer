@@ -1,0 +1,215 @@
+{
+  "timestamp_utc": "2026-09-15T00:49:03.990156+00:00",
+  "task": "weeks_9_10_neuron_masking",
+  "seed": 42,
+  "config_path": "configs/pruning/neuron_masking_qwen3.5-9b.yaml",
+  "command": "scripts/run_pruning.py --config configs/pruning/neuron_masking_qwen3.5-9b.yaml --measurement J:\\Projekte\\Redunformer-Neuron\\experiments\\results\\measurement_Qwen__Qwen3.5-9B_20260915T001602Z.json",
+  "model": {
+    "model_id": "Qwen/Qwen3.5-9B",
+    "load_in_4bit": true,
+    "config": "configs/models/qwen3.5-9b.yaml"
+  },
+  "dataset": {
+    "dataset_id": "wikitext",
+    "dataset_config": "wikitext-2-raw-v1",
+    "split": "test",
+    "text_builder": null,
+    "num_samples": 79
+  },
+  "measurement_artifact": "J:\\Projekte\\Redunformer-Neuron\\experiments\\results\\measurement_Qwen__Qwen3.5-9B_20260915T001602Z.json",
+  "intervention": {
+    "kind": "activation masking (post-SwiGLU channel -> down_proj input)",
+    "strategies": [
+      "importance",
+      "frequency",
+      "random"
+    ],
+    "ratios": [
+      0.05,
+      0.1,
+      0.25,
+      0.5
+    ],
+    "layers": "all",
+    "num_masked_layers": 32
+  },
+  "eval": {
+    "max_length": 2048,
+    "stride": 512,
+    "num_documents": 79,
+    "lm_eval_tasks": [
+      "piqa"
+    ]
+  },
+  "baseline": {
+    "perplexity": 15.364987873416123,
+    "lm_eval": {
+      "piqa.acc": 0.8,
+      "piqa.acc_norm": 0.82
+    }
+  },
+  "runs": [
+    {
+      "perplexity": 15.732694487652013,
+      "lm_eval": {
+        "piqa.acc": 0.795,
+        "piqa.acc_norm": 0.815
+      },
+      "strategy": "importance",
+      "ratio": 0.05,
+      "num_masked": 19648,
+      "masked_fraction": 0.049967447916666664,
+      "importance_removed_fraction": 0.02526591481337286,
+      "delta_perplexity": 0.3677066142358907
+    },
+    {
+      "perplexity": 16.304363994198738,
+      "lm_eval": {
+        "piqa.acc": 0.795,
+        "piqa.acc_norm": 0.795
+      },
+      "strategy": "importance",
+      "ratio": 0.1,
+      "num_masked": 39328,
+      "masked_fraction": 0.10001627604166667,
+      "importance_removed_fraction": 0.05406623121651295,
+      "delta_perplexity": 0.9393761207826152
+    },
+    {
+      "perplexity": 19.62473533010819,
+      "lm_eval": {
+        "piqa.acc": 0.715,
+        "piqa.acc_norm": 0.75
+      },
+      "strategy": "importance",
+      "ratio": 0.25,
+      "num_masked": 98304,
+      "masked_fraction": 0.25,
+      "importance_removed_fraction": 0.15018458037367288,
+      "delta_perplexity": 4.259747456692068
+    },
+    {
+      "perplexity": 31.645215572376156,
+      "lm_eval": {
+        "piqa.acc": 0.67,
+        "piqa.acc_norm": 0.665
+      },
+      "strategy": "importance",
+      "ratio": 0.5,
+      "num_masked": 196608,
+      "masked_fraction": 0.5,
+      "importance_removed_fraction": 0.3390307765340219,
+      "delta_perplexity": 16.280227698960033
+    },
+    {
+      "perplexity": 16.498775297658007,
+      "lm_eval": {
+        "piqa.acc": 0.79,
+        "piqa.acc_norm": 0.815
+      },
+      "strategy": "frequency",
+      "ratio": 0.05,
+      "num_masked": 19648,
+      "masked_fraction": 0.049967447916666664,
+      "importance_removed_fraction": 0.047731046706793304,
+      "delta_perplexity": 1.1337874242418842
+    },
+    {
+      "perplexity": 18.37833366814266,
+      "lm_eval": {
+        "piqa.acc": 0.795,
+        "piqa.acc_norm": 0.815
+      },
+      "strategy": "frequency",
+      "ratio": 0.1,
+      "num_masked": 39328,
+      "masked_fraction": 0.10001627604166667,
+      "importance_removed_fraction": 0.09585208482013488,
+      "delta_perplexity": 3.0133457947265363
+    },
+    {
+      "perplexity": 27.04970201777927,
+      "lm_eval": {
+        "piqa.acc": 0.765,
+        "piqa.acc_norm": 0.76
+      },
+      "strategy": "frequency",
+      "ratio": 0.25,
+      "num_masked": 98304,
+      "masked_fraction": 0.25,
+      "importance_removed_fraction": 0.23576251458012548,
+      "delta_perplexity": 11.684714144363149
+    },
+    {
+      "perplexity": 90.63311786881076,
+      "lm_eval": {
+        "piqa.acc": 0.7,
+        "piqa.acc_norm": 0.685
+      },
+      "strategy": "frequency",
+      "ratio": 0.5,
+      "num_masked": 196608,
+      "masked_fraction": 0.5,
+      "importance_removed_fraction": 0.46266294584774226,
+      "delta_perplexity": 75.26812999539463
+    },
+    {
+      "perplexity": 17.499008255218516,
+      "lm_eval": {
+        "piqa.acc": 0.78,
+        "piqa.acc_norm": 0.795
+      },
+      "strategy": "random",
+      "ratio": 0.05,
+      "num_masked": 19648,
+      "masked_fraction": 0.049967447916666664,
+      "importance_removed_fraction": 0.050215294953384136,
+      "delta_perplexity": 2.1340203818023937
+    },
+    {
+      "perplexity": 20.501220776666205,
+      "lm_eval": {
+        "piqa.acc": 0.795,
+        "piqa.acc_norm": 0.79
+      },
+      "strategy": "random",
+      "ratio": 0.1,
+      "num_masked": 39328,
+      "masked_fraction": 0.10001627604166667,
+      "importance_removed_fraction": 0.09982829036847184,
+      "delta_perplexity": 5.136232903250082
+    },
+    {
+      "perplexity": 31.617828400102614,
+      "lm_eval": {
+        "piqa.acc": 0.735,
+        "piqa.acc_norm": 0.78
+      },
+      "strategy": "random",
+      "ratio": 0.25,
+      "num_masked": 98304,
+      "masked_fraction": 0.25,
+      "importance_removed_fraction": 0.24931851626595808,
+      "delta_perplexity": 16.25284052668649
+    },
+    {
+      "perplexity": 199.12435146609084,
+      "lm_eval": {
+        "piqa.acc": 0.58,
+        "piqa.acc_norm": 0.585
+      },
+      "strategy": "random",
+      "ratio": 0.5,
+      "num_masked": 196608,
+      "masked_fraction": 0.5,
+      "importance_removed_fraction": 0.4977992413128626,
+      "delta_perplexity": 183.75936359267473
+    }
+  ],
+  "artifacts": {
+    "figures": {
+      "removal_curve_ppl": "J:\\Projekte\\Redunformer-Neuron\\experiments\\results\\figures\\prune_ppl_Qwen__Qwen3.5-9B_20260915T004903Z.png",
+      "removal_curve_accuracy": "J:\\Projekte\\Redunformer-Neuron\\experiments\\results\\figures\\prune_acc_Qwen__Qwen3.5-9B_20260915T004903Z.png"
+    }
+  }
+}

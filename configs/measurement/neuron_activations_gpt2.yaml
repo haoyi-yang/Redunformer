@@ -1,0 +1,34 @@
+# Weeks 5-8 neuron measurement - GPT-2 small (124M), cross-family control.
+#
+# Deliberately identical to the Qwen3-0.6B config apart from the model, so any
+# difference in the redundancy profile is attributable to the model rather than
+# to the calibration budget. 12 layers x 3072 neurons = 36,864 measured units.
+seed: 42
+model_config: "configs/models/gpt2.yaml"
+dataset_config: "configs/datasets/wikitext2_calib.yaml"
+
+calibration:
+  seq_len: 512          # GPT-2 only has 1024 positions; 512 matches the Qwen runs
+  max_blocks: 128
+  add_special_tokens: false
+
+measurement:
+  fixed_eps: 1.0e-3
+  rms_alpha: 1.0e-3
+  rms_alphas: [1.0e-3, 1.0e-2, 5.0e-2, 1.0e-1, 2.5e-1]
+  max_reservoir_tokens: 4096
+
+correlation:
+  enabled: true
+  layers: "auto"
+  top_n: 3
+  rank_max_neurons: 512
+  k: 50
+  max_neurons: 2048
+  abs_threshold: 0.9
+  save_heatmaps: true
+  heatmap_neurons: 40
+
+output_dir: "experiments/results"
+figures_dir: "experiments/results/figures"
+use_fallback_model: false

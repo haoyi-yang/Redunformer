@@ -1,0 +1,17 @@
+# Weeks 1-2 style full WikiText-2 baseline — GPT-2 small (124M).
+#
+# Matches configs/eval/baseline_full.yaml: full test split, perplexity only.
+# GPT-2 context is 1024, so the window is capped (eval.py does not clamp).
+seed: 42
+model_config: "configs/models/gpt2.yaml"
+dataset_config: "configs/datasets/wikitext2.yaml"
+
+eval:
+  run_perplexity: true
+  max_length: 1024
+  stride: 512
+  batch_size: 1
+  run_lm_eval: false
+
+output_dir: "experiments/results"
+use_fallback_model: false

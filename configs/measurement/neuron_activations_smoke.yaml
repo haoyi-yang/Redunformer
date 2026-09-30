@@ -1,0 +1,31 @@
+# Fast smoke run for the Weeks 5-8 measurement pipeline.
+# Use with --use-fallback-model to exercise everything on the small Qwen3-0.6B
+# control model and a handful of short blocks (CPU-friendly).
+seed: 42
+model_config: "configs/models/qwen3.5-4b.yaml"
+dataset_config: "configs/datasets/wikitext2_calib.yaml"
+
+calibration:
+  seq_len: 128
+  max_blocks: 8
+  add_special_tokens: false
+
+measurement:
+  fixed_eps: 1.0e-3
+  rms_alpha: 1.0e-3
+  rms_alphas: [1.0e-3, 1.0e-2, 1.0e-1, 2.5e-1]
+  max_reservoir_tokens: 512
+
+correlation:
+  enabled: true
+  layers: "tertiles"
+  rank_max_neurons: 256
+  k: 20
+  max_neurons: 512
+  abs_threshold: 0.9
+  save_heatmaps: true
+  heatmap_neurons: 24
+
+output_dir: "experiments/results"
+figures_dir: "experiments/results/figures"
+use_fallback_model: true

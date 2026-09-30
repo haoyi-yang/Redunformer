@@ -1,0 +1,20 @@
+# GPT-2 medium (355M) - middle point of the GPT-2 size axis (H2).
+#
+# Same architecture as configs/models/gpt2.yaml (GELU FFN, Conv1D projections),
+# 24 layers x 4096 neurons. Together with gpt2 (12 x 3072) and gpt2-large
+# (36 x 5120) this gives a three-point size curve with architecture, tokenizer,
+# and training corpus all held fixed - which the Qwen-vs-GPT-2 comparison
+# cannot offer.
+#
+# local_dir because huggingface_hub's downloader stalls on large files on some
+# machines; fetch once with:
+#   python scripts/download_model.py --model-id gpt2-medium \
+#       --local-dir models/cache/gpt2-medium
+model_id: "gpt2-medium"
+local_dir: "models/cache/gpt2-medium"
+local_files_only: true
+architecture: "causal_lm"
+trust_remote_code: false
+torch_dtype: "float32"
+device_map: "auto"
+load_in_4bit: false

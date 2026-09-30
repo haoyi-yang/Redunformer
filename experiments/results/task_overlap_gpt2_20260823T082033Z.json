@@ -1,0 +1,409 @@
+{
+  "timestamp_utc": "2026-08-23T08:20:33.810371+00:00",
+  "task": "weeks_11_12_cross_task_overlap",
+  "hypothesis": "H3: neurons that look redundant under WikiText-2 are not redundant under PIQA",
+  "command": "scripts/run_task_overlap.py --config configs/measurement/task_overlap_gpt2.yaml --reference D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_gpt2_20260814T105354Z.json --comparison D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_piqacalib_gpt2_20260823T082013Z.json",
+  "model_id": "gpt2",
+  "strategy": "importance",
+  "artifacts_compared": {
+    "wikitext2": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_gpt2_20260814T105354Z.json",
+    "piqa": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_piqacalib_gpt2_20260823T082013Z.json"
+  },
+  "calibration": {
+    "wikitext2": {
+      "dataset_id": "wikitext",
+      "dataset_config": "wikitext-2-raw-v1",
+      "split": "train",
+      "text_builder": null,
+      "num_samples": 2549
+    },
+    "piqa": {
+      "dataset_id": "baber/piqa",
+      "dataset_config": null,
+      "split": "train",
+      "text_builder": "piqa",
+      "num_samples": 4000
+    }
+  },
+  "ratios": [
+    0.05,
+    0.1,
+    0.25
+  ],
+  "by_ratio": {
+    "0.05": {
+      "ratio": 0.05,
+      "summary": {
+        "num_layers": 12,
+        "mean_jaccard_bottom": 0.125890957730069,
+        "min_jaccard_bottom": 0.058419243986254296,
+        "max_jaccard_bottom": 0.375,
+        "mean_jaccard_top": 0.27585702303654164,
+        "mean_spearman": 0.4460188363288931,
+        "mean_chance_jaccard": 0.025709515859766274,
+        "bottom_over_chance": 4.896667771448788
+      },
+      "layers": [
+        {
+          "layer": "transformer.h.0.mlp.c_proj",
+          "layer_index": 0,
+          "width": 3072,
+          "count": 154,
+          "jaccard_bottom": 0.21739130434782608,
+          "jaccard_top": 0.612565445026178,
+          "spearman": 0.632740232258
+        },
+        {
+          "layer": "transformer.h.1.mlp.c_proj",
+          "layer_index": 1,
+          "width": 3072,
+          "count": 154,
+          "jaccard_bottom": 0.375,
+          "jaccard_top": 0.3162393162393162,
+          "spearman": 0.47964595911791147
+        },
+        {
+          "layer": "transformer.h.2.mlp.c_proj",
+          "layer_index": 2,
+          "width": 3072,
+          "count": 154,
+          "jaccard_bottom": 0.1323529411764706,
+          "jaccard_top": 0.3162393162393162,
+          "spearman": 0.5138350272103179
+        },
+        {
+          "layer": "transformer.h.3.mlp.c_proj",
+          "layer_index": 3,
+          "width": 3072,
+          "count": 154,
+          "jaccard_bottom": 0.058419243986254296,
+          "jaccard_top": 0.20784313725490197,
+          "spearman": 0.43013285477708224
+        },
+        {
+          "layer": "transformer.h.4.mlp.c_proj",
+          "layer_index": 4,
+          "width": 3072,
+          "count": 154,
+          "jaccard_bottom": 0.09608540925266904,
+          "jaccard_top": 0.25203252032520324,
+          "spearman": 0.5483718656761769
+        },
+        {
+          "layer": "transformer.h.5.mlp.c_proj",
+          "layer_index": 5,
+          "width": 3072,
+          "count": 154,
+          "jaccard_bottom": 0.1079136690647482,
+          "jaccard_top": 0.2674897119341564,
+          "spearman": 0.5620061175167419
+        },
+        {
+          "layer": "transformer.h.6.mlp.c_proj",
+          "layer_index": 6,
+          "width": 3072,
+          "count": 154,
+          "jaccard_bottom": 0.1079136690647482,
+          "jaccard_top": 0.2674897119341564,
+          "spearman": 0.5231523757705291
+        },
+        {
+          "layer": "transformer.h.7.mlp.c_proj",
+          "layer_index": 7,
+          "width": 3072,
+          "count": 154,
+          "jaccard_bottom": 0.09608540925266904,
+          "jaccard_top": 0.18007662835249041,
+          "spearman": 0.43447008779659135
+        },
+        {
+          "layer": "transformer.h.8.mlp.c_proj",
+          "layer_index": 8,
+          "width": 3072,
+          "count": 154,
+          "jaccard_bottom": 0.07692307692307693,
+          "jaccard_top": 0.17110266159695817,
+          "spearman": 0.34221498858888816
+        },
+        {
+          "layer": "transformer.h.9.mlp.c_proj",
+          "layer_index": 9,
+          "width": 3072,
+          "count": 154,
+          "jaccard_bottom": 0.08833922261484099,
+          "jaccard_top": 0.203125,
+          "spearman": 0.31850391317448756
+        },
+        {
+          "layer": "transformer.h.10.mlp.c_proj",
+          "layer_index": 10,
+          "width": 3072,
+          "count": 154,
+          "jaccard_bottom": 0.06206896551724138,
+          "jaccard_top": 0.17110266159695817,
+          "spearman": 0.22098842328333038
+        },
+        {
+          "layer": "transformer.h.11.mlp.c_proj",
+          "layer_index": 11,
+          "width": 3072,
+          "count": 154,
+          "jaccard_bottom": 0.09219858156028368,
+          "jaccard_top": 0.34497816593886466,
+          "spearman": 0.3461641907766597
+        }
+      ]
+    },
+    "0.1": {
+      "ratio": 0.1,
+      "summary": {
+        "num_layers": 12,
+        "mean_jaccard_bottom": 0.1724795905243093,
+        "min_jaccard_bottom": 0.09642857142857143,
+        "max_jaccard_bottom": 0.34649122807017546,
+        "mean_jaccard_top": 0.2845214893679081,
+        "mean_spearman": 0.4460188363288931,
+        "mean_chance_jaccard": 0.052595511392838794,
+        "bottom_over_chance": 3.2793595110436264
+      },
+      "layers": [
+        {
+          "layer": "transformer.h.0.mlp.c_proj",
+          "layer_index": 0,
+          "width": 3072,
+          "count": 307,
+          "jaccard_bottom": 0.26337448559670784,
+          "jaccard_top": 0.6286472148541115,
+          "spearman": 0.632740232258
+        },
+        {
+          "layer": "transformer.h.1.mlp.c_proj",
+          "layer_index": 1,
+          "width": 3072,
+          "count": 307,
+          "jaccard_bottom": 0.34649122807017546,
+          "jaccard_top": 0.3036093418259023,
+          "spearman": 0.47964595911791147
+        },
+        {
+          "layer": "transformer.h.2.mlp.c_proj",
+          "layer_index": 2,
+          "width": 3072,
+          "count": 307,
+          "jaccard_bottom": 0.18304431599229287,
+          "jaccard_top": 0.27385892116182575,
+          "spearman": 0.5138350272103179
+        },
+        {
+          "layer": "transformer.h.3.mlp.c_proj",
+          "layer_index": 3,
+          "width": 3072,
+          "count": 307,
+          "jaccard_bottom": 0.11839708561020036,
+          "jaccard_top": 0.24796747967479674,
+          "spearman": 0.43013285477708224
+        },
+        {
+          "layer": "transformer.h.4.mlp.c_proj",
+          "layer_index": 4,
+          "width": 3072,
+          "count": 307,
+          "jaccard_bottom": 0.1717557251908397,
+          "jaccard_top": 0.2530612244897959,
+          "spearman": 0.5483718656761769
+        },
+        {
+          "layer": "transformer.h.5.mlp.c_proj",
+          "layer_index": 5,
+          "width": 3072,
+          "count": 307,
+          "jaccard_bottom": 0.19455252918287938,
+          "jaccard_top": 0.2818371607515658,
+          "spearman": 0.5620061175167419
+        },
+        {
+          "layer": "transformer.h.6.mlp.c_proj",
+          "layer_index": 6,
+          "width": 3072,
+          "count": 307,
+          "jaccard_bottom": 0.1785028790786948,
+          "jaccard_top": 0.2791666666666667,
+          "spearman": 0.5231523757705291
+        },
+        {
+          "layer": "transformer.h.7.mlp.c_proj",
+          "layer_index": 7,
+          "width": 3072,
+          "count": 307,
+          "jaccard_bottom": 0.14766355140186915,
+          "jaccard_top": 0.22554890219560877,
+          "spearman": 0.43447008779659135
+        },
+        {
+          "layer": "transformer.h.8.mlp.c_proj",
+          "layer_index": 8,
+          "width": 3072,
+          "count": 307,
+          "jaccard_bottom": 0.12660550458715597,
+          "jaccard_top": 0.20392156862745098,
+          "spearman": 0.34221498858888816
+        },
+        {
+          "layer": "transformer.h.9.mlp.c_proj",
+          "layer_index": 9,
+          "width": 3072,
+          "count": 307,
+          "jaccard_bottom": 0.11839708561020036,
+          "jaccard_top": 0.22310756972111553,
+          "spearman": 0.31850391317448756
+        },
+        {
+          "layer": "transformer.h.10.mlp.c_proj",
+          "layer_index": 10,
+          "width": 3072,
+          "count": 307,
+          "jaccard_bottom": 0.09642857142857143,
+          "jaccard_top": 0.18992248062015504,
+          "spearman": 0.22098842328333038
+        },
+        {
+          "layer": "transformer.h.11.mlp.c_proj",
+          "layer_index": 11,
+          "width": 3072,
+          "count": 307,
+          "jaccard_bottom": 0.12454212454212454,
+          "jaccard_top": 0.3036093418259023,
+          "spearman": 0.3461641907766597
+        }
+      ]
+    },
+    "0.25": {
+      "ratio": 0.25,
+      "summary": {
+        "num_layers": 12,
+        "mean_jaccard_bottom": 0.29576270995895293,
+        "min_jaccard_bottom": 0.1953307392996109,
+        "max_jaccard_bottom": 0.41306347746090155,
+        "mean_jaccard_top": 0.34377446742267775,
+        "mean_spearman": 0.4460188363288931,
+        "mean_chance_jaccard": 0.14285714285714282,
+        "bottom_over_chance": 2.070338969712671
+      },
+      "layers": [
+        {
+          "layer": "transformer.h.0.mlp.c_proj",
+          "layer_index": 0,
+          "width": 3072,
+          "count": 768,
+          "jaccard_bottom": 0.41306347746090155,
+          "jaccard_top": 0.48405797101449277,
+          "spearman": 0.632740232258
+        },
+        {
+          "layer": "transformer.h.1.mlp.c_proj",
+          "layer_index": 1,
+          "width": 3072,
+          "count": 768,
+          "jaccard_bottom": 0.3356521739130435,
+          "jaccard_top": 0.3344917463075586,
+          "spearman": 0.47964595911791147
+        },
+        {
+          "layer": "transformer.h.2.mlp.c_proj",
+          "layer_index": 2,
+          "width": 3072,
+          "count": 768,
+          "jaccard_bottom": 0.32413793103448274,
+          "jaccard_top": 0.3775784753363229,
+          "spearman": 0.5138350272103179
+        },
+        {
+          "layer": "transformer.h.3.mlp.c_proj",
+          "layer_index": 3,
+          "width": 3072,
+          "count": 768,
+          "jaccard_bottom": 0.2662819455894477,
+          "jaccard_top": 0.3544973544973545,
+          "spearman": 0.43013285477708224
+        },
+        {
+          "layer": "transformer.h.4.mlp.c_proj",
+          "layer_index": 4,
+          "width": 3072,
+          "count": 768,
+          "jaccard_bottom": 0.3344917463075586,
+          "jaccard_top": 0.3900452488687783,
+          "spearman": 0.5483718656761769
+        },
+        {
+          "layer": "transformer.h.5.mlp.c_proj",
+          "layer_index": 5,
+          "width": 3072,
+          "count": 768,
+          "jaccard_bottom": 0.37511190689346463,
+          "jaccard_top": 0.38005390835579517,
+          "spearman": 0.5620061175167419
+        },
+        {
+          "layer": "transformer.h.6.mlp.c_proj",
+          "layer_index": 6,
+          "width": 3072,
+          "count": 768,
+          "jaccard_bottom": 0.32413793103448274,
+          "jaccard_top": 0.35092348284960423,
+          "spearman": 0.5231523757705291
+        },
+        {
+          "layer": "transformer.h.7.mlp.c_proj",
+          "layer_index": 7,
+          "width": 3072,
+          "count": 768,
+          "jaccard_bottom": 0.28213689482470783,
+          "jaccard_top": 0.3207222699914015,
+          "spearman": 0.43447008779659135
+        },
+        {
+          "layer": "transformer.h.8.mlp.c_proj",
+          "layer_index": 8,
+          "width": 3072,
+          "count": 768,
+          "jaccard_bottom": 0.25183374083129584,
+          "jaccard_top": 0.2875104777870914,
+          "spearman": 0.34221498858888816
+        },
+        {
+          "layer": "transformer.h.9.mlp.c_proj",
+          "layer_index": 9,
+          "width": 3072,
+          "count": 768,
+          "jaccard_bottom": 0.23274478330658105,
+          "jaccard_top": 0.27468879668049795,
+          "spearman": 0.31850391317448756
+        },
+        {
+          "layer": "transformer.h.10.mlp.c_proj",
+          "layer_index": 10,
+          "width": 3072,
+          "count": 768,
+          "jaccard_bottom": 0.1953307392996109,
+          "jaccard_top": 0.23274478330658105,
+          "spearman": 0.22098842328333038
+        },
+        {
+          "layer": "transformer.h.11.mlp.c_proj",
+          "layer_index": 11,
+          "width": 3072,
+          "count": 768,
+          "jaccard_bottom": 0.21422924901185772,
+          "jaccard_top": 0.33797909407665505,
+          "spearman": 0.3461641907766597
+        }
+      ]
+    }
+  },
+  "artifacts": {
+    "figures": {
+      "task_overlap": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\task_overlap_gpt2_20260823T082033Z.png"
+    }
+  }
+}

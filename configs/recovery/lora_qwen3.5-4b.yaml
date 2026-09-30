@@ -1,0 +1,52 @@
+# Weeks 11-12 LoRA recovery — Qwen3.5-4B (4-bit / QLoRA).
+#
+# The base weights stay quantized and frozen; only the adapters train, so this
+# fits the same 8 GB budget the rest of the project assumes. Everything is
+# smaller than the 0.6B run because each step is a 4-bit forward *and* backward
+# pass: shorter blocks, fewer steps, gradient checkpointing on.
+#
+# NOT REPRODUCIBLE ON 8 GB. Both 512- and 256-token blocks sit at ~7.8 GB of the
+# 8.2 GB available and fail to complete a single optimizer step in 12 minutes, so
+# the run degrades into host-memory spilling (see recovery_week11-12.md section 5).
+# The forward-only arms are fine; it is the 4-bit backward pass plus
+# prepare_model_for_kbit_training's fp32 upcasting that does not fit. Use a larger
+# card, or cut seq_len to 128 and drop LoRA targets, before trusting this config.
+seed: 42
+model_config: "configs/models/qwen3.5-4b.yaml"
+dataset_config: "configs/datasets/wikitext2.yaml"
+max_samples: 128
+
+measurement_path: "auto"
+strategy: "importance"
+layers: "all"
+ratios: [0.10]
+train_unmasked_control: true
+
+train_data:
+  dataset_config: "configs/datasets/wikitext2_calib.yaml"
+  seq_len: 256
+  num_blocks: 256
+
+recovery:
+  rank: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  target_modules: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj"]
+  learning_rate: 2.0e-4
+  steps: 60
+  batch_size: 1
+  grad_accum: 4           # effective batch 4 x 256 tokens
+  warmup_steps: 6
+  gradient_checkpointing: true
+
+eval:
+  max_length: 2048
+  stride: 512
+  run_lm_eval: true
+  lm_eval_tasks: ["piqa"]
+  lm_eval_limit: 200
+  lm_eval_batch_size: 2
+
+output_dir: "experiments/results"
+figures_dir: "experiments/results/figures"
+use_fallback_model: false

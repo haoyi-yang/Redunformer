@@ -1,0 +1,16 @@
+# GPT-2 small (124M) - cross-family control for the Weeks 5-12 pipeline.
+#
+# Architecturally the opposite of Qwen/Llama: a plain GELU FFN with no gate, and
+# the projections are transformers' Conv1D (weight stored [in, out]) rather than
+# nn.Linear. The measured neuron is still "one channel entering the down
+# projection", here the post-GELU input to mlp.c_proj.
+#
+# Kept in float32 - GPT-2 was trained in fp32 and overflows fp16 in attention,
+# and at 124M the memory cost is irrelevant. Context is 1024 tokens, so eval
+# configs must cap max_length accordingly.
+model_id: "gpt2"
+architecture: "causal_lm"
+trust_remote_code: false
+torch_dtype: "float32"
+device_map: "auto"
+load_in_4bit: false

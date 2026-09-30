@@ -1,0 +1,69 @@
+{
+  "timestamp_utc": "2026-08-23T08:12:45.613937+00:00",
+  "task": "weeks_9_10_neuron_masking",
+  "seed": 42,
+  "config_path": "configs/pruning/neuron_masking_gpt2-large.yaml",
+  "command": "scripts/run_pruning.py --config configs/pruning/neuron_masking_gpt2-large.yaml --layers 12,13,14,15,16,17,18,19,20,21,22,23 --ratios 0.10 --strategies importance --no-lm-eval --tag h1middle",
+  "model": {
+    "model_id": "gpt2-large",
+    "load_in_4bit": false,
+    "config": "configs/models/gpt2-large.yaml"
+  },
+  "dataset": {
+    "dataset_id": "wikitext",
+    "dataset_config": "wikitext-2-raw-v1",
+    "split": "test",
+    "text_builder": null,
+    "num_samples": 157
+  },
+  "measurement_artifact": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_gpt2-large_20260814T121109Z.json",
+  "intervention": {
+    "kind": "activation masking (post-SwiGLU channel -> down_proj input)",
+    "strategies": [
+      "importance"
+    ],
+    "ratios": [
+      0.1
+    ],
+    "layers": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "num_masked_layers": 36
+  },
+  "eval": {
+    "max_length": 1024,
+    "stride": 512,
+    "num_documents": 157,
+    "lm_eval_tasks": []
+  },
+  "baseline": {
+    "perplexity": 32.46451651122732
+  },
+  "runs": [
+    {
+      "perplexity": 33.43964846012503,
+      "strategy": "importance",
+      "ratio": 0.1,
+      "num_masked": 6144,
+      "masked_fraction": 0.1,
+      "importance_removed_fraction": 0.07079026941140808,
+      "delta_perplexity": 0.9751319488977046
+    }
+  ],
+  "artifacts": {
+    "figures": {
+      "removal_curve_ppl": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\prune_ppl_h1middle_gpt2-large_20260823T081244Z.png"
+    }
+  }
+}

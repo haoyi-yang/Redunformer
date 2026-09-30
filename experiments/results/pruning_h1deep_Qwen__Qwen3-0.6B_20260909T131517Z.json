@@ -1,0 +1,67 @@
+{
+  "timestamp_utc": "2026-09-09T13:15:17.950840+00:00",
+  "task": "weeks_9_10_neuron_masking",
+  "seed": 42,
+  "config_path": "configs/pruning/neuron_masking_qwen3_0.6b.yaml",
+  "command": "scripts/run_pruning.py --config configs/pruning/neuron_masking_qwen3_0.6b.yaml --measurement D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_Qwen__Qwen3-0.6B_20260629T182308Z.json --layers 18,19,20,21,22,23,24,25,26,27 --ratios 0.10 --strategies importance --no-lm-eval --tag h1deep",
+  "model": {
+    "model_id": "Qwen/Qwen3-0.6B",
+    "load_in_4bit": false,
+    "config": "configs/models/qwen3-0.6b.yaml"
+  },
+  "dataset": {
+    "dataset_id": "wikitext",
+    "dataset_config": "wikitext-2-raw-v1",
+    "split": "test",
+    "text_builder": null,
+    "num_samples": 157
+  },
+  "measurement_artifact": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_Qwen__Qwen3-0.6B_20260629T182308Z.json",
+  "intervention": {
+    "kind": "activation masking (post-SwiGLU channel -> down_proj input)",
+    "strategies": [
+      "importance"
+    ],
+    "ratios": [
+      0.1
+    ],
+    "layers": [
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27
+    ],
+    "num_masked_layers": 28
+  },
+  "eval": {
+    "max_length": 2048,
+    "stride": 512,
+    "num_documents": 157,
+    "lm_eval_tasks": []
+  },
+  "baseline": {
+    "perplexity": 33.748757730047664
+  },
+  "runs": [
+    {
+      "perplexity": 34.557702745106155,
+      "strategy": "importance",
+      "ratio": 0.1,
+      "num_masked": 3070,
+      "masked_fraction": 0.09993489583333333,
+      "importance_removed_fraction": 0.03154025054490297,
+      "delta_perplexity": 0.8089450150584909
+    }
+  ],
+  "artifacts": {
+    "figures": {
+      "removal_curve_ppl": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\prune_ppl_h1deep_Qwen__Qwen3-0.6B_20260909T131517Z.png"
+    }
+  }
+}

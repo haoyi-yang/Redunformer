@@ -1,0 +1,29 @@
+# Weeks 9-10 neuron masking intervention - GPT-2 small (124M).
+#
+# Mirrors the Qwen3-0.6B sweep so the removal-ratio curves can be overlaid.
+# The one forced difference: GPT-2 has 1024 positions, so the perplexity window
+# is 1024 rather than 2048 (eval.py does not clamp to the model context).
+seed: 42
+model_config: "configs/models/gpt2.yaml"
+dataset_config: "configs/datasets/wikitext2.yaml"
+max_samples: 256
+
+measurement_path: "auto"
+
+pruning:
+  strategies: ["importance", "frequency", "random"]
+  ratios: [0.05, 0.10, 0.25, 0.50]
+  layers: "all"
+  log_y: true
+
+eval:
+  max_length: 1024        # GPT-2 context limit
+  stride: 512
+  run_lm_eval: true
+  lm_eval_tasks: ["piqa"]
+  lm_eval_limit: 500
+  lm_eval_batch_size: 16
+
+output_dir: "experiments/results"
+figures_dir: "experiments/results/figures"
+use_fallback_model: false

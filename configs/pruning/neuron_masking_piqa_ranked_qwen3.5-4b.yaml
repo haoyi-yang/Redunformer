@@ -1,0 +1,33 @@
+# Weeks 13-16 (H3, behavioural half): mask Qwen3.5-4B by a PIQA-calibrated
+# ranking.
+#
+# Eval settings deliberately match neuron_masking.yaml (same slice, same seed,
+# same PIQA limit) so the two runs can be compared row by row. The `random` arm
+# is ranking-independent, so it must reproduce the WikiText-ranked run's random
+# arm exactly and doubles as a consistency check on the two runs.
+seed: 42
+model_config: "configs/models/qwen3.5-4b.yaml"
+dataset_config: "configs/datasets/wikitext2.yaml"
+max_samples: 128
+
+# Pinned via --measurement on the command line: this run must use the
+# PIQA-calibrated artifact, never the WikiText one.
+measurement_path: "auto"
+
+pruning:
+  strategies: ["importance", "random"]
+  ratios: [0.10, 0.25]
+  layers: "all"
+  log_y: true
+
+eval:
+  max_length: 2048
+  stride: 512
+  run_lm_eval: true
+  lm_eval_tasks: ["piqa"]
+  lm_eval_limit: 200
+  lm_eval_batch_size: 4
+
+output_dir: "experiments/results"
+figures_dir: "experiments/results/figures"
+use_fallback_model: false

@@ -1,0 +1,411 @@
+{
+  "timestamp_utc": "2026-08-14T11:26:35.198452+00:00",
+  "task": "weeks_11_12_duplicate_neuron_replacement",
+  "question": "does routing a redundant twin's contribution through its partner remove the cost of masking it?",
+  "seed": 42,
+  "config_path": "configs/pruning/merge_gpt2.yaml",
+  "command": "scripts/run_merge.py --config configs/pruning/merge_gpt2.yaml",
+  "model": {
+    "model_id": "gpt2",
+    "load_in_4bit": false,
+    "config": "configs/models/gpt2.yaml"
+  },
+  "dataset": {
+    "dataset_id": "wikitext",
+    "dataset_config": "wikitext-2-raw-v1",
+    "split": "test",
+    "text_builder": null,
+    "num_samples": 332
+  },
+  "fit_dataset": {
+    "dataset_id": "wikitext",
+    "dataset_config": "wikitext-2-raw-v1",
+    "split": "train",
+    "text_builder": null,
+    "num_samples": 2549,
+    "num_blocks": 32
+  },
+  "measurement_artifact": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_gpt2_20260814T105354Z.json",
+  "pairs": {
+    "min_abs_corr": 0.9,
+    "layers": "all",
+    "num_pairs": 22,
+    "selected": [
+      {
+        "layer": "transformer.h.0.mlp.c_proj",
+        "drop": 2053,
+        "keep": 1981,
+        "correlation": 0.9681534987576477
+      },
+      {
+        "layer": "transformer.h.0.mlp.c_proj",
+        "drop": 2247,
+        "keep": 2587,
+        "correlation": 0.965847442867898
+      },
+      {
+        "layer": "transformer.h.0.mlp.c_proj",
+        "drop": 2059,
+        "keep": 1561,
+        "correlation": 0.9571329215181298
+      },
+      {
+        "layer": "transformer.h.0.mlp.c_proj",
+        "drop": 1641,
+        "keep": 2102,
+        "correlation": 0.9560010462327339
+      },
+      {
+        "layer": "transformer.h.0.mlp.c_proj",
+        "drop": 101,
+        "keep": 1175,
+        "correlation": 0.9537878405670753
+      },
+      {
+        "layer": "transformer.h.0.mlp.c_proj",
+        "drop": 631,
+        "keep": 2009,
+        "correlation": 0.9467274446997624
+      },
+      {
+        "layer": "transformer.h.0.mlp.c_proj",
+        "drop": 2108,
+        "keep": 2110,
+        "correlation": 0.9444646894489575
+      },
+      {
+        "layer": "transformer.h.0.mlp.c_proj",
+        "drop": 1150,
+        "keep": 1993,
+        "correlation": 0.942313232277759
+      },
+      {
+        "layer": "transformer.h.1.mlp.c_proj",
+        "drop": 242,
+        "keep": 1120,
+        "correlation": 0.9990593037124166
+      },
+      {
+        "layer": "transformer.h.1.mlp.c_proj",
+        "drop": 1263,
+        "keep": 1825,
+        "correlation": 0.9732044047791739
+      },
+      {
+        "layer": "transformer.h.1.mlp.c_proj",
+        "drop": 925,
+        "keep": 3020,
+        "correlation": 0.940514065481425
+      },
+      {
+        "layer": "transformer.h.1.mlp.c_proj",
+        "drop": 824,
+        "keep": 79,
+        "correlation": 0.9387523564888335
+      },
+      {
+        "layer": "transformer.h.1.mlp.c_proj",
+        "drop": 73,
+        "keep": 2730,
+        "correlation": 0.929203298268655
+      },
+      {
+        "layer": "transformer.h.1.mlp.c_proj",
+        "drop": 2677,
+        "keep": 675,
+        "correlation": 0.9231431976024609
+      },
+      {
+        "layer": "transformer.h.1.mlp.c_proj",
+        "drop": 2673,
+        "keep": 1429,
+        "correlation": 0.9062178117707147
+      },
+      {
+        "layer": "transformer.h.2.mlp.c_proj",
+        "drop": 1825,
+        "keep": 666,
+        "correlation": 0.9999210365912882
+      },
+      {
+        "layer": "transformer.h.2.mlp.c_proj",
+        "drop": 1195,
+        "keep": 676,
+        "correlation": 0.9844473181143103
+      },
+      {
+        "layer": "transformer.h.2.mlp.c_proj",
+        "drop": 2769,
+        "keep": 2830,
+        "correlation": 0.9739540365576717
+      },
+      {
+        "layer": "transformer.h.2.mlp.c_proj",
+        "drop": 589,
+        "keep": 2617,
+        "correlation": 0.9436887100664294
+      },
+      {
+        "layer": "transformer.h.2.mlp.c_proj",
+        "drop": 2942,
+        "keep": 1587,
+        "correlation": 0.9256342947254916
+      },
+      {
+        "layer": "transformer.h.2.mlp.c_proj",
+        "drop": 2900,
+        "keep": 783,
+        "correlation": 0.9228691910891009
+      },
+      {
+        "layer": "transformer.h.2.mlp.c_proj",
+        "drop": 1929,
+        "keep": 352,
+        "correlation": 0.917660768972293
+      }
+    ]
+  },
+  "merge_plans": [
+    {
+      "layer": "transformer.h.0.mlp.c_proj",
+      "drop": 2053,
+      "keep": 1981,
+      "alpha": 0.49037333814294487,
+      "beta": 0.02974120747403696,
+      "r2": 0.9118275450273128,
+      "correlation": 0.9681534987576477
+    },
+    {
+      "layer": "transformer.h.0.mlp.c_proj",
+      "drop": 2247,
+      "keep": 2587,
+      "alpha": 0.31482621263523625,
+      "beta": -0.008738357696277455,
+      "r2": 0.9390334993071481,
+      "correlation": 0.965847442867898
+    },
+    {
+      "layer": "transformer.h.0.mlp.c_proj",
+      "drop": 2059,
+      "keep": 1561,
+      "alpha": 0.6565823468886476,
+      "beta": -0.007539482442301557,
+      "r2": 0.8776147868721055,
+      "correlation": 0.9571329215181298
+    },
+    {
+      "layer": "transformer.h.0.mlp.c_proj",
+      "drop": 1641,
+      "keep": 2102,
+      "alpha": 0.3832153119316979,
+      "beta": 0.02938454587260078,
+      "r2": 0.9112132708556028,
+      "correlation": 0.9560010462327339
+    },
+    {
+      "layer": "transformer.h.0.mlp.c_proj",
+      "drop": 101,
+      "keep": 1175,
+      "alpha": 0.39160668667647236,
+      "beta": 0.006167216856368472,
+      "r2": 0.9264182525698326,
+      "correlation": 0.9537878405670753
+    },
+    {
+      "layer": "transformer.h.0.mlp.c_proj",
+      "drop": 631,
+      "keep": 2009,
+      "alpha": 0.5420929738014822,
+      "beta": -0.0469536807330395,
+      "r2": 0.8980595361136826,
+      "correlation": 0.9467274446997624
+    },
+    {
+      "layer": "transformer.h.0.mlp.c_proj",
+      "drop": 2108,
+      "keep": 2110,
+      "alpha": 0.6463090120151341,
+      "beta": -0.046924249184974565,
+      "r2": 0.8755675626180904,
+      "correlation": 0.9444646894489575
+    },
+    {
+      "layer": "transformer.h.0.mlp.c_proj",
+      "drop": 1150,
+      "keep": 1993,
+      "alpha": 1.040089218755453,
+      "beta": 0.005788070041570587,
+      "r2": 0.9019322248894966,
+      "correlation": 0.942313232277759
+    },
+    {
+      "layer": "transformer.h.1.mlp.c_proj",
+      "drop": 242,
+      "keep": 1120,
+      "alpha": 0.3146269002772371,
+      "beta": 7.3729213713475544e-06,
+      "r2": 0.9887751241583311,
+      "correlation": 0.9990593037124166
+    },
+    {
+      "layer": "transformer.h.1.mlp.c_proj",
+      "drop": 1263,
+      "keep": 1825,
+      "alpha": 0.364401727200246,
+      "beta": 0.006408027356986784,
+      "r2": 0.9498729722264637,
+      "correlation": 0.9732044047791739
+    },
+    {
+      "layer": "transformer.h.1.mlp.c_proj",
+      "drop": 925,
+      "keep": 3020,
+      "alpha": 0.3936456723008461,
+      "beta": -0.04678311315183623,
+      "r2": 0.8861429548386226,
+      "correlation": 0.940514065481425
+    },
+    {
+      "layer": "transformer.h.1.mlp.c_proj",
+      "drop": 824,
+      "keep": 79,
+      "alpha": 0.6636902862321697,
+      "beta": -0.07827603295979038,
+      "r2": 0.8893122513303233,
+      "correlation": 0.9387523564888335
+    },
+    {
+      "layer": "transformer.h.1.mlp.c_proj",
+      "drop": 73,
+      "keep": 2730,
+      "alpha": 0.5500451373057711,
+      "beta": 0.07378201154879627,
+      "r2": 0.8707750991948493,
+      "correlation": 0.929203298268655
+    },
+    {
+      "layer": "transformer.h.1.mlp.c_proj",
+      "drop": 2677,
+      "keep": 675,
+      "alpha": 0.8348440292152896,
+      "beta": -0.053215991567313665,
+      "r2": 0.8419524947113217,
+      "correlation": 0.9231431976024609
+    },
+    {
+      "layer": "transformer.h.1.mlp.c_proj",
+      "drop": 2673,
+      "keep": 1429,
+      "alpha": 0.4396502995545554,
+      "beta": -0.03138917072694215,
+      "r2": 0.8489486425867887,
+      "correlation": 0.9062178117707147
+    },
+    {
+      "layer": "transformer.h.2.mlp.c_proj",
+      "drop": 1825,
+      "keep": 666,
+      "alpha": 0.9359681807413938,
+      "beta": 0.013444674637581852,
+      "r2": 0.9998685107740597,
+      "correlation": 0.9999210365912882
+    },
+    {
+      "layer": "transformer.h.2.mlp.c_proj",
+      "drop": 1195,
+      "keep": 676,
+      "alpha": 0.6669898366690118,
+      "beta": 0.03461756568133044,
+      "r2": 0.951103345695418,
+      "correlation": 0.9844473181143103
+    },
+    {
+      "layer": "transformer.h.2.mlp.c_proj",
+      "drop": 2769,
+      "keep": 2830,
+      "alpha": 0.5490407768644695,
+      "beta": 0.030779707677546966,
+      "r2": 0.9453122195011451,
+      "correlation": 0.9739540365576717
+    },
+    {
+      "layer": "transformer.h.2.mlp.c_proj",
+      "drop": 589,
+      "keep": 2617,
+      "alpha": 0.64588463022038,
+      "beta": 0.016671880649634457,
+      "r2": 0.8916980508815449,
+      "correlation": 0.9436887100664294
+    },
+    {
+      "layer": "transformer.h.2.mlp.c_proj",
+      "drop": 2942,
+      "keep": 1587,
+      "alpha": 0.5014487626168644,
+      "beta": -0.004430346662056401,
+      "r2": 0.8506654850647742,
+      "correlation": 0.9256342947254916
+    },
+    {
+      "layer": "transformer.h.2.mlp.c_proj",
+      "drop": 2900,
+      "keep": 783,
+      "alpha": 0.3948906119541704,
+      "beta": -0.01438643922636346,
+      "r2": 0.8528259008259431,
+      "correlation": 0.9228691910891009
+    },
+    {
+      "layer": "transformer.h.2.mlp.c_proj",
+      "drop": 1929,
+      "keep": 352,
+      "alpha": 0.3852923822005754,
+      "beta": -0.055368774459360184,
+      "r2": 0.832835028220417,
+      "correlation": 0.917660768972293
+    }
+  ],
+  "merge_stats": {
+    "num_plans": 22.0,
+    "mean_r2": 0.9018979435574214,
+    "min_r2": 0.832835028220417,
+    "mean_abs_alpha": 0.5502506515545477
+  },
+  "baseline_perplexity": 52.28934572350541,
+  "conditions": [
+    {
+      "condition": "mask_only",
+      "description": "drop the redundant twin (Weeks 9-10 intervention)",
+      "num_neurons": 22,
+      "perplexity": 53.45351193111239,
+      "delta_perplexity": 1.164166207606975
+    },
+    {
+      "condition": "merge",
+      "description": "drop the twin and route its contribution through its partner",
+      "num_neurons": 22,
+      "perplexity": 52.26622858096213,
+      "delta_perplexity": -0.023117142543284785
+    },
+    {
+      "condition": "merge_no_bias",
+      "description": "same, without the constant beta term",
+      "num_neurons": 22,
+      "perplexity": 52.27367882672406,
+      "delta_perplexity": -0.015666896781354467
+    }
+  ],
+  "verdict": {
+    "delta_mask_only": 1.164166207606975,
+    "delta_merge": -0.023117142543284785,
+    "mean_fit_r2": 0.9018979435574214,
+    "supported": true,
+    "fraction_of_mask_cost_recovered": 1.0198572526776943,
+    "summary": "masking costs +1.1642 PPL, merging -0.0231 (102.0% of the masking cost recovered); mean fit r2 = 0.9019"
+  },
+  "artifacts": {
+    "figures": {
+      "merge": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\merge_gpt2_20260814T112634Z.png"
+    }
+  }
+}

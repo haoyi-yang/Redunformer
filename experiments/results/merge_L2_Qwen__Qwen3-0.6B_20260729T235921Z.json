@@ -1,0 +1,158 @@
+{
+  "timestamp_utc": "2026-07-29T23:59:21.986045+00:00",
+  "task": "weeks_11_12_duplicate_neuron_replacement",
+  "question": "does routing a redundant twin's contribution through its partner remove the cost of masking it?",
+  "seed": 42,
+  "config_path": "configs/pruning/merge_qwen3_0.6b.yaml",
+  "command": "scripts/run_merge.py --config configs/pruning/merge_qwen3_0.6b.yaml --layers 2 --tag L2",
+  "model": {
+    "model_id": "Qwen/Qwen3-0.6B",
+    "load_in_4bit": false,
+    "config": "configs/models/qwen3-0.6b.yaml"
+  },
+  "dataset": {
+    "dataset_id": "wikitext",
+    "dataset_config": "wikitext-2-raw-v1",
+    "split": "test",
+    "text_builder": null,
+    "num_samples": 332
+  },
+  "fit_dataset": {
+    "dataset_id": "wikitext",
+    "dataset_config": "wikitext-2-raw-v1",
+    "split": "train",
+    "text_builder": null,
+    "num_samples": 2549,
+    "num_blocks": 32
+  },
+  "measurement_artifact": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\measurement_Qwen__Qwen3-0.6B_20260629T182308Z.json",
+  "pairs": {
+    "min_abs_corr": 0.9,
+    "layers": [
+      2
+    ],
+    "num_pairs": 5,
+    "selected": [
+      {
+        "layer": "model.layers.2.mlp.down_proj",
+        "drop": 46,
+        "keep": 1489,
+        "correlation": 0.9993844210690925
+      },
+      {
+        "layer": "model.layers.2.mlp.down_proj",
+        "drop": 646,
+        "keep": 128,
+        "correlation": 0.99899845105783
+      },
+      {
+        "layer": "model.layers.2.mlp.down_proj",
+        "drop": 321,
+        "keep": 55,
+        "correlation": -0.9977209853657089
+      },
+      {
+        "layer": "model.layers.2.mlp.down_proj",
+        "drop": 503,
+        "keep": 666,
+        "correlation": 0.9551426504007628
+      },
+      {
+        "layer": "model.layers.2.mlp.down_proj",
+        "drop": 77,
+        "keep": 0,
+        "correlation": 0.9374811992219267
+      }
+    ]
+  },
+  "merge_plans": [
+    {
+      "layer": "model.layers.2.mlp.down_proj",
+      "drop": 46,
+      "keep": 1489,
+      "alpha": 0.2714779572046181,
+      "beta": -0.19908719549562925,
+      "r2": 0.9913327128483748,
+      "correlation": 0.9993844210690925
+    },
+    {
+      "layer": "model.layers.2.mlp.down_proj",
+      "drop": 646,
+      "keep": 128,
+      "alpha": 0.23905215944066802,
+      "beta": -0.04779820962267012,
+      "r2": 0.9962418715824115,
+      "correlation": 0.99899845105783
+    },
+    {
+      "layer": "model.layers.2.mlp.down_proj",
+      "drop": 321,
+      "keep": 55,
+      "alpha": -0.33539741839691595,
+      "beta": -0.10618657682675758,
+      "r2": 0.9962565043958824,
+      "correlation": -0.9977209853657089
+    },
+    {
+      "layer": "model.layers.2.mlp.down_proj",
+      "drop": 503,
+      "keep": 666,
+      "alpha": 0.1271727227955258,
+      "beta": -0.005587304281915933,
+      "r2": 0.7143798536902806,
+      "correlation": 0.9551426504007628
+    },
+    {
+      "layer": "model.layers.2.mlp.down_proj",
+      "drop": 77,
+      "keep": 0,
+      "alpha": 0.8044073351521221,
+      "beta": 0.03133304703229317,
+      "r2": 0.7769292858387952,
+      "correlation": 0.9374811992219267
+    }
+  ],
+  "merge_stats": {
+    "num_plans": 5.0,
+    "mean_r2": 0.8950280456711489,
+    "min_r2": 0.7143798536902806,
+    "mean_abs_alpha": 0.35550151859797
+  },
+  "baseline_perplexity": 38.38690988649566,
+  "conditions": [
+    {
+      "condition": "mask_only",
+      "description": "drop the redundant twin (Weeks 9-10 intervention)",
+      "num_neurons": 5,
+      "perplexity": 40.22640473892417,
+      "delta_perplexity": 1.8394948524285084
+    },
+    {
+      "condition": "merge",
+      "description": "drop the twin and route its contribution through its partner",
+      "num_neurons": 5,
+      "perplexity": 38.52285596208067,
+      "delta_perplexity": 0.13594607558501082
+    },
+    {
+      "condition": "merge_no_bias",
+      "description": "same, without the constant beta term",
+      "num_neurons": 5,
+      "perplexity": 38.52672299801685,
+      "delta_perplexity": 0.13981311152119247
+    }
+  ],
+  "verdict": {
+    "supported": true,
+    "delta_mask_only": 1.8394948524285084,
+    "delta_merge": 0.13594607558501082,
+    "fraction_of_mask_cost_recovered": 0.9260959738998268,
+    "mean_fit_r2": 0.8950280456711489,
+    "summary": "masking costs +1.8395 PPL, merging +0.1359 (92.6% of the masking cost recovered); mean fit r2 = 0.8950"
+  },
+  "artifacts": {
+    "figures": {
+      "merge": "D:\\Documents\\Projects\\Redunformer Neuron\\Redunformer-Neuron\\experiments\\results\\figures\\merge_L2_Qwen__Qwen3-0.6B_20260729T235921Z.png"
+    }
+  }
+}

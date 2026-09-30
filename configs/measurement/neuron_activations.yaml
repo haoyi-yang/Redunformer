@@ -1,0 +1,30 @@
+# Weeks 5-8 neuron / FFN-unit redundancy measurement — Qwen3.5-4B (primary).
+seed: 42
+model_config: "configs/models/qwen3.5-4b.yaml"
+dataset_config: "configs/datasets/wikitext2_calib.yaml"
+
+calibration:
+  seq_len: 512        # tokens per forward block
+  max_blocks: 256     # 256 x 512 = 131,072 calibration tokens
+  add_special_tokens: false
+
+measurement:
+  fixed_eps: 1.0e-3        # sanity-check absolute |activation| threshold
+  rms_alpha: 1.0e-3        # primary: eps_layer = rms_alpha * layer_RMS
+  rms_alphas: [1.0e-3, 1.0e-2, 5.0e-2, 1.0e-1, 2.5e-1]  # threshold sweep for the lazy probe
+  max_reservoir_tokens: 4096  # per-layer subsample for RMS-rel freq + correlation
+
+correlation:
+  enabled: true
+  layers: "auto"       # "auto" (highest duplication score), "tertiles", or explicit [0, 18, 35]
+  top_n: 3
+  rank_max_neurons: 512  # neuron cap used when ranking layers by duplication
+  k: 50                # top-k correlated pairs kept per layer
+  max_neurons: 2048    # cap neurons considered (highest-variance) per layer
+  abs_threshold: 0.9   # only report pairs with |rho| >= 0.9 (duplicate candidates)
+  save_heatmaps: true
+  heatmap_neurons: 40
+
+output_dir: "experiments/results"
+figures_dir: "experiments/results/figures"
+use_fallback_model: false

@@ -1,0 +1,22 @@
+# GPT-2 large (774M) - the size arm of the GPT-2 family (H2).
+#
+# Same architecture as configs/models/gpt2.yaml (GELU FFN, Conv1D projections),
+# 36 layers x 5120 neurons. Pairing it with GPT-2 small gives a within-family
+# size comparison that does not confound size with architecture, which the
+# Qwen 0.6B -> 4B comparison does not fully avoid.
+#
+# local_dir because huggingface_hub's downloader stalls on large files on some
+# machines; fetch once with:
+#   python scripts/download_model.py --model-id gpt2-large \
+#       --local-dir models/cache/gpt2-large
+model_id: "gpt2-large"
+local_dir: "models/cache/gpt2-large"
+local_files_only: true
+architecture: "causal_lm"
+trust_remote_code: false
+torch_dtype: "float32"
+device_map: "auto"
+load_in_4bit: false
+
+fallback_model_id: "gpt2"
+fallback_load_in_4bit: false

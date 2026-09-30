@@ -1,0 +1,51 @@
+# Weeks 11-12 LoRA recovery after neuron masking — Qwen3-0.6B.
+seed: 42
+model_config: "configs/models/qwen3-0.6b.yaml"
+dataset_config: "configs/datasets/wikitext2.yaml"
+max_samples: 256          # eval slice; matches the Weeks 9-10 sweep
+
+measurement_path: "auto"
+strategy: "importance"    # the ranking that won the Weeks 9-10 sweep
+layers: "all"
+
+# 10% is the proposal's Q4 success-criteria budget; 25% is where masking clearly
+# hurts, so it shows whether recovery scales with damage.
+ratios: [0.10, 0.25]
+
+# Same number of LoRA steps on the *unmasked* model. Without it we cannot tell
+# recovery apart from ordinary adaptation to the fine-tuning slice.
+train_unmasked_control: true
+
+# WikiText-2 *train* text, disjoint from the test slice used for evaluation.
+train_data:
+  dataset_config: "configs/datasets/wikitext2_calib.yaml"
+  seq_len: 512
+  num_blocks: 256
+
+recovery:
+  rank: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  # down_proj is deliberately absent: a masked channel feeds it zeros, so its
+  # columns get no gradient. Recovery happens in the projections that feed the
+  # surviving neurons.
+  target_modules: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj"]
+  learning_rate: 2.0e-4
+  steps: 200
+  batch_size: 2
+  grad_accum: 4           # effective batch 8 x 512 tokens
+  warmup_steps: 20
+  max_grad_norm: 1.0
+  gradient_checkpointing: false
+
+eval:
+  max_length: 2048
+  stride: 512
+  run_lm_eval: true
+  lm_eval_tasks: ["piqa"]
+  lm_eval_limit: 500
+  lm_eval_batch_size: 16
+
+output_dir: "experiments/results"
+figures_dir: "experiments/results/figures"
+use_fallback_model: false
